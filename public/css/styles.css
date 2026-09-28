@@ -1,0 +1,4666 @@
+/* ==========================================================================
+   Juilliard Academy Interhouse Sports Day
+   Main Application Stylesheet — Mobile-first Design System
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Design Tokens & Theme Variables
+   -------------------------------------------------------------------------- */
+:root, [data-theme="dark"] {
+  --theme-mode: dark;
+  color-scheme: dark;
+  --fm-bg: #0A0A0C;             /* Deep pitch black school canvas */
+  --fm-surface: #141518;        /* Card surface - dark charcoal grey */
+  --fm-surface-elevated: #1C1E23;/* Elevated cards / sub-bars */
+  --fm-surface-active: #282A33;  /* Active pills & selections */
+  --fm-border: #23252C;         /* Divider line */
+  --fm-border-light: #323642;   /* Card borders */
+
+  --fm-text-primary: #FFFFFF;    /* Crisp White */
+  --fm-text-secondary: #9CA3AF;  /* Silver Grey */
+  --fm-text-muted: #6B7280;      /* Muted Slate Grey */
+
+  --fm-primary: #DC2626;        /* Juilliard School Red */
+  --fm-primary-hover: #B91C1C;
+  --fm-primary-glow: rgba(220, 38, 38, 0.35);
+
+  --fm-green: #DC2626;          /* Map legacy brand token to School Red */
+  --fm-green-glow: rgba(220, 38, 38, 0.35);
+  --fm-red: #DC2626;            /* School Red */
+  --fm-coral: #E11D48;          /* Rose Red accent */
+  --fm-gold: #F59E0B;
+  --fm-silver: #CBD5E1;
+  --fm-bronze: #EA580C;
+
+  /* Competing Bird Houses */
+  --house-phoenix: #EF4444;     /* Red */
+  --house-eagle: #F97316;       /* Orange */
+  --house-swift: #FACC15;       /* Yellow */
+  --house-merlin: #2563EB;      /* Blue */
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-display: 'Outfit', 'Inter', -apple-system, sans-serif;
+}
+
+[data-theme="light"] {
+  --theme-mode: light;
+  color-scheme: light;
+  --fm-bg: #F4F5F7;             /* Juilliard clean light grey background */
+  --fm-surface: #FFFFFF;        /* Pure white cards */
+  --fm-surface-elevated: #E5E7EB;
+  --fm-surface-active: #D1D5DB;
+  --fm-border: #E5E7EB;
+  --fm-border-light: #D1D5DB;
+
+  --fm-text-primary: #111215;   /* Deep Black */
+  --fm-text-secondary: #4B5563; /* Charcoal Grey */
+  --fm-text-muted: #6B7280;     /* Slate Grey */
+
+  --fm-primary: #DC2626;        /* School Red */
+  --fm-primary-hover: #B91C1C;
+  --fm-primary-glow: rgba(220, 38, 38, 0.2);
+
+  --fm-green: #DC2626;
+  --fm-green-glow: rgba(220, 38, 38, 0.2);
+  --fm-red: #DC2626;
+  --fm-coral: #E11D48;
+  --fm-gold: #D97706;
+  --fm-silver: #94A3B8;
+  --fm-bronze: #C2410C;
+
+  --house-phoenix: #DC2626;
+  --house-eagle: #EA580C;
+  --house-swift: #D97706;
+  --house-merlin: #2563EB;
+}
+
+/* --------------------------------------------------------------------------
+   2. Reset & Mobile Phone Container Frame
+   -------------------------------------------------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
+  background-color: var(--fm-bg);
+  color: var(--fm-text-primary);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* App Container — Full width on mobile, centered on desktop */
+.jais-app-container {
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background-color: var(--fm-bg);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow-x: hidden;
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
+/* Page Screen Viewport Switcher */
+.page-screen {
+  display: none;
+  width: 100%;
+}
+
+.page-screen.active {
+  display: block;
+  animation: fmFadeIn 0.15s ease-out;
+}
+
+@keyframes fmFadeIn {
+  from { opacity: 0; transform: translateY(2px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.jais-badge-admin {
+  background: rgba(239, 68, 68, 0.15);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  letter-spacing: 0.04em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   3. Top App Bar & Status Header (Screenshot 1 & 3)
+   -------------------------------------------------------------------------- */
+.jais-top-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--fm-bg);
+  padding: calc(0.45rem + env(safe-area-inset-top, 0px)) 1rem 0.45rem;
+  border-bottom: 1px solid var(--fm-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 52px;
+}
+
+.jais-brand-logo {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  display: inline-flex;
+  align-items: center;
+  color: var(--fm-text-primary);
+}
+
+.jais-brand-logo span.plus {
+  color: var(--fm-green);
+  font-weight: 800;
+  font-size: 0.65em;
+  margin-left: 4px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.jais-top-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.jais-live-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 9999px;
+  padding: 3px 9px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.jais-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--fm-red);
+  animation: pulseDot 1.4s infinite;
+}
+
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+.jais-icon-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--fm-text-secondary);
+  transition: all 0.15s ease;
+}
+
+.jais-icon-btn:hover {
+  background: var(--fm-surface);
+  color: var(--fm-text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   4. Date Carousel Strip (Screenshot 1)
+   -------------------------------------------------------------------------- */
+.jais-date-carousel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+  background-color: var(--fm-bg);
+  border-bottom: 1px solid var(--fm-border);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.jais-date-carousel::-webkit-scrollbar {
+  display: none;
+}
+
+.jais-date-tab {
+  padding: 0.75rem 0.6rem 0.65rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--fm-text-secondary);
+  position: relative;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.jais-date-tab.active {
+  color: var(--fm-text-primary);
+  font-weight: 800;
+}
+
+.jais-date-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0.6rem;
+  right: 0.6rem;
+  height: 2.5px;
+  background-color: var(--fm-text-primary);
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   5. Grouped League Accordion Cards (Screenshot 1)
+   -------------------------------------------------------------------------- */
+.jais-section-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  margin: 0.75rem 0.75rem 1rem;
+  overflow: hidden;
+}
+
+.jais-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+  background: var(--fm-surface);
+  border-bottom: 1px solid var(--fm-border);
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--fm-text-primary);
+  cursor: pointer;
+}
+
+.jais-section-title-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jais-category-flag {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+}
+
+/* Match Rows inside League Card */
+.jais-fixture-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--fm-border);
+  text-decoration: none;
+  transition: background 0.15s ease;
+  cursor: pointer;
+}
+
+.jais-fixture-row:last-child {
+  border-bottom: none;
+}
+
+.jais-fixture-row:hover {
+  background-color: var(--fm-surface-elevated);
+}
+
+/* Sensible Multi-House & Head-to-Head Fixture Cards */
+.jais-fixture-item {
+  padding: 0.75rem 0.95rem;
+  border-bottom: 1px solid var(--fm-border);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.jais-fixture-item:last-child {
+  border-bottom: none;
+}
+
+.jais-fixture-item:hover {
+  background-color: var(--fm-surface-elevated);
+}
+
+.jais-fixture-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.jais-event-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.jais-event-name {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jais-division-pill {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: var(--fm-surface-elevated);
+  color: var(--fm-text-secondary);
+  border: 1px solid var(--fm-border);
+  flex-shrink: 0;
+}
+
+.jais-status-badge {
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.jais-status-badge.completed {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--fm-text-primary);
+  border: 1px solid var(--fm-border-light);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  font-weight: 800;
+}
+
+.jais-status-badge.live {
+  background: rgba(239, 68, 68, 0.2);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.6);
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.35);
+  font-weight: 900;
+  animation: pulseLiveBadge 1.2s infinite;
+}
+
+.jais-status-badge.upcoming {
+  background: var(--fm-surface-elevated);
+  color: var(--fm-text-secondary);
+  border: 1px solid var(--fm-border);
+}
+
+@keyframes pulseLiveBadge {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.8; transform: scale(0.97); }
+}
+
+/* Pinned Live Now Banner at the top of matches feed */
+.jais-live-pinned-banner {
+  margin: 0.5rem 0.85rem 1rem;
+  background: linear-gradient(180deg, rgba(239, 68, 68, 0.12) 0%, rgba(239, 68, 68, 0.03) 100%), var(--fm-surface);
+  border: 1.5px solid rgba(239, 68, 68, 0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 18px rgba(239, 68, 68, 0.15);
+  animation: liveGlowBorder 2.5s infinite alternate;
+}
+
+@keyframes liveGlowBorder {
+  0% { border-color: rgba(239, 68, 68, 0.35); box-shadow: 0 4px 14px rgba(239, 68, 68, 0.12); }
+  100% { border-color: rgba(239, 68, 68, 0.7); box-shadow: 0 4px 22px rgba(239, 68, 68, 0.28); }
+}
+
+.jais-live-pinned-header {
+  padding: 0.65rem 0.85rem;
+  background: rgba(239, 68, 68, 0.18);
+  border-bottom: 1px solid rgba(239, 68, 68, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.jais-live-pinned-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-weight: 900;
+  font-size: 0.82rem;
+  color: #EF4444;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.jais-live-beacon {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  box-shadow: 0 0 8px #EF4444;
+  display: inline-block;
+  animation: pulseDot 1s infinite;
+}
+
+/* 4-House Podium & Winner Display */
+.jais-race-winner-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--fm-surface-elevated);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+  gap: 0.5rem;
+}
+
+.jais-winner-left {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.jais-winner-crest {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface);
+  flex-shrink: 0;
+}
+
+.jais-winner-crest img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.jais-winner-name {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--fm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jais-winner-mark {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--fm-green);
+  flex-shrink: 0;
+}
+
+/* 4-House Order Strip */
+.jais-finisher-strip {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  font-size: 0.68rem;
+  padding-top: 1px;
+}
+
+.jais-finisher-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.jais-finisher-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  color: var(--fm-text-secondary);
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.jais-finisher-chip.gold {
+  border-color: rgba(234, 179, 8, 0.4);
+  color: #FACC15;
+}
+
+.jais-finisher-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* 4-House Upcoming Competing Strip */
+.jais-all-houses-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--fm-surface-elevated);
+  border-radius: 8px;
+  padding: 0.45rem 0.65rem;
+}
+
+.jais-competing-houses {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jais-mini-crest-group {
+  display: flex;
+  align-items: center;
+  margin-left: 4px;
+}
+
+.jais-mini-crest-item {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface);
+  margin-left: -5px;
+  border: 1.5px solid var(--fm-surface-elevated);
+}
+
+.jais-mini-crest-item img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+/* Filter Strip Controls */
+.jais-filter-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem 0.65rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.jais-filter-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.jais-chip {
+  padding: 0.3rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jais-chip:hover {
+  border-color: var(--fm-border-light);
+  color: var(--fm-text-primary);
+}
+
+.jais-chip.active {
+  background: var(--fm-green);
+  color: #FFFFFF;
+  border-color: var(--fm-green);
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+}
+
+.jais-team-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: flex-start;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
+
+.jais-team-right {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  justify-content: flex-end;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--fm-text-primary);
+}
+
+.jais-team-crest-sm {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface-elevated);
+  flex-shrink: 0;
+}
+
+.jais-team-crest-sm img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.jais-score-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 68px;
+  padding: 0 0.5rem;
+}
+
+.jais-score-val {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-status-pill {
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: var(--fm-text-secondary);
+  margin-top: 1px;
+}
+
+.jais-status-pill.live {
+  color: var(--fm-red);
+}
+
+/* --------------------------------------------------------------------------
+   6. Match Detail Screen Header & Hero (Screenshot 2 & 4)
+   -------------------------------------------------------------------------- */
+.jais-detail-top-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.85rem;
+  height: 48px;
+  border-bottom: 1px solid var(--fm-border);
+}
+
+.jais-detail-back {
+  display: flex;
+  align-items: center;
+  color: var(--fm-text-primary);
+  font-size: 1rem;
+}
+
+.jais-detail-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--fm-text-secondary);
+}
+
+/* Hero Scoreboard (Screenshot 2) */
+.jais-match-hero {
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+  background-color: var(--fm-bg);
+}
+
+.jais-hero-teams-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 1.25rem;
+}
+
+.jais-hero-club {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  width: 90px;
+}
+
+.jais-hero-crest-lg {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+}
+
+.jais-hero-crest-lg img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+.jais-hero-club-name {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--fm-text-primary);
+}
+
+.jais-hero-score-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.jais-hero-score-text {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--fm-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.jais-hero-match-status {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--fm-text-secondary);
+  margin-top: 0.35rem;
+}
+
+/* Scorers timeline below score (Screenshot 2) */
+.jais-scorers-timeline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: var(--fm-text-secondary);
+  padding: 0 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.jais-scorers-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+  flex: 1;
+}
+
+.jais-scorers-icon {
+  width: 32px;
+  display: flex;
+  justify-content: center;
+  color: var(--fm-text-muted);
+}
+
+.jais-scorers-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  text-align: left;
+  flex: 1;
+}
+
+/* --------------------------------------------------------------------------
+   6B. 4-House Simultaneous Race & Field Championship Hero
+   -------------------------------------------------------------------------- */
+.jais-event-allhouses-hero {
+  padding: 1.25rem 1rem 1rem;
+  background-color: var(--fm-bg);
+  text-align: center;
+}
+
+.jais-hero-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.65rem;
+}
+
+.jais-fourhouse-pill {
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  color: var(--fm-green);
+  background: rgba(220, 38, 38, 0.12);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+}
+
+.jais-fourhouse-title {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  margin-bottom: 0.85rem;
+  line-height: 1.25;
+}
+
+/* Champion Spotlight Box (Completed 4-House Event) */
+.jais-champion-spotlight {
+  background: var(--fm-surface);
+  border: 1px solid rgba(250, 204, 21, 0.35);
+  border-radius: 14px;
+  padding: 1.15rem 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.65rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  position: relative;
+  overflow: hidden;
+}
+
+.jais-champion-spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #FACC15, #F59E0B);
+}
+
+.jais-champion-crest {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface-elevated);
+  border: 2px solid;
+  padding: 6px;
+}
+
+.jais-champion-crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.jais-champion-athlete {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  margin-top: 2px;
+}
+
+.jais-champion-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.jais-champion-pts {
+  color: var(--fm-green);
+  font-weight: 800;
+}
+
+/* 4-House Finish Order Grid */
+.jais-fourhouse-finish-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  text-align: left;
+}
+
+.jais-finish-card {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.6rem 0.85rem;
+}
+
+.jais-finish-rank {
+  font-size: 0.75rem;
+  font-weight: 800;
+  width: 52px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.jais-finish-crest {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--fm-surface-elevated);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+}
+
+.jais-finish-crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.jais-finish-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.jais-finish-athlete {
+  font-size: 0.84rem;
+  color: var(--fm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jais-finish-house {
+  font-size: 0.7rem;
+  font-weight: 700;
+}
+
+.jais-finish-score {
+  text-align: right;
+}
+
+.jais-finish-mark {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-finish-pts {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--fm-green);
+}
+
+/* 4-House Lanes Box (Upcoming / Scheduled / Live) */
+.jais-fourhouse-lanes-box {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  padding: 1rem;
+}
+
+.jais-lanes-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--fm-border);
+}
+
+.jais-lanes-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.jais-lane-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.65rem 0.35rem;
+  transition: transform 0.15s ease;
+}
+
+.jais-lane-item:active {
+  transform: scale(0.96);
+}
+
+.jais-lane-num {
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.jais-lane-crest {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface);
+  border: 2px solid;
+  padding: 4px;
+}
+
+.jais-lane-crest img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.jais-lane-name {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-primary);
+}
+
+.jais-points-pills-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding-top: 0.5rem;
+  border-top: 1px dashed var(--fm-border);
+}
+
+.jais-pts-pill {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  background: var(--fm-surface-elevated);
+  color: var(--fm-text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.jais-pts-pill.gold {
+  color: var(--fm-gold);
+}
+
+.jais-pts-pill.silver {
+  color: var(--fm-silver);
+}
+
+.jais-pts-pill.bronze {
+  color: var(--fm-bronze);
+}
+
+/* --------------------------------------------------------------------------
+   7. Match Sub-Tabs Bar: Facts | Commentary | Lineup | Table | Stats (Screenshot 2, 3, 4)
+   -------------------------------------------------------------------------- */
+.jais-sub-tabs-bar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--fm-border);
+  background-color: var(--fm-bg);
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding: 0 0.5rem;
+}
+
+.jais-sub-tabs-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.jais-sub-tab {
+  padding: 0.75rem 0.85rem 0.65rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--fm-text-secondary);
+  white-space: nowrap;
+  position: relative;
+  transition: color 0.15s ease;
+}
+
+.jais-sub-tab.active {
+  color: var(--fm-text-primary);
+  font-weight: 800;
+}
+
+/* Green underline indicator (Screenshot 3 & 4) */
+.jais-sub-tab.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0.85rem;
+  right: 0.85rem;
+  height: 2.5px;
+  background-color: var(--fm-green);
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   8. Live Commentary & Pitch / Track Map (Screenshot 4)
+   -------------------------------------------------------------------------- */
+.jais-commentary-wrap {
+  padding: 0.85rem 1rem;
+}
+
+.jais-goal-banner {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.12) 0%, rgba(244, 63, 94, 0.04) 100%);
+  border: 1px solid rgba(244, 63, 94, 0.25);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.jais-goal-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: var(--fm-coral);
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  margin-bottom: 0.65rem;
+}
+
+.jais-goal-player-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.65rem;
+}
+
+.jais-player-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--fm-surface-elevated);
+  border: 1.5px solid var(--fm-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.78rem;
+  color: var(--fm-text-primary);
+}
+
+.jais-commentary-text {
+  font-size: 0.86rem;
+  line-height: 1.5;
+  color: var(--fm-text-primary);
+}
+
+/* Tactical Shot Map / Track Graphic (Screenshot 4) */
+.jais-pitch-graphic-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.jais-pitch-box {
+  width: 100%;
+  height: 110px;
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+}
+
+.jais-pitch-goalmouth {
+  width: 55%;
+  height: 100%;
+  border-left: 1px solid var(--fm-border);
+  border-right: 1px solid var(--fm-border);
+  position: relative;
+}
+
+.jais-pitch-marker-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--fm-coral);
+  box-shadow: 0 0 10px var(--fm-coral);
+  transform: translate(-50%, -50%);
+}
+
+.jais-pitch-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.74rem;
+  color: var(--fm-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   9. League Table Screen (Screenshot 3 & Screenshot 5)
+   -------------------------------------------------------------------------- */
+.jais-league-header {
+  padding: 0.75rem 1rem 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.jais-league-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 8px;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: var(--fm-green);
+}
+
+.jais-league-titles h1 {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  line-height: 1.15;
+}
+
+.jais-league-titles p {
+  font-size: 0.74rem;
+  color: var(--fm-text-secondary);
+}
+
+/* Sub-Pills Toggle: Short | Full | Form (Screenshot 3) */
+.jais-subpills-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem 0.75rem;
+}
+
+.jais-subpills-cluster {
+  display: inline-flex;
+  align-items: center;
+  background: var(--fm-surface-elevated);
+  border-radius: 9999px;
+  padding: 2px;
+}
+
+.jais-subpill-btn {
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  transition: all 0.15s ease;
+}
+
+.jais-subpill-btn.active {
+  background: var(--fm-surface-active);
+  color: var(--fm-text-primary);
+}
+
+.jais-dropdown-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border-light);
+  border-radius: 9999px;
+  padding: 0.28rem 0.8rem 0.28rem 0.9rem;
+  transition: all 0.18s ease;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+.jais-dropdown-label:hover {
+  background: var(--fm-surface-active);
+  border-color: var(--fm-gold);
+}
+
+.jais-dropdown-label:focus-within {
+  border-color: var(--fm-gold);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.25);
+}
+
+.jais-category-filter-select {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  color: var(--fm-text-primary) !important;
+  font-size: 0.8rem;
+  font-weight: 800;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 0 16px 0 0;
+  color-scheme: dark;
+  font-family: inherit;
+}
+
+[data-theme="light"] .jais-category-filter-select {
+  color-scheme: light;
+  color: var(--fm-text-primary) !important;
+}
+
+.jais-dropdown-caret {
+  position: absolute;
+  right: 0.65rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 0.72rem;
+  color: var(--fm-gold);
+  line-height: 1;
+  transition: transform 0.18s ease;
+}
+
+.jais-dropdown-label:focus-within .jais-dropdown-caret {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* ==========================================================================
+   Global Form Selects & Option Contrast (Fixes White-on-White Dropdown Bug)
+   ========================================================================== */
+select,
+.form-select,
+select.jais-text-input,
+.jais-quick-house-dropdown {
+  color-scheme: dark;
+}
+
+[data-theme="light"] select,
+[data-theme="light"] .form-select,
+[data-theme="light"] select.jais-text-input,
+[data-theme="light"] .jais-quick-house-dropdown {
+  color-scheme: light;
+}
+
+/* Base styling for all options across all browsers/OS */
+select option,
+.form-select option,
+.jais-text-input option,
+.jais-category-filter-select option,
+.jais-quick-house-dropdown option {
+  background-color: #16171d !important;
+  color: #f3f4f8 !important;
+  font-size: 0.88rem !important;
+  padding: 10px 14px !important;
+}
+
+select option:checked,
+.form-select option:checked,
+.jais-text-input option:checked,
+.jais-category-filter-select option:checked {
+  background-color: #282a35 !important;
+  color: #ffd166 !important;
+  font-weight: 700 !important;
+}
+
+select option:hover,
+select option:focus {
+  background-color: #323544 !important;
+  color: #ffffff !important;
+}
+
+/* Light Mode option overrides */
+[data-theme="light"] select option,
+[data-theme="light"] .form-select option,
+[data-theme="light"] .jais-text-input option,
+[data-theme="light"] .jais-category-filter-select option,
+[data-theme="light"] .jais-quick-house-dropdown option {
+  background-color: #ffffff !important;
+  color: #111215 !important;
+}
+
+[data-theme="light"] select option:checked,
+[data-theme="light"] .form-select option:checked,
+[data-theme="light"] .jais-text-input option:checked,
+[data-theme="light"] .jais-category-filter-select option:checked {
+  background-color: #e5e7eb !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+}
+
+[data-theme="light"] select option:hover,
+[data-theme="light"] select option:focus {
+  background-color: #f3f4f6 !important;
+  color: #000000 !important;
+}
+
+/* Standings Table Container (Screenshot 3 & 5) */
+.jais-table-container {
+  padding: 0 0.5rem;
+}
+
+.jais-table-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.jais-table-head-row {
+  display: grid;
+  grid-template-columns: 20px 1fr 30px 30px 42px;
+  align-items: center;
+  padding: 0.65rem 0.65rem;
+  border-bottom: 1px solid var(--fm-border);
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  box-sizing: border-box;
+}
+
+.jais-table-data-row {
+  display: grid;
+  grid-template-columns: 20px 1fr 30px 30px 42px;
+  align-items: center;
+  padding: 0.75rem 0.65rem;
+  border-bottom: 1px solid var(--fm-border);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.12s ease;
+  box-sizing: border-box;
+}
+
+.jais-table-data-row:last-child {
+  border-bottom: none;
+}
+
+.jais-table-data-row:hover {
+  background-color: var(--fm-surface-elevated);
+}
+
+/* Signature Continuous Left Green Indicator Line (Screenshot 3) */
+.jais-table-data-row.qual-leader::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3.5px;
+  background-color: var(--fm-green);
+}
+
+.jais-col-rank {
+  width: 24px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.jais-table-data-row.qual-leader .jais-col-rank {
+  color: var(--fm-green);
+  font-weight: 800;
+}
+
+.jais-col-team {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.jais-team-crest-md {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface-elevated);
+  flex-shrink: 0;
+}
+
+.jais-team-crest-md img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.jais-team-name-text {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--fm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.jais-col-stat {
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--fm-text-secondary);
+}
+
+.jais-col-pts {
+  text-align: right;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-table-data-row.qual-leader .jais-col-pts {
+  color: var(--fm-green);
+}
+
+/* Medal Standings Table & Football/Basketball Points Modes */
+.jais-table-head-row.medal-mode,
+.jais-table-data-row.medal-mode {
+  grid-template-columns: 22px minmax(0, 1fr) 30px 30px 30px 56px;
+  column-gap: 2px;
+}
+
+.jais-table-head-row.team-mode,
+.jais-table-data-row.team-mode {
+  grid-template-columns: 22px 1fr 28px 28px 28px 40px;
+}
+
+.jais-table-head-row.football-mode,
+.jais-table-data-row.football-mode {
+  grid-template-columns: 20px 1fr 24px 22px 22px 22px 28px 36px;
+}
+
+.jais-table-head-row.basketball-mode,
+.jais-table-data-row.basketball-mode {
+  grid-template-columns: 20px 1fr 24px 22px 22px 30px 36px;
+}
+
+.jais-live-pts-bar {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.jais-live-pts-btn {
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  color: var(--fm-text-primary);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-weight: 800;
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.jais-live-pts-btn:hover {
+  background: var(--fm-surface-active);
+  transform: translateY(-1px);
+}
+.jais-live-pts-btn.ft {
+  color: #60A5FA;
+  border-color: rgba(96, 165, 250, 0.4);
+}
+.jais-live-pts-btn.fg {
+  color: var(--fm-green);
+  border-color: rgba(16, 185, 129, 0.4);
+}
+.jais-live-pts-btn.three-pt {
+  color: var(--fm-gold);
+  border-color: rgba(234, 179, 8, 0.4);
+}
+.jais-live-pts-btn.undo {
+  color: #EF4444;
+  border-color: rgba(239, 68, 68, 0.4);
+}
+
+.jais-col-medal {
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 700;
+  min-width: 0;
+  white-space: nowrap;
+}
+.jais-table-head-row .jais-col-medal,
+.jais-table-head-row .jais-col-medal.total {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: var(--fm-text-secondary);
+}
+.jais-table-head-row .jais-col-medal.gold { color: var(--fm-gold); }
+.jais-table-head-row .jais-col-medal.silver { color: var(--fm-silver); }
+.jais-table-head-row .jais-col-medal.bronze { color: var(--fm-bronze); }
+.jais-col-medal.gold {
+  color: var(--fm-gold);
+  font-weight: 800;
+}
+.jais-col-medal.silver {
+  color: var(--fm-silver);
+  font-weight: 800;
+}
+.jais-col-medal.bronze {
+  color: var(--fm-bronze);
+  font-weight: 800;
+}
+.jais-col-medal.total {
+  color: var(--fm-text-primary);
+  font-weight: 900;
+  text-align: right;
+  font-size: 0.95rem;
+}
+.jais-table-data-row.qual-leader .jais-col-medal.total {
+  color: var(--fm-green);
+}
+
+/* Minimal Table Mode (Screenshot 5) */
+.jais-minimal-table-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  margin-bottom: 1rem;
+}
+
+.jais-minimal-title {
+  color: var(--fm-green);
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.jais-minimal-row {
+  display: grid;
+  grid-template-columns: 28px 36px 1fr 50px;
+  align-items: center;
+  padding: 0.85rem 0.5rem;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.jais-minimal-pos {
+  width: 32px;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--fm-text-secondary);
+}
+
+.jais-minimal-pos.first {
+  color: var(--fm-green);
+}
+
+.jais-minimal-crest {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface-elevated);
+  margin-right: 0.85rem;
+}
+
+.jais-minimal-crest img {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+.jais-minimal-name {
+  flex: 1;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--fm-text-primary);
+}
+
+.jais-minimal-name.first {
+  color: var(--fm-green);
+}
+
+.jais-minimal-pts {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--fm-text-primary);
+  padding-right: 0.65rem;
+  flex-shrink: 0;
+}
+
+.jais-minimal-pts.first {
+  color: var(--fm-green);
+}
+
+/* --------------------------------------------------------------------------
+   10. Form Dots (W, D, L or 1, 2, 3, 4)
+   -------------------------------------------------------------------------- */
+.jais-form-dots-wrap {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  justify-content: center;
+}
+
+.jais-form-dot {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #FFFFFF;
+}
+
+.jais-form-dot.gold { background-color: #EAB308; }
+.jais-form-dot.silver { background-color: #94A3B8; }
+.jais-form-dot.bronze { background-color: #EA580C; }
+.jais-form-dot.fourth { background-color: #475569; }
+
+/* --------------------------------------------------------------------------
+   11. Sticky Juilliard Sports Bottom Navigation Bar
+   -------------------------------------------------------------------------- */
+.jais-bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 480px;
+  height: calc(56px + env(safe-area-inset-bottom, 0px));
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background-color: var(--fm-surface);
+  border-top: 1px solid var(--fm-border);
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 1000;
+}
+
+.jais-nav-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  color: var(--fm-text-secondary);
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: color 0.15s ease;
+  height: 100%;
+}
+
+.jais-nav-item svg {
+  width: 20px;
+  height: 20px;
+  stroke: currentColor;
+}
+
+.jais-nav-item.active {
+  color: var(--fm-green);
+}
+
+.jais-nav-item.active svg {
+  stroke: var(--fm-green);
+}
+
+/* --------------------------------------------------------------------------
+   12. Onboarding & Discreet Official Access Screen
+   -------------------------------------------------------------------------- */
+.jais-onboarding-hero {
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+}
+
+.jais-onboarding-title {
+  font-family: var(--font-display);
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  margin-bottom: 0.35rem;
+}
+
+.jais-onboarding-sub {
+  font-size: 0.85rem;
+  color: var(--fm-text-secondary);
+  margin-bottom: 1.25rem;
+}
+
+.jais-house-picker-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  padding: 0 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.jais-house-card-choice {
+  background: var(--fm-surface);
+  border: 1.5px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 1rem 0.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  position: relative;
+}
+
+.jais-house-card-choice:hover {
+  border-color: var(--fm-border-light);
+  transform: translateY(-2px);
+}
+
+.jais-house-card-choice.selected {
+  border-color: var(--house-color);
+  background: var(--fm-surface-elevated);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.jais-house-card-choice .crest-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface-elevated);
+}
+
+.jais-house-card-choice .crest-wrap img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+.jais-house-card-choice strong {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-house-card-choice span {
+  font-size: 0.7rem;
+  color: var(--fm-text-secondary);
+}
+
+.jais-cta-btn {
+  display: block;
+  width: calc(100% - 2rem);
+  margin: 0 auto 1.5rem;
+  padding: 0.85rem 1rem;
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+  color: #FFFFFF;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.95rem;
+  text-align: center;
+  border-radius: 12px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(220, 38, 38, 0.4);
+  transition: all 0.18s ease;
+}
+
+.jais-cta-btn:hover {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  color: #FFFFFF;
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.55);
+  transform: translateY(-1px);
+}
+
+/* Discreet Official Portal at Bottom */
+.jais-official-portal {
+  padding: 1rem;
+  margin: 1.5rem 1rem 1rem;
+  border-top: 1px solid var(--fm-border);
+}
+
+.jais-official-title {
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--fm-text-muted);
+  margin-bottom: 0.65rem;
+}
+
+.jais-input-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.jais-text-input {
+  flex: 1;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  font-size: 16px; /* Prevents auto-zoom on mobile */
+  color: var(--fm-text-primary);
+  outline: none;
+}
+
+.jais-text-input:focus {
+  border-color: var(--fm-green);
+}
+
+.jais-btn-unlock {
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  background: var(--fm-surface-active);
+  color: var(--fm-text-primary);
+  font-weight: 700;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   13. House Hub Screen (Club / House Profile)
+   -------------------------------------------------------------------------- */
+.jais-club-hero {
+  padding: 1.5rem 1rem 1rem;
+  text-align: center;
+  background-color: var(--fm-bg);
+}
+
+.jais-club-crest-giant {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  margin: 0 auto 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--fm-surface);
+  border: 2px solid var(--house-color);
+}
+
+.jais-club-crest-giant img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+.jais-club-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-club-sub {
+  font-size: 0.8rem;
+  color: var(--house-color);
+  font-weight: 600;
+}
+
+.jais-club-stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.jais-club-stat-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.65rem 0.25rem;
+  text-align: center;
+}
+
+.jais-club-stat-val {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-club-stat-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--fm-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   14. Judge & Admin Console Screen
+   -------------------------------------------------------------------------- */
+.jais-admin-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  margin: 0.75rem;
+  padding: 1rem;
+}
+
+.jais-event-manage-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--fm-border);
+}
+
+.jais-event-manage-row:last-child {
+  border-bottom: none;
+}
+
+.jais-btn-action-score {
+  padding: 0.4rem 0.85rem;
+  background-color: var(--fm-green);
+  color: #FFFFFF;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+/* ==========================================================================
+   15. RESPONSIVE MEDIA QUERIES — Mobile-First Breakpoints
+   ========================================================================== */
+
+/* ---- Extra Small Phones (≤360px, e.g. iPhone SE, Galaxy S mini) ---- */
+@media (max-width: 360px) {
+  .jais-top-bar {
+    padding-left: 0.6rem;
+    padding-right: 0.6rem;
+    height: 48px;
+  }
+
+  .jais-brand-logo {
+    font-size: 1rem;
+  }
+
+  .jais-brand-logo span.plus {
+    font-size: 0.55em;
+    margin-left: 2px;
+  }
+
+  .jais-top-actions {
+    gap: 0.35rem;
+  }
+
+  .jais-icon-btn {
+    width: 28px;
+    height: 28px;
+  }
+
+  .jais-live-chip {
+    padding: 2px 6px;
+    font-size: 0.68rem;
+  }
+
+  .jais-date-tab {
+    padding: 0.6rem 0.4rem 0.55rem;
+    font-size: 0.75rem;
+  }
+
+  .jais-section-card {
+    margin: 0.5rem 0.5rem 0.75rem;
+    border-radius: 10px;
+  }
+
+  .jais-section-header {
+    padding: 0.6rem 0.75rem;
+    font-size: 0.78rem;
+  }
+
+  .jais-fixture-item {
+    padding: 0.6rem 0.65rem;
+  }
+
+  .jais-event-name {
+    font-size: 0.8rem;
+  }
+
+  .jais-division-pill {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+
+  .jais-status-badge {
+    font-size: 0.62rem;
+    padding: 1px 5px;
+  }
+
+  .jais-filter-strip {
+    padding: 0.35rem 0.5rem 0.5rem;
+    gap: 0.3rem;
+  }
+
+  .jais-chip {
+    padding: 0.25rem 0.55rem;
+    font-size: 0.68rem;
+  }
+
+  /* Table — tighter columns for small screens */
+  .jais-table-head-row,
+  .jais-table-data-row {
+    grid-template-columns: 18px 1fr 26px 26px 38px;
+    padding: 0.55rem 0.5rem;
+  }
+
+  .jais-col-rank {
+    font-size: 0.78rem;
+  }
+
+  .jais-team-crest-md {
+    width: 20px;
+    height: 20px;
+  }
+
+  .jais-team-name-text {
+    font-size: 0.8rem;
+  }
+
+  .jais-col-stat {
+    font-size: 0.75rem;
+  }
+
+  .jais-col-pts {
+    font-size: 0.85rem;
+  }
+
+  /* Minimal table */
+  .jais-minimal-row {
+    grid-template-columns: 24px 30px 1fr 42px;
+    padding: 0.65rem 0.35rem;
+  }
+
+  .jais-minimal-pos {
+    font-size: 1.05rem;
+  }
+
+  .jais-minimal-crest {
+    width: 26px;
+    height: 26px;
+    margin-right: 0.5rem;
+  }
+
+  .jais-minimal-name {
+    font-size: 0.95rem;
+  }
+
+  .jais-minimal-pts {
+    font-size: 1.1rem;
+  }
+
+  /* Bottom nav */
+  .jais-nav-item {
+    font-size: 0.62rem;
+  }
+
+  .jais-nav-item svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  /* Match detail hero */
+  .jais-hero-club {
+    width: 75px;
+  }
+
+  .jais-hero-crest-lg {
+    width: 48px;
+    height: 48px;
+  }
+
+  .jais-hero-score-text {
+    font-size: 1.8rem;
+  }
+
+  .jais-hero-club-name {
+    font-size: 0.82rem;
+  }
+
+  /* House picker grid */
+  .jais-house-picker-grid {
+    gap: 0.5rem;
+    padding: 0 0.65rem;
+  }
+
+  .jais-house-card-choice {
+    padding: 0.75rem 0.5rem;
+    border-radius: 10px;
+  }
+
+  .jais-house-card-choice .crest-wrap {
+    width: 40px;
+    height: 40px;
+  }
+
+  .jais-house-card-choice strong {
+    font-size: 0.82rem;
+  }
+
+  /* House stats */
+  .jais-club-stats-row {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
+    padding: 0 0.65rem;
+  }
+
+  .jais-club-stat-val {
+    font-size: 1rem;
+  }
+
+  .jais-club-stat-lbl {
+    font-size: 0.6rem;
+  }
+
+  /* Onboarding */
+  .jais-onboarding-title {
+    font-size: 1.2rem;
+  }
+
+  .jais-onboarding-sub {
+    font-size: 0.78rem;
+  }
+
+  .jais-cta-btn {
+    padding: 0.75rem 0.85rem;
+    font-size: 0.88rem;
+  }
+
+  /* Admin cards */
+  .jais-admin-card {
+    margin: 0.5rem;
+    padding: 0.75rem;
+  }
+}
+
+/* ---- Standard Phones (≤480px) — Core mobile layout ---- */
+@media (max-width: 480px) {
+  .jais-app-container {
+    max-width: 100%;
+    box-shadow: none;
+  }
+
+  .jais-bottom-bar {
+    max-width: 100%;
+  }
+
+  /* Ensure inputs don't auto-zoom on iOS */
+  .jais-text-input,
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Make touch targets at least 44px (Apple HIG) */
+  .jais-icon-btn {
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .jais-nav-item {
+    min-height: 44px;
+  }
+
+  .jais-chip {
+    min-height: 32px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .jais-date-tab {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .jais-sub-tab {
+    min-height: 40px;
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Fixture items need larger tap targets on mobile */
+  .jais-fixture-item {
+    padding: 0.85rem 0.95rem;
+    min-height: 60px;
+  }
+
+  .jais-fixture-row {
+    padding: 0.85rem 1rem;
+    min-height: 54px;
+  }
+
+  /* Table rows — tappable */
+  .jais-table-data-row {
+    min-height: 48px;
+  }
+
+  .jais-minimal-row {
+    min-height: 52px;
+  }
+
+  /* Event manage rows */
+  .jais-event-manage-row {
+    min-height: 48px;
+    padding: 0.85rem 0;
+  }
+
+  /* Search bar */
+  #jais-search-input,
+  [id*="search-input"] {
+    font-size: 16px;
+    padding: 0.7rem 0.85rem;
+  }
+}
+
+/* ---- Tablets (481px – 768px) ---- */
+@media (min-width: 481px) and (max-width: 768px) {
+  .jais-app-container {
+    max-width: 480px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+    border-radius: 0;
+  }
+
+  .jais-bottom-bar {
+    max-width: 480px;
+  }
+}
+
+/* ---- Desktop (769px+) ---- */
+@media (min-width: 769px) {
+  .jais-app-container {
+    max-width: 420px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.4);
+    border-left: 1px solid var(--fm-border);
+    border-right: 1px solid var(--fm-border);
+  }
+
+  .jais-bottom-bar {
+    max-width: 420px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+/* ---- Landscape phone orientation ---- */
+@media (max-height: 500px) and (orientation: landscape) {
+  .jais-top-bar {
+    height: 42px;
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+
+  .jais-bottom-bar {
+    height: 44px;
+  }
+
+  .jais-app-container {
+    padding-bottom: 52px;
+  }
+
+  .jais-match-hero {
+    padding: 0.75rem 1rem 0.5rem;
+  }
+
+  .jais-hero-crest-lg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .jais-hero-score-text {
+    font-size: 1.6rem;
+  }
+
+  .jais-hero-teams-row {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* ---- Accessibility: Reduced Motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ---- Accessibility: High Contrast ---- */
+@media (prefers-contrast: high) {
+  .jais-section-card,
+  .jais-table-card,
+  .jais-admin-card,
+  .jais-minimal-table-card {
+    border-width: 2px;
+  }
+
+  .jais-chip.active {
+    outline: 2px solid var(--fm-text-primary);
+    outline-offset: 1px;
+  }
+
+  .jais-nav-item.active {
+    font-weight: 900;
+  }
+}
+
+/* ---- 1v1 Goal & Point Scorers Timeline ---- */
+.jais-match-scorers-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 8px;
+  border: 1px solid var(--fm-border);
+}
+
+.jais-match-scorer-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--fm-text-primary);
+}
+
+.jais-match-scorer-row.t1-scorer {
+  justify-content: flex-start;
+}
+
+.jais-match-scorer-row.t2-scorer {
+  justify-content: flex-end;
+}
+
+.jais-scorer-icon {
+  font-size: 0.85rem;
+}
+
+.jais-scorer-name {
+  font-size: 0.8rem;
+}
+
+.jais-scorer-min {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--fm-green);
+  background: rgba(220, 38, 38, 0.12);
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.jais-scorer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* ---- Student Database Hub Styles ---- */
+.jais-student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.jais-student-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.65rem 0.85rem;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.jais-student-item:hover {
+  background: var(--fm-surface-elevated);
+}
+
+.jais-student-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.jais-student-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.jais-student-meta {
+  font-size: 0.7rem;
+  color: var(--fm-text-secondary);
+}
+
+.jais-student-del-btn {
+  background: none;
+  border: 1px solid transparent;
+  color: #EF4444;
+  font-size: 0.8rem;
+  padding: 4px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jais-student-del-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ---- Athlete & Student Profile Styles ---- */
+.jais-athlete-hero {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0.4));
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  padding: 1.25rem 1rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.jais-athlete-avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: #000;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+}
+
+.jais-athlete-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.jais-athlete-name {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--fm-text-primary);
+  margin-bottom: 0.3rem;
+  line-height: 1.2;
+}
+
+.jais-athlete-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.jais-medal-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.jais-medal-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 0.4rem;
+  border-radius: 10px;
+  border: 1px solid var(--fm-border);
+  background: var(--fm-surface);
+  text-align: center;
+  transition: transform 0.15s ease;
+}
+
+.jais-medal-card:hover {
+  transform: translateY(-2px);
+}
+
+.jais-medal-icon {
+  font-size: 1.3rem;
+  margin-bottom: 2px;
+}
+
+.jais-medal-count {
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+
+.jais-medal-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--fm-text-muted);
+}
+
+.jais-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.jais-stat-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.75rem 0.5rem;
+  text-align: center;
+}
+
+.jais-stat-val {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--fm-text-primary);
+  line-height: 1.1;
+  margin-bottom: 2px;
+}
+
+.jais-stat-lbl {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.jais-athlete-history-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0.85rem;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  margin-bottom: 0.5rem;
+  text-decoration: none;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.jais-athlete-history-card:hover {
+  background: var(--fm-surface-elevated);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.clickable-student {
+  cursor: pointer;
+  transition: color 0.15s ease, text-decoration 0.15s ease;
+}
+
+.clickable-student:hover {
+  color: var(--fm-green) !important;
+  text-decoration: underline;
+}
+
+/* ==========================================================================
+   NEWS & MULTIMEDIA GALLERY STYLES
+   ========================================================================== */
+
+.jais-news-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding-bottom: 2rem;
+}
+
+/* ==========================================================================
+   TOURNAMENT NEWS & MULTIMEDIA EDITORIAL STYLES
+   General Sports Day News — Modern, High-Contrast & Responsive
+   ========================================================================== */
+
+.jais-news-header-banner {
+  padding: 1.15rem 1rem 0.95rem;
+  border-bottom: 1px solid var(--fm-border);
+  margin-bottom: 0.85rem;
+}
+
+.jais-news-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.jais-news-header-text {
+  flex: 1 1 280px;
+  min-width: 0;
+}
+
+.jais-news-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.jais-news-publish-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  width: auto !important;
+  max-width: fit-content;
+  white-space: nowrap;
+  background: linear-gradient(135deg, #DC2626 0%, #B91C1C 100%);
+  color: #FFFFFF !important;
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 0.52rem 1.15rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 3px 12px rgba(220, 38, 38, 0.35);
+  cursor: pointer;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.jais-news-publish-btn:hover {
+  background: linear-gradient(135deg, #EF4444 0%, #DC2626 100%);
+  box-shadow: 0 5px 16px rgba(220, 38, 38, 0.55);
+  transform: translateY(-1px);
+}
+
+.jais-news-publish-btn:active {
+  transform: scale(0.97);
+}
+
+.jais-news-kicker {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--fm-gold);
+  text-transform: uppercase;
+  margin-bottom: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.jais-news-headline {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--fm-text-primary);
+  line-height: 1.2;
+  margin: 0 0 0.35rem;
+}
+
+.jais-news-subheading {
+  font-size: 0.8rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Single Horizontal Filter Strip */
+.jais-news-pill-strip {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  padding: 0 1rem 0.85rem;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.jais-news-pill-strip::-webkit-scrollbar {
+  display: none;
+}
+
+.jais-news-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 0.4rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.76rem;
+  font-weight: 700;
+  border: 1px solid var(--fm-border);
+  background: var(--fm-surface);
+  color: var(--fm-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.jais-news-pill:hover {
+  color: var(--fm-text-primary);
+  border-color: var(--fm-border-light);
+  background: var(--fm-surface-active);
+}
+
+.jais-news-pill.active {
+  background: var(--fm-green);
+  color: #FFFFFF;
+  border-color: var(--fm-green);
+  font-weight: 800;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+}
+
+/* Modern Featured Hero Card */
+.jais-news-hero-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--fm-border);
+  background: var(--fm-surface);
+  cursor: pointer;
+  margin-bottom: 1.25rem;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.jais-news-hero-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--fm-border-light);
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.25);
+}
+
+.jais-news-hero-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+  overflow: hidden;
+}
+
+.jais-news-hero-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.35s ease;
+}
+
+.jais-news-hero-card:hover .jais-news-hero-media img {
+  transform: scale(1.025);
+}
+
+.jais-news-hero-body {
+  padding: 1.1rem 1.2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.jais-news-hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.72rem;
+  color: var(--fm-text-muted);
+  flex-wrap: wrap;
+}
+
+.jais-news-type-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-size: 0.65rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.jais-badge-video {
+  background: rgba(239, 68, 68, 0.18);
+  color: #EF4444;
+  border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.jais-badge-photo {
+  background: rgba(59, 130, 246, 0.18);
+  color: #60A5FA;
+  border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.jais-badge-article {
+  background: rgba(16, 185, 129, 0.18);
+  color: #34D399;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.jais-news-hero-title {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--fm-text-primary);
+  line-height: 1.3;
+  margin: 0;
+  transition: color 0.15s ease;
+}
+
+.jais-news-hero-card:hover .jais-news-hero-title {
+  color: var(--fm-green);
+}
+
+.jais-news-hero-excerpt {
+  font-size: 0.82rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.jais-news-hero-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.72rem;
+  color: var(--fm-text-muted);
+  border-top: 1px solid var(--fm-border);
+  padding-top: 0.55rem;
+  margin-top: 0.25rem;
+}
+
+/* Video & Gallery Indicators */
+.jais-video-play-overlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.65);
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFF;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.jais-news-hero-card:hover .jais-video-play-overlay,
+.jais-news-item-compact:hover .jais-video-play-overlay {
+  transform: translate(-50%, -50%) scale(1.1);
+  background: var(--fm-green);
+  color: #FFFFFF;
+  border-color: var(--fm-green);
+}
+
+.jais-video-duration {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #FFF;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.jais-gallery-count {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  background: rgba(0, 0, 0, 0.85);
+  color: #FFF;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Stories Feed Stream (Mobile Compact Rows / Desktop Responsive Grid) */
+.jais-news-feed {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.jais-news-item-compact {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding: 0.75rem 0.85rem;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: all 0.15s ease;
+}
+
+.jais-news-item-compact:hover {
+  background: var(--fm-surface-active);
+  border-color: var(--fm-border-light);
+  transform: translateY(-1px);
+}
+
+.jais-news-thumb-wrap {
+  position: relative;
+  width: 84px;
+  height: 84px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: #000;
+  flex-shrink: 0;
+}
+
+.jais-news-thumb-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.jais-news-item-compact:hover .jais-news-thumb-wrap img {
+  transform: scale(1.05);
+}
+
+.jais-news-compact-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.jais-news-compact-kicker {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--fm-green);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.jais-news-compact-title {
+  font-size: 0.86rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  line-height: 1.32;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.jais-news-compact-meta {
+  font-size: 0.68rem;
+  color: var(--fm-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 3px;
+}
+
+.jais-news-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.25rem;
+}
+
+.jais-news-tag {
+  font-size: 0.65rem;
+  padding: 1px 6px;
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 4px;
+  color: var(--fm-text-muted);
+}
+
+/* Tablet & Desktop Editorial Grid (>= 768px) */
+@media (min-width: 768px) {
+  .jais-news-headline {
+    font-size: 1.75rem;
+  }
+  .jais-news-hero-title {
+    font-size: 1.5rem;
+  }
+  .jais-news-feed {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  .jais-news-item-compact {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    overflow: hidden;
+    border-radius: 14px;
+  }
+  .jais-news-thumb-wrap {
+    width: 100%;
+    height: 170px;
+    border-radius: 0;
+  }
+  .jais-news-compact-info {
+    padding: 0.95rem 1rem;
+    gap: 5px;
+  }
+  .jais-news-compact-title {
+    font-size: 0.95rem;
+  }
+}
+
+/* ==========================================================================
+   MEDIA LIGHTBOX & VIDEO MODAL STYLES
+   ========================================================================== */
+
+.jais-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: jaisFadeIn 0.2s ease;
+}
+
+.jais-media-modal-card {
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 16px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.6);
+}
+
+.jais-media-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--fm-border);
+  background: var(--fm-surface-elevated);
+}
+
+.jais-modal-close-btn {
+  background: none;
+  border: none;
+  color: var(--fm-text-secondary);
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.jais-modal-close-btn:hover {
+  color: var(--fm-text-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.jais-media-modal-body {
+  padding: 1rem;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.jais-media-modal-body video {
+  width: 100%;
+  border-radius: 10px;
+  background: #000;
+  aspect-ratio: 16 / 9;
+}
+
+.jais-media-modal-body img {
+  width: 100%;
+  border-radius: 10px;
+  max-height: 55vh;
+  object-fit: contain;
+  background: #000;
+}
+
+/* ==========================================================================
+   ADMIN AUDIT & IDENTITY BADGES
+   ========================================================================== */
+
+.jais-admin-session-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: linear-gradient(90deg, rgba(220, 38, 38, 0.1), rgba(220, 38, 38, 0.02));
+  border: 1px solid rgba(220, 38, 38, 0.25);
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  font-size: 0.74rem;
+}
+
+.jais-admin-badge-id {
+  font-family: monospace;
+  font-weight: 800;
+  color: var(--fm-green);
+  background: rgba(220, 38, 38, 0.15);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.jais-audit-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.72rem;
+  color: var(--fm-text-muted);
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  padding: 4px 8px;
+  border-radius: 6px;
+  margin-top: 0.35rem;
+}
+
+.jais-audit-tag strong {
+  color: var(--fm-text-primary);
+}
+
+.jais-admin-tabs-bar {
+  display: flex;
+  gap: 8px;
+  padding: 0.5rem 0.85rem 0.25rem;
+}
+
+.jais-admin-tab-btn {
+  flex: 1;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--fm-border);
+  background: var(--fm-surface);
+  color: var(--fm-text-secondary);
+  user-select: none;
+}
+
+.jais-admin-tab-btn:hover {
+  border-color: rgba(220, 38, 38, 0.4);
+  color: var(--fm-text-primary);
+}
+
+.jais-admin-tab-btn.active {
+  border-color: var(--fm-green);
+  background: rgba(220, 38, 38, 0.15);
+  color: var(--fm-green);
+  box-shadow: 0 0 12px rgba(220, 38, 38, 0.2);
+}
+
+@keyframes jaisFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ==========================================================================
+   DESKTOP 3-COLUMN PORTAL & ENHANCED RESPONSIVENESS (>= 1024px)
+   Matches the expansive sports portal reference layout
+   ========================================================================== */
+
+/* Mobile view (< 1024px) - Ensure desktop elements stay completely hidden */
+@media (max-width: 1023px) {
+  .jais-desktop-header {
+    display: none !important;
+  }
+  .jais-desktop-sidebar-left,
+  .jais-desktop-sidebar-right {
+    display: none !important;
+  }
+  .jais-desktop-shell {
+    display: block;
+    width: 100%;
+  }
+  #app-viewport {
+    width: 100%;
+  }
+  /* Mobile responsiveness enhancements */
+  .jais-table-container,
+  .jais-table-card {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .jais-table-head-row.football-mode,
+  .jais-table-data-row.football-mode,
+  .jais-table-head-row.basketball-mode,
+  .jais-table-data-row.basketball-mode {
+    min-width: 320px;
+  }
+  .jais-live-pts-bar {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .jais-live-pts-btn {
+    min-height: 34px;
+    padding: 0 10px;
+  }
+}
+
+/* Tablet & Intermediate Screens (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .jais-app-container {
+    max-width: 768px !important;
+  }
+}
+
+/* Desktop & Laptop Screen Enhancements (>= 1024px) */
+@media (min-width: 1024px) {
+  /* Expand full app container from narrow 480px into expansive 1400px frame */
+  .jais-app-container {
+    max-width: 1420px !important;
+    margin: 0 auto;
+    padding-bottom: 2.5rem !important;
+    overflow-x: visible;
+  }
+
+  /* Hide bottom bar on laptops and desktops */
+  .jais-bottom-bar {
+    display: none !important;
+  }
+
+  /* Hide internal page mobile header since top desktop header is active */
+  .jais-top-bar {
+    display: none !important;
+  }
+
+  /* Desktop Top Header Bar */
+  .jais-desktop-header {
+    display: block;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    background-color: var(--fm-surface);
+    border-bottom: 1px solid var(--fm-border);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .jais-desktop-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    height: 64px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+  }
+
+  .jais-desktop-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .jais-desktop-logo {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    object-fit: contain;
+    background: #ffffff;
+    padding: 2px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  }
+
+  .jais-desktop-brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .jais-desktop-brand-text strong {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: var(--fm-text-primary);
+    line-height: 1.1;
+  }
+
+  .jais-desktop-brand-text span {
+    font-size: 0.65rem;
+    font-weight: 800;
+    color: var(--fm-green);
+    letter-spacing: 0.08em;
+  }
+
+  .jais-desktop-search-wrap {
+    flex: 1;
+    max-width: 440px;
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .jais-desktop-search-wrap input {
+    width: 100%;
+    height: 38px;
+    background: var(--fm-bg);
+    border: 1px solid var(--fm-border);
+    border-radius: 9999px;
+    padding: 0 1rem 0 2.4rem;
+    color: var(--fm-text-primary);
+    font-size: 0.85rem;
+    font-family: inherit;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .jais-desktop-search-wrap input:focus {
+    border-color: var(--fm-green);
+    box-shadow: 0 0 0 2px var(--fm-green-glow);
+  }
+
+  .jais-desktop-search-icon {
+    position: absolute;
+    left: 0.85rem;
+    color: var(--fm-text-muted);
+    display: flex;
+    align-items: center;
+    pointer-events: none;
+  }
+
+  .jais-desktop-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+
+  .jais-desktop-nav-link {
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--fm-text-secondary);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .jais-desktop-nav-link:hover {
+    color: var(--fm-text-primary);
+    background: var(--fm-bg);
+  }
+
+  .jais-desktop-nav-link.active {
+    color: var(--fm-green);
+    background: rgba(220, 38, 38, 0.12);
+  }
+
+  .jais-desktop-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    flex-shrink: 0;
+  }
+
+  .jais-desktop-official-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.85rem;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 0.8rem;
+    background: var(--fm-bg);
+    border: 1px solid var(--fm-border);
+    color: var(--fm-text-primary);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .jais-desktop-official-badge:hover {
+    border-color: var(--fm-green);
+    color: var(--fm-green);
+  }
+
+  /* 3-Column Grid Shell (Left Standings / Middle Fixtures / Right Highlights) */
+  .jais-desktop-shell {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr) 340px;
+    gap: 1.5rem;
+    align-items: start;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 1.5rem 1.25rem 3rem;
+    width: 100%;
+  }
+
+  #app-viewport {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .jais-desktop-sidebar-left,
+  .jais-desktop-sidebar-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    padding-right: 2px;
+  }
+
+  body.onboarding-active .jais-desktop-header,
+  body.onboarding-active .jais-desktop-sidebar-left,
+  body.onboarding-active .jais-desktop-sidebar-right,
+  body.onboarding-active #desktop-sidebar-left,
+  body.onboarding-active #desktop-sidebar-right {
+    display: none !important;
+  }
+  body.onboarding-active .jais-desktop-shell {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: flex-start !important;
+    max-width: 680px !important;
+    margin: 0 auto !important;
+    padding: 2rem 1.25rem 3.5rem !important;
+  }
+  body.onboarding-active #app-viewport {
+    max-width: 600px !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  /* Desktop Sidebar Cards */
+  .jais-sidebar-card {
+    background: var(--fm-surface);
+    border: 1px solid var(--fm-border);
+    border-radius: 14px;
+    padding: 1rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+
+  .jais-sidebar-card-title {
+    font-family: var(--font-display);
+    font-size: 0.78rem;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--fm-text-muted);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .jais-sidebar-house-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    background: var(--fm-bg);
+    margin-bottom: 0.4rem;
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.15s, transform 0.15s;
+  }
+
+  .jais-sidebar-house-row:hover {
+    background: var(--fm-surface-active);
+    transform: translateX(2px);
+  }
+
+  .jais-sidebar-house-info {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .jais-sidebar-house-rank {
+    font-weight: 800;
+    font-size: 0.76rem;
+    color: var(--fm-text-muted);
+    width: 14px;
+  }
+
+  .jais-sidebar-house-badge {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+  }
+
+  .jais-sidebar-house-name {
+    font-weight: 700;
+    font-size: 0.84rem;
+    color: var(--fm-text-primary);
+  }
+
+  .jais-sidebar-house-medals {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+  }
+
+  .jais-sidebar-cat-link {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--fm-text-secondary);
+    text-decoration: none;
+    transition: all 0.15s ease;
+  }
+
+  .jais-sidebar-cat-link:hover {
+    color: var(--fm-text-primary);
+    background: var(--fm-bg);
+  }
+
+  .jais-sidebar-cat-link.active {
+    color: var(--fm-green);
+    background: rgba(220, 38, 38, 0.12);
+    font-weight: 800;
+  }
+
+  /* Right Sidebar Media Item */
+  .jais-sidebar-featured-media {
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--fm-bg);
+    border: 1px solid var(--fm-border);
+    margin-bottom: 0.75rem;
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+
+  .jais-sidebar-featured-media:hover {
+    transform: scale(1.01);
+  }
+
+  .jais-sidebar-news-item {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--fm-border);
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .jais-sidebar-news-item:last-child {
+    border-bottom: none;
+  }
+
+  .jais-sidebar-news-thumb {
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    object-fit: cover;
+    background: #000;
+    flex-shrink: 0;
+  }
+
+  .jais-sidebar-news-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .jais-sidebar-news-title {
+    font-weight: 700;
+    font-size: 0.8rem;
+    color: var(--fm-text-primary);
+    line-height: 1.3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+
+  .jais-sidebar-news-meta {
+    font-size: 0.68rem;
+    color: var(--fm-text-muted);
+    margin-top: 2px;
+  }
+}
+
+/* ==========================================================================
+   UNIVERSAL SEARCH DROPDOWN
+   ========================================================================== */
+
+.jais-universal-search-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: 6px;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 14px;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45), 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 99998;
+  max-height: 70vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  animation: jaisFadeIn 0.15s ease;
+  scrollbar-width: thin;
+  scrollbar-color: var(--fm-border) transparent;
+}
+
+.jais-universal-search-dropdown::-webkit-scrollbar {
+  width: 5px;
+}
+.jais-universal-search-dropdown::-webkit-scrollbar-track {
+  background: transparent;
+}
+.jais-universal-search-dropdown::-webkit-scrollbar-thumb {
+  background: var(--fm-border);
+  border-radius: 3px;
+}
+
+.jais-search-section {
+  border-bottom: 1px solid var(--fm-border);
+}
+
+.jais-search-section:last-of-type {
+  border-bottom: none;
+}
+
+.jais-search-section-title {
+  padding: 0.6rem 0.85rem 0.35rem;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--fm-text-muted);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.jais-search-section-title svg {
+  width: 12px;
+  height: 12px;
+}
+
+.jais-search-result-item {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem;
+  text-decoration: none;
+  color: var(--fm-text-primary);
+  cursor: pointer;
+  transition: background 0.15s ease;
+  border-radius: 0;
+}
+
+.jais-search-result-item:hover {
+  background: rgba(220, 38, 38, 0.08);
+}
+
+.jais-search-result-item:active {
+  background: rgba(220, 38, 38, 0.15);
+}
+
+.jais-search-result-icon {
+  width: 34px;
+  height: 34px;
+  min-width: 34px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.jais-search-result-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+.jais-search-avatar {
+  border-radius: 50%;
+}
+
+.jais-search-result-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.jais-search-result-title {
+  font-weight: 700;
+  font-size: 0.82rem;
+  color: var(--fm-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.jais-search-result-sub {
+  font-size: 0.68rem;
+  color: var(--fm-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 1px;
+}
+
+.jais-search-result-badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.jais-search-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--fm-text-secondary);
+}
+
+.jais-search-empty svg {
+  width: 24px;
+  height: 24px;
+}
+
+.jais-search-footer {
+  padding: 0.55rem 0.85rem;
+  font-size: 0.7rem;
+  color: var(--fm-text-muted);
+  text-align: center;
+  border-top: 1px solid var(--fm-border);
+  background: var(--fm-surface-elevated);
+  border-radius: 0 0 14px 14px;
+}
+
+/* Mobile positioning adjustments for universal search */
+@media (max-width: 1023px) {
+  .jais-universal-search-dropdown {
+    position: fixed;
+    top: auto;
+    left: 0.65rem;
+    right: 0.65rem;
+    margin-top: 0;
+    max-height: 60vh;
+    border-radius: 14px;
+  }
+}
+
+
+/* Shown in place of a news image that is missing or failed to load */
+.jais-media-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  background: var(--fm-surface-elevated);
+  color: var(--fm-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+.jais-media-fallback-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+/* ==========================================================================
+   Admin Hero Action Command Cards
+   ========================================================================== */
+.jais-hero-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 0.85rem;
+}
+@media (min-width: 768px) {
+  .jais-hero-actions-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.jais-hero-action-card {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+.jais-hero-action-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--fm-green);
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.15);
+}
+.jais-hero-action-card.card-students:hover {
+  border-color: #3B82F6;
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.15);
+}
+.jais-hero-action-card.card-transfer:hover {
+  border-color: #F59E0B;
+  box-shadow: 0 6px 18px rgba(245, 158, 11, 0.15);
+}
+.jais-hero-action-card.card-news:hover {
+  border-color: var(--fm-green);
+  box-shadow: 0 6px 18px rgba(220, 38, 38, 0.2);
+}
+.jais-hero-action-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+.jais-hero-action-title {
+  font-size: 0.88rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+  line-height: 1.25;
+}
+.jais-hero-action-desc {
+  font-size: 0.7rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.3;
+}
+.jais-hero-action-badge {
+  align-self: flex-start;
+  font-size: 0.65rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* ==========================================================================
+   Visual House Selector Grid (Modal & Forms)
+   ========================================================================== */
+.jais-house-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.5rem;
+  margin-bottom: 0.85rem;
+}
+@media (min-width: 480px) {
+  .jais-house-select-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.jais-house-choice-btn {
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.65rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  color: var(--fm-text-primary);
+  user-select: none;
+}
+.jais-house-choice-btn:hover {
+  background: var(--fm-surface-active);
+  transform: translateY(-1px);
+}
+.jais-house-choice-btn.active {
+  border-width: 2px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.3);
+}
+.jais-house-choice-btn.house-phoenix.active {
+  border-color: #EF4444;
+  background: rgba(239, 68, 68, 0.12);
+  color: #EF4444;
+}
+.jais-house-choice-btn.house-eagle.active {
+  border-color: #F59E0B;
+  background: rgba(245, 158, 11, 0.12);
+  color: #F59E0B;
+}
+.jais-house-choice-btn.house-swift.active {
+  border-color: #FACC15;
+  background: rgba(250, 204, 21, 0.12);
+  color: #FACC15;
+}
+.jais-house-choice-btn.house-merlin.active {
+  border-color: #2563EB;
+  background: rgba(37, 99, 235, 0.12);
+  color: #2563EB;
+}
+.jais-house-choice-btn.house-general.active {
+  border-color: var(--fm-text-secondary);
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--fm-text-primary);
+}
+
+.jais-house-choice-crest {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+.jais-house-choice-name {
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+.jais-house-choice-sub {
+  font-size: 0.62rem;
+  color: var(--fm-text-muted);
+}
+
+/* One-Click Quick House Dropdown in Student Row */
+.jais-quick-house-dropdown {
+  appearance: none;
+  -webkit-appearance: none;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 22px 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  outline: none;
+  border: 1px solid;
+  transition: all 0.15s ease;
+  background-position: right 6px center;
+  background-repeat: no-repeat;
+  background-size: 10px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+/* Preset photo chips in Add Story modal */
+.jais-preset-chip {
+  padding: 4px 8px;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.jais-preset-chip:hover {
+  border-color: var(--fm-green);
+  color: var(--fm-green);
+  background: rgba(220, 38, 38, 0.1);
+}
+
+/* ==========================================================================
+   Smooth Toast Notifications
+   ========================================================================== */
+.jais-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 90vw;
+  width: 360px;
+  pointer-events: none;
+}
+.jais-toast-pill {
+  pointer-events: auto;
+  padding: 0.75rem 1rem;
+  background: var(--fm-surface-elevated, #1A1D24);
+  border: 1px solid var(--fm-border, rgba(255,255,255,0.1));
+  border-radius: 12px;
+  color: var(--fm-text-primary, #FFFFFF);
+  font-size: 0.82rem;
+  font-weight: 700;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: jaisToastSlideIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.jais-toast-pill.toast-success {
+  border-left: 4px solid var(--fm-green, #DC2626);
+}
+.jais-toast-pill.toast-info {
+  border-left: 4px solid #3B82F6;
+}
+.jais-toast-pill.toast-warning {
+  border-left: 4px solid #F59E0B;
+}
+.jais-toast-pill.toast-error {
+  border-left: 4px solid #EF4444;
+}
+@keyframes jaisToastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   News Comments, Supporter Cheers & Like Button Styles
+   -------------------------------------------------------------------------- */
+.jais-comments-section {
+  margin-top: 1.25rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--fm-border);
+}
+
+.jais-comments-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  font-weight: 800;
+  font-size: 0.92rem;
+  color: var(--fm-text-primary);
+}
+
+.jais-comment-item {
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.75rem 0.85rem;
+  margin-bottom: 0.65rem;
+  display: flex;
+  gap: 0.65rem;
+  transition: border-color 0.15s ease;
+}
+
+.jais-comment-item:hover {
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.jais-comment-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+  flex-shrink: 0;
+  background: var(--fm-surface-elevated);
+  border: 1.5px solid var(--fm-border);
+  overflow: hidden;
+}
+
+.jais-comment-avatar img {
+  width: 75%;
+  height: 75%;
+  object-fit: contain;
+}
+
+.jais-comment-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.jais-comment-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.jais-comment-author {
+  font-size: 0.82rem;
+  font-weight: 800;
+  color: var(--fm-text-primary);
+}
+
+.jais-comment-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 1px 6px;
+  border-radius: 9999px;
+  text-transform: uppercase;
+}
+
+.jais-comment-time {
+  font-size: 0.68rem;
+  color: var(--fm-text-muted);
+}
+
+.jais-comment-text {
+  font-size: 0.82rem;
+  color: var(--fm-text-secondary);
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.jais-comment-input-wrap {
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  margin-top: 0.85rem;
+}
+
+.jais-like-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.jais-like-btn:hover {
+  background: rgba(239, 68, 68, 0.12);
+  color: #EF4444;
+}
+
+.jais-like-btn.liked {
+  color: #EF4444;
+  background: rgba(239, 68, 68, 0.12);
+}
+
+.jais-like-btn.liked svg {
+  fill: #EF4444;
+}
+
+.jais-comment-count-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  transition: all 0.15s ease;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--fm-text-secondary);
+}
+
+.jais-comment-count-btn:hover {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60A5FA;
+}
+
+/* ---- News Hashtag Chips & Editor Styles ---- */
+.jais-news-tag-btn {
+  background: rgba(0, 230, 118, 0.08);
+  border: 1px solid rgba(0, 230, 118, 0.22);
+  color: var(--fm-green);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.jais-news-tag-btn:hover {
+  background: rgba(0, 230, 118, 0.2);
+  border-color: var(--fm-green);
+  transform: translateY(-1px);
+}
+
+.jais-news-tag-btn.sm {
+  font-size: 0.6rem;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+.jais-tag-suggestion-chip {
+  background: var(--fm-surface);
+  border: 1px dashed var(--fm-border);
+  color: var(--fm-text-secondary);
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.jais-tag-suggestion-chip:hover {
+  border-color: var(--fm-green);
+  color: var(--fm-green);
+  background: rgba(0, 230, 118, 0.08);
+}
+
+.jais-news-edit-btn {
+  background: rgba(96, 165, 250, 0.12);
+  border: 1px solid rgba(96, 165, 250, 0.35);
+  color: #60A5FA;
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.jais-news-edit-btn:hover {
+  background: rgba(96, 165, 250, 0.28);
+  border-color: #60A5FA;
+  transform: translateY(-1px);
+}
+
+/* ---- Dedicated Hashtags Manager Widget ---- */
+.jais-hashtag-section-card {
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-top: 0.35rem;
+}
+
+.jais-active-hashtags-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  min-height: 34px;
+  padding: 6px 8px;
+  background: var(--fm-surface);
+  border: 1px solid var(--fm-border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+
+.jais-active-tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(0, 230, 118, 0.12);
+  border: 1px solid rgba(0, 230, 118, 0.32);
+  color: var(--fm-green);
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.jais-active-tag-chip:hover {
+  background: rgba(0, 230, 118, 0.2);
+  border-color: var(--fm-green);
+}
+
+.jais-remove-tag-btn {
+  background: none;
+  border: none;
+  color: var(--fm-green);
+  cursor: pointer;
+  padding: 0 2px;
+  font-size: 0.95rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.jais-remove-tag-btn:hover {
+  color: #EF4444;
+}
+
+.jais-new-hashtag-group {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.jais-hashtag-input-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+
+.jais-hashtag-prefix {
+  position: absolute;
+  left: 10px;
+  font-weight: 800;
+  color: var(--fm-green);
+  font-size: 0.92rem;
+  pointer-events: none;
+}
+
+.jais-add-tag-btn {
+  padding: 0.52rem 0.95rem;
+  background: rgba(0, 230, 118, 0.14);
+  border: 1px solid rgba(0, 230, 118, 0.35);
+  border-radius: 8px;
+  color: var(--fm-green);
+  font-size: 0.78rem;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.jais-add-tag-btn:hover {
+  background: rgba(0, 230, 118, 0.28);
+  border-color: var(--fm-green);
+  transform: translateY(-1px);
+}
+
+/* ---- Tournament Stage & Knockout Bracket Styling ---- */
+.jais-tournament-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.jais-stage-badge {
+  font-size: 0.62rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  letter-spacing: 0.02em;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.jais-stage-badge.group {
+  background: rgba(0, 230, 118, 0.12);
+  color: var(--fm-green);
+  border: 1px solid rgba(0, 230, 118, 0.3);
+}
+
+.jais-stage-badge.knockout {
+  background: rgba(245, 158, 11, 0.12);
+  color: var(--fm-gold);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.jais-stage-badge.basketball {
+  background: rgba(96, 165, 250, 0.12);
+  color: #60A5FA;
+  border: 1px solid rgba(96, 165, 250, 0.3);
+}
+
+.jais-bracket-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
+  padding: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .jais-bracket-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.jais-bracket-match-card {
+  background: var(--fm-surface-elevated);
+  border: 1px solid var(--fm-border);
+  border-radius: 12px;
+  padding: 0.85rem;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.jais-bracket-match-card:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
+}
+
+.jais-bracket-match-card.final-highlight {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: linear-gradient(145deg, rgba(245, 158, 11, 0.06), var(--fm-surface-elevated));
+}
+
+.jais-bracket-match-card.bronze-highlight {
+  border-color: rgba(205, 127, 50, 0.4);
+  background: linear-gradient(145deg, rgba(205, 127, 50, 0.06), var(--fm-surface-elevated));
+}
+
+.jais-matchday-group {
+  margin-bottom: 0.75rem;
+}
+
+.jais-matchday-title {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--fm-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 0.65rem 0.85rem 0.35rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+

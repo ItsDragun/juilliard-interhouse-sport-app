@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#07090E">
+  <meta name="description" content="Juilliard Academy Interhouse Sports Day — Live scores, standings, and results for Eagle, Merlin, Phoenix &amp; Swift">
+  <title>Juilliard Academy — Interhouse Sports Day</title>
+
+  <!-- Google Fonts: Outfit (Brand & Headings) + Inter (Crisp Typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Outfit:wght@600;700;800;900&amp;display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/juilliard-logo.png">
+  <link rel="apple-touch-icon" href="assets/juilliard-logo.png">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+
+  <!-- Firebase Compat SDK -->
+  <script defer="" src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script defer="" src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script defer="" src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Application Entrypoint -->
+  <script type="module" src="js/app.js?v=20260924_fix1"></script>
+</head>
+<body data-theme="dark">
+
+  <!-- Main App Container Frame -->
+  <div class="jais-app-container">
+
+    <!-- Desktop Global Top Navigation Bar (Visible on Laptops & Desktops >= 1024px) -->
+    <header id="desktop-top-header" class="jais-desktop-header" aria-label="Desktop Navigation">
+      <div class="jais-desktop-header-inner">
+        <!-- Brand & Crest -->
+        <a href="#/events" class="jais-desktop-brand">
+          <img src="assets/juilliard-logo.png" alt="Juilliard Academy" class="jais-desktop-logo">
+          <div class="jais-desktop-brand-text">
+            <strong>JUILLIARD</strong>
+            <span>SPORTS DAY 2026</span>
+          </div>
+        </a>
+
+        <!-- Desktop Quick Search Bar -->
+        <div class="jais-desktop-search-wrap">
+          <span class="jais-desktop-search-icon" id="desktop-search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg></span>
+          <input type="text" id="desktop-global-search" placeholder="Search matches, athletes, houses, events..." oninput="window.pages.handleDesktopSearch(this.value)">
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="jais-desktop-nav-links">
+          <a href="#/events" class="jais-desktop-nav-link active" id="desktop-nav-events">Matches</a>
+          <a href="#/table" class="jais-desktop-nav-link" id="desktop-nav-table">Standings</a>
+          <a href="#/news" class="jais-desktop-nav-link" id="desktop-nav-news">News &amp; Media</a>
+          <a href="#/houses" class="jais-desktop-nav-link" id="desktop-nav-houses">Houses</a>
+          <a href="#/admin" class="jais-desktop-nav-link" id="desktop-nav-admin" style="display: none;">Judge Console</a>
+        </nav>
+
+        <!-- Right Desktop Actions -->
+        <div class="jais-desktop-actions">
+          <button class="jais-icon-btn" onclick="window.toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme" id="desktop-theme-toggle"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></button>
+          <a href="#/onboarding" class="jais-desktop-official-badge" title="Official Login">
+            Official Portal
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Desktop 3-Column Shell (Single Column on Mobile) -->
+    <div class="jais-desktop-shell">
+
+      <!-- Left Desktop Sidebar: Live House Standings & Category Shortcuts -->
+      <aside id="desktop-sidebar-left" class="jais-desktop-sidebar-left" aria-label="House Standings &amp; Categories">
+      <!-- Interhouse Medal Standings Card -->
+      <div class="jais-sidebar-card">
+        <div class="jais-sidebar-card-title">
+          <span>House Standings</span>
+          <a href="#/table" style="font-size: 0.7rem; color: var(--fm-green); text-decoration: none; font-weight: 700;">Full Table →</a>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 4px;">
+          
+              <a href="#/house/phoenix" class="jais-sidebar-house-row">
+                <div class="jais-sidebar-house-info">
+                  <span class="jais-sidebar-house-rank">1</span>
+                  <div style="width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; padding: 1px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.15);">
+                    <img src="assets/crests/phoenix.svg" alt="Phoenix" style="width: 100%; height: 100%; object-fit: contain;">
+                  </div>
+                  <span class="jais-sidebar-house-name">Phoenix</span>
+                </div>
+                <div class="jais-sidebar-house-medals">
+                  <span style="color: var(--fm-gold);" title="Gold">0G</span>
+                  <span style="color: var(--fm-silver);" title="Silver">0S</span>
+                  <span style="color: var(--fm-bronze);" title="Bronze">0B</span>
+                  <span style="color: var(--fm-text-muted); font-size: 0.7rem; margin-left: 2px;">(0)</span>
+                </div>
+              </a>
+            
+              <a href="#/house/eagle" class="jais-sidebar-house-row">
+                <div class="jais-sidebar-house-info">
+                  <span class="jais-sidebar-house-rank">2</span>
+                  <div style="width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; padding: 1px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.15);">
+                    <img src="assets/crests/eagle.svg" alt="Eagle" style="width: 100%; height: 100%; object-fit: contain;">
+                  </div>
+                  <span class="jais-sidebar-house-name">Eagle</span>
+                </div>
+                <div class="jais-sidebar-house-medals">
+                  <span style="color: var(--fm-gold);" title="Gold">0G</span>
+                  <span style="color: var(--fm-silver);" title="Silver">0S</span>
+                  <span style="color: var(--fm-bronze);" title="Bronze">0B</span>
+                  <span style="color: var(--fm-text-muted); font-size: 0.7rem; margin-left: 2px;">(0)</span>
+                </div>
+              </a>
+            
+              <a href="#/house/swift" class="jais-sidebar-house-row">
+                <div class="jais-sidebar-house-info">
+                  <span class="jais-sidebar-house-rank">3</span>
+                  <div style="width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; padding: 1px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.15);">
+                    <img src="assets/crests/swift.svg" alt="Swift" style="width: 100%; height: 100%; object-fit: contain;">
+                  </div>
+                  <span class="jais-sidebar-house-name">Swift</span>
+                </div>
+                <div class="jais-sidebar-house-medals">
+                  <span style="color: var(--fm-gold);" title="Gold">0G</span>
+                  <span style="color: var(--fm-silver);" title="Silver">0S</span>
+                  <span style="color: var(--fm-bronze);" title="Bronze">0B</span>
+                  <span style="color: var(--fm-text-muted); font-size: 0.7rem; margin-left: 2px;">(0)</span>
+                </div>
+              </a>
+            
+              <a href="#/house/merlin" class="jais-sidebar-house-row">
+                <div class="jais-sidebar-house-info">
+                  <span class="jais-sidebar-house-rank">4</span>
+                  <div style="width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; overflow: hidden; background: #fff; padding: 1px; flex-shrink: 0; box-shadow: 0 1px 4px rgba(0,0,0,0.15);">
+                    <img src="assets/crests/merlin.svg" alt="Merlin" style="width: 100%; height: 100%; object-fit: contain;">
+                  </div>
+                  <span class="jais-sidebar-house-name">Merlin</span>
+                </div>
+                <div class="jais-sidebar-house-medals">
+                  <span style="color: var(--fm-gold);" title="Gold">0G</span>
+                  <span style="color: var(--fm-silver);" title="Silver">0S</span>
+                  <span style="color: var(--fm-bronze);" title="Bronze">0B</span>
+                  <span style="color: var(--fm-text-muted); font-size: 0.7rem; margin-left: 2px;">(0)</span>
+                </div>
+              </a>
+            
+        </div>
+      </div>
+
+      <!-- Quick Categories & Competitions Card -->
+      <div class="jais-sidebar-card">
+        <div class="jais-sidebar-card-title">
+          <span>Categories</span>
+        </div>
+        <nav style="display: flex; flex-direction: column; gap: 3px;">
+          <a href="#/events" class="jais-sidebar-cat-link active" onclick="window.pages.setEventsCategoryFilter('all')">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg></span>
+            <span>All Fixtures &amp; Heats</span>
+          </a>
+          <a href="#/events" class="jais-sidebar-cat-link " onclick="window.pages.setEventsCategoryFilter('track')">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m4 16 3-4 3 2 4-5"></path><circle cx="16" cy="4" r="2"></circle><path d="m11 12 2 3 5-1"></path><path d="m8 20 2-4"></path></svg></span>
+            <span>Track &amp; Sprint Races</span>
+          </a>
+          <a href="#/events" class="jais-sidebar-cat-link " onclick="window.pages.setEventsCategoryFilter('field')">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span>
+            <span>Field &amp; Jump Events</span>
+          </a>
+          <a href="#/events" class="jais-sidebar-cat-link " onclick="window.pages.setEventsCategoryFilter('team')">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polygon points="12 7 15 10 14 14 10 14 9 10 12 7"></polygon><line x1="12" x2="12" y1="2" y2="7"></line><line x1="15" x2="20" y1="10" y2="8.5"></line><line x1="14" x2="18" y1="14" y2="18.5"></line><line x1="10" x2="6" y1="14" y2="18.5"></line><line x1="9" x2="4" y1="10" y2="8.5"></line></svg></span>
+            <span>Football &amp; Basketball</span>
+          </a>
+          <a href="#/events" class="jais-sidebar-cat-link " onclick="window.pages.setEventsCategoryFilter('novelty')">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+            <span>Novelty &amp; Spirit</span>
+          </a>
+          <a href="#/table" class="jais-sidebar-cat-link">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H8v4h8v-4h-1c-.55 0-1-.45-1-1v-2.34"></path><path d="M6 4h12a2 2 0 0 1 2 2v3a6 6 0 0 1-6 6h0a6 6 0 0 1-6-6V6a2 2 0 0 1 2-2Z"></path></svg></span>
+            <span>Standings &amp; Points</span>
+          </a>
+          <a href="#/houses" class="jais-sidebar-cat-link">
+            <span style="display: flex; align-items: center; width: 16px;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+            <span>House Profiles &amp; Rosters</span>
+          </a>
+          
+        </nav>
+      </div>
+    </aside>
+
+      <!-- Center Main Page Screens Viewport (Driven by Router with Dedicated Screen Headers) -->
+      <main id="app-viewport">
+        
+        <!-- Matches / Fixtures Schedule (#/events) -->
+        <section id="screen-events" class="page-screen active">
+    <!-- Top App Bar -->
+    <header class="jais-top-bar">
+      <a href="#/events" class="jais-brand-logo" style="display: flex; align-items: center; gap: 8px;">
+        <img src="assets/juilliard-logo.png" alt="Juilliard Academy" style="width: 26px; height: 26px; object-fit: contain; border-radius: 50%; background: #ffffff; padding: 1px; box-shadow: 0 1px 4px rgba(0,0,0,0.25);">
+        <span>JUILLIARD<span class="plus">SPORTS</span></span>
+      </a>
+
+      <!-- Center Live Matches Count Pill -->
+      <a href="#/events" class="jais-live-chip" onclick="window.pages.setEventsStatusFilter('live')" style="">
+        <span class="jais-live-dot" style=""></span>
+        <span style="font-weight: 800;">0 Live</span>
+      </a>
+
+      <!-- Right Header Actions (Zero emojis, SVG icons) -->
+      <div class="jais-top-actions">
+        <button class="jais-icon-btn" onclick="window.toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg>
+        </button>
+        <button class="jais-icon-btn" onclick="window.pages.toggleSearchBar()" title="Search" aria-label="Search">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
+        </button>
+        <button class="jais-icon-btn" onclick="window.location.hash = '#/onboarding'" title="Options" aria-label="Options">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Quick Search Input (Conditional) -->
+    
+
+    <!-- Quick Filter Chips: Category & Division & Status -->
+    <div class="jais-filter-strip">
+      <button class="jais-chip active" onclick="window.pages.setEventsCategoryFilter('all')">
+        All Sports (35)
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsCategoryFilter('track')">
+        Track (10)
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsCategoryFilter('field')">
+        Field (12)
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsCategoryFilter('novelty')">
+        Novelty (8)
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsCategoryFilter('team')">
+        Team Sports (5)
+      </button>
+    </div>
+
+    <!-- Secondary Filter Strip: Boys / Girls / Status -->
+    <div class="jais-filter-strip" style="padding-top: 0;">
+      <button class="jais-chip active" onclick="window.pages.setEventsDivisionFilter('all')">
+        All Divisions
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsDivisionFilter('boys')">
+        Boys
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsDivisionFilter('girls')">
+        Girls
+      </button>
+      <span style="color: var(--fm-border); padding: 0 2px;">|</span>
+      <button class="jais-chip active" onclick="window.pages.setEventsStatusFilter('all')">
+        All Status
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsStatusFilter('live')">
+        Live Now
+      </button>
+      <button class="jais-chip " onclick="window.pages.setEventsStatusFilter('completed')">
+        Completed
+      </button>
+    </div>
+
+    <!-- Dedicated Pinned LIVE IN ARENA Showcase (Automated When Event Goes Live) -->
+    
+
+    <!-- Grouped Category Accordion Cards (Screenshot 1) -->
+    <div style="padding-bottom: 1rem;">
+      
+          <div class="jais-section-card">
+            <!-- League / Category Header with Flag and Chevron -->
+            <div class="jais-section-header" onclick="window.pages.toggleSectionCollapse('track')">
+              <div class="jais-section-title-left">
+                <span class="jais-category-flag" style="color: var(--fm-green);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><line x1="4" x2="4" y1="22" y2="15"></line></svg></span>
+                <span>Track Events • Sprints &amp; Races (10)</span>
+              </div>
+              <span class="jais-icon-btn" style="width: 24px; height: 24px; color: var(--fm-text-muted);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
+              </span>
+            </div>
+
+            <!-- Match Rows inside this Category -->
+            <div class="jais-category-body" id="cat-body-track">
+              
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-100m-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">100m Race (Boys)</span>
+          <span class="jais-division-pill">Track • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-100m-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">100m Race (Girls)</span>
+          <span class="jais-division-pill">Track • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-200m-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">200m Race (Boys)</span>
+          <span class="jais-division-pill">Track • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-200m-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">200m Race (Girls)</span>
+          <span class="jais-division-pill">Track • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-400m-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">400m Race (Boys)</span>
+          <span class="jais-division-pill">Track • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-400m-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">400m Race (Girls)</span>
+          <span class="jais-division-pill">Track • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-800m-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">800m Race (Boys)</span>
+          <span class="jais-division-pill">Track • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-800m-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">800m Race (Girls)</span>
+          <span class="jais-division-pill">Track • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-relay-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">4x100m Relay (Boys)</span>
+          <span class="jais-division-pill">Track • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/track-relay-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">4x100m Relay (Girls)</span>
+          <span class="jais-division-pill">Track • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+            </div>
+          </div>
+        
+          <div class="jais-section-card">
+            <!-- League / Category Header with Flag and Chevron -->
+            <div class="jais-section-header" onclick="window.pages.toggleSectionCollapse('field')">
+              <div class="jais-section-title-left">
+                <span class="jais-category-flag" style="color: var(--fm-green);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg></span>
+                <span>Field Events • Jumps &amp; Throws (12)</span>
+              </div>
+              <span class="jais-icon-btn" style="width: 24px; height: 24px; color: var(--fm-text-muted);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
+              </span>
+            </div>
+
+            <!-- Match Rows inside this Category -->
+            <div class="jais-category-body" id="cat-body-field">
+              
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-shotput-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Shot Put (Boys)</span>
+          <span class="jais-division-pill">Field • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-shotput-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Shot Put (Girls)</span>
+          <span class="jais-division-pill">Field • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-javelin-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Javelin (Boys)</span>
+          <span class="jais-division-pill">Field • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-javelin-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Javelin (Girls)</span>
+          <span class="jais-division-pill">Field • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-discus-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Discus (Boys)</span>
+          <span class="jais-division-pill">Field • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-discus-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Discus (Girls)</span>
+          <span class="jais-division-pill">Field • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-triplejump-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Triple Jump / Hop, Step &amp; Jump (Boys)</span>
+          <span class="jais-division-pill">Field • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-triplejump-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Triple Jump / Hop, Step &amp; Jump (Girls)</span>
+          <span class="jais-division-pill">Field • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-longjump-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Long Jump (Boys)</span>
+          <span class="jais-division-pill">Field • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-longjump-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Long Jump (Girls)</span>
+          <span class="jais-division-pill">Field • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-highjump-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">High Jump (Boys)</span>
+          <span class="jais-division-pill">Field • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/field-highjump-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">High Jump (Girls)</span>
+          <span class="jais-division-pill">Field • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+            </div>
+          </div>
+        
+          <div class="jais-section-card">
+            <!-- League / Category Header with Flag and Chevron -->
+            <div class="jais-section-header" onclick="window.pages.toggleSectionCollapse('novelty')">
+              <div class="jais-section-title-left">
+                <span class="jais-category-flag" style="color: var(--fm-green);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg></span>
+                <span>Novelty &amp; School Spirit (8)</span>
+              </div>
+              <span class="jais-icon-btn" style="width: 24px; height: 24px; color: var(--fm-text-muted);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
+              </span>
+            </div>
+
+            <!-- Match Rows inside this Category -->
+            <div class="jais-category-body" id="cat-body-novelty">
+              
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-three-legged-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Three-Legged Race (Boys)</span>
+          <span class="jais-division-pill">Novelty • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-three-legged-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Three-Legged Race (Girls)</span>
+          <span class="jais-division-pill">Novelty • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-lemon-race-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Lemon &amp; Spoon Race (Girls)</span>
+          <span class="jais-division-pill">Novelty • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-up-down-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Up and Down Relay (Boys)</span>
+          <span class="jais-division-pill">Novelty • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-up-down-girls'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Up and Down Relay (Girls)</span>
+          <span class="jais-division-pill">Novelty • Girls</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+    <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-ball-belly-boys'">
+      <!-- Event Title & Status Header -->
+      <div class="jais-fixture-header">
+        <div class="jais-event-title-wrap">
+          <span class="jais-event-name">Ball Belly / Sack Race (Boys)</span>
+          <span class="jais-division-pill">Novelty • Boys</span>
+          <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px;">4 Houses</span>
+        </div>
+        <span class="jais-status-badge upcoming">10:00</span>
+      </div>
+
+      
+        <!-- Upcoming Event: 4 Houses Participating -->
+        <div class="jais-all-houses-strip">
+          <div style="font-size: 0.74rem; color: var(--fm-text-secondary); font-weight: 600;">
+            All 4 Houses Competing
+          </div>
+          <div class="jais-competing-houses">
+            <div class="jais-mini-crest-group">
+              
+                <div class="jais-mini-crest-item" title="Phoenix">
+                  <img src="assets/crests/phoenix.svg" alt="Phoenix">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Eagle">
+                  <img src="assets/crests/eagle.svg" alt="Eagle">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Swift">
+                  <img src="assets/crests/swift.svg" alt="Swift">
+                </div>
+              
+                <div class="jais-mini-crest-item" title="Merlin">
+                  <img src="assets/crests/merlin.svg" alt="Merlin">
+                </div>
+              
+            </div>
+          </div>
+        </div>
+      
+    </div>
+  
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-tug-of-war-boys'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Tug of War Pull 1 (Boys)</span>
+            <span class="jais-division-pill">Novelty • Boys</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">14:45</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #EF4444;">
+              <img src="assets/crests/phoenix.svg" alt="Phoenix">
+            </div>
+            <span style="font-weight: 700;">Phoenix</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              14:45
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Eagle</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #F97316;">
+              <img src="assets/crests/eagle.svg" alt="Eagle">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/novelty-tug-of-war-girls'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Tug of War Pull 2 (Girls)</span>
+            <span class="jais-division-pill">Novelty • Girls</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">15:15</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #FACC15;">
+              <img src="assets/crests/swift.svg" alt="Swift">
+            </div>
+            <span style="font-weight: 700;">Swift</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              15:15
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Merlin</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #2563EB;">
+              <img src="assets/crests/merlin.svg" alt="Merlin">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+            </div>
+          </div>
+        
+          <div class="jais-section-card">
+            <!-- League / Category Header with Flag and Chevron -->
+            <div class="jais-section-header" onclick="window.pages.toggleSectionCollapse('team')">
+              <div class="jais-section-title-left">
+                <span class="jais-category-flag" style="color: var(--fm-green);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path><circle cx="12" cy="12" r="4"></circle></svg></span>
+                <span>Team Sports • Football &amp; Basketball (5)</span>
+              </div>
+              <span class="jais-icon-btn" style="width: 24px; height: 24px; color: var(--fm-text-muted);">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"></path></svg>
+              </span>
+            </div>
+
+            <!-- Match Rows inside this Category -->
+            <div class="jais-category-body" id="cat-body-team">
+              
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/team-basketball-boys'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Basketball Semi-Final 1 (Boys)</span>
+            <span class="jais-division-pill">Team • Boys</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">11:30</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #EF4444;">
+              <img src="assets/crests/phoenix.svg" alt="Phoenix">
+            </div>
+            <span style="font-weight: 700;">Phoenix</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              11:30
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Merlin</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #2563EB;">
+              <img src="assets/crests/merlin.svg" alt="Merlin">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/team-basketball-girls'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Basketball Semi-Final 2 (Girls)</span>
+            <span class="jais-division-pill">Team • Girls</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">12:15</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #F97316;">
+              <img src="assets/crests/eagle.svg" alt="Eagle">
+            </div>
+            <span style="font-weight: 700;">Eagle</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              12:15
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Swift</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #FACC15;">
+              <img src="assets/crests/swift.svg" alt="Swift">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/team-football-boys'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Football Championship Semi-Final 1 (Boys)</span>
+            <span class="jais-division-pill">Team • Boys</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">13:00</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #EF4444;">
+              <img src="assets/crests/phoenix.svg" alt="Phoenix">
+            </div>
+            <span style="font-weight: 700;">Phoenix</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              13:00
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Eagle</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #F97316;">
+              <img src="assets/crests/eagle.svg" alt="Eagle">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/team-football-boys-sf2'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Football Championship Semi-Final 2 (Boys)</span>
+            <span class="jais-division-pill">Team • Boys</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">13:45</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #FACC15;">
+              <img src="assets/crests/swift.svg" alt="Swift">
+            </div>
+            <span style="font-weight: 700;">Swift</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              13:45
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Merlin</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #2563EB;">
+              <img src="assets/crests/merlin.svg" alt="Merlin">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <div class="jais-fixture-item" onclick="window.location.hash = '#/event/team-football-girls'">
+        <div class="jais-fixture-header">
+          <div class="jais-event-title-wrap">
+            <span class="jais-event-name">Football Championship (Girls)</span>
+            <span class="jais-division-pill">Team • Girls</span>
+            <span class="jais-fourhouse-pill" style="font-size: 0.6rem; padding: 1px 6px; color: #60A5FA; border-color: rgba(96,165,250,0.3); background: rgba(59,130,246,0.1);">1v1 Match</span>
+          </div>
+          <span class="jais-status-badge upcoming">14:30</span>
+        </div>
+
+        <div class="jais-fixture-row" style="padding: 0.35rem 0; border: none;">
+          <div class="jais-team-left">
+            <div class="jais-team-crest-sm" style="border: 1px solid #EF4444;">
+              <img src="assets/crests/phoenix.svg" alt="Phoenix">
+            </div>
+            <span style="font-weight: 700;">Phoenix</span>
+          </div>
+
+          <div class="jais-score-center">
+            <div class="jais-score-val" style="color: var(--fm-text-secondary); font-weight: 900;">
+              14:30
+            </div>
+            
+            
+          </div>
+
+          <div class="jais-team-right">
+            <span style="font-weight: 700;">Swift</span>
+            <div class="jais-team-crest-sm" style="border: 1px solid #FACC15;">
+              <img src="assets/crests/swift.svg" alt="Swift">
+            </div>
+          </div>
+        </div>
+      </div>
+    
+            </div>
+          </div>
+        
+    </div>
+  </section>
+
+        <!-- Standings Table (#/table) -->
+        <section id="screen-table" class="page-screen"></section>
+
+        <!-- Match Detail & Facts / Commentary (#/event/:id) -->
+        <section id="screen-event-detail" class="page-screen"></section>
+
+        <!-- House / Team Profiles Hub (#/houses) -->
+        <section id="screen-houses" class="page-screen"></section>
+
+        <!-- Dedicated Single House Profile (#/house/:id) -->
+        <section id="screen-house-detail" class="page-screen"></section>
+
+        <!-- House Supporter Onboarding & Official Login (#/onboarding, #/welcome) -->
+        <section id="screen-onboarding" class="page-screen"></section>
+        <section id="screen-welcome" class="page-screen"></section>
+
+        <!-- Official Scoring Console (#/admin) -->
+        <section id="screen-admin" class="page-screen"></section>
+
+        <!-- Dedicated Score Entry Screen (#/admin/score/:id) -->
+        <section id="screen-score-entry" class="page-screen"></section>
+
+        <!-- House Rosters Management (#/admin/rosters) -->
+        <section id="screen-rosters" class="page-screen"></section>
+
+        <!-- New Event Creator (#/admin/new-event) -->
+        <section id="screen-new-event" class="page-screen"></section>
+
+        <!-- Event Setup & Configuration (#/admin/edit-event/:id) -->
+        <section id="screen-edit-event" class="page-screen"></section>
+
+        <!-- Student Database (#/admin/students) -->
+        <section id="screen-students" class="page-screen"></section>
+
+        <!-- Athlete & Student Profile Screen (#/athlete/:id, #/student/:id) -->
+        <section id="screen-athlete-profile" class="page-screen"></section>
+
+        <!-- News & Multimedia Gallery (#/news, #/gallery) -->
+        <section id="screen-news" class="page-screen"></section>
+
+      </main>
+
+      <!-- Right Desktop Sidebar: News & Video Highlights Feed (Matching Reference Image) -->
+      <aside id="desktop-sidebar-right" class="jais-desktop-sidebar-right" aria-label="Latest News &amp; Highlights">
+      <div class="jais-sidebar-card">
+        <div class="jais-sidebar-card-title">
+          <span>Highlights &amp; Stories</span>
+          <a href="#/news" style="font-size: 0.7rem; color: var(--fm-green); text-decoration: none; font-weight: 700;">View All →</a>
+        </div>
+
+        
+          <div style="padding: 1.5rem 0.75rem; text-align: center; color: var(--fm-text-muted);">
+            <div style="margin-bottom: 0.5rem; color: var(--fm-green); display: flex; justify-content: center;"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg></div>
+            <div style="font-weight: 800; font-size: 0.85rem; color: var(--fm-text-primary); margin-bottom: 0.25rem;">No Stories Published Yet</div>
+            <p style="font-size: 0.72rem; line-height: 1.4; margin: 0 0 0.85rem;">Official race reports, video replays, and photo galleries will appear here once published.</p>
+            
+          </div>
+        
+
+        <a href="#/news" class="jais-cta-btn" style="margin-top: 0.85rem; padding: 0.55rem; font-size: 0.78rem; text-decoration: none; text-align: center; border-radius: 8px; display: block; font-weight: 800;">
+          Open Media Gallery &amp; News
+        </a>
+      </div>
+    </aside>
+
+    </div>
+
+    <!-- Sticky Bottom Navigation Bar -->
+    <nav class="jais-bottom-bar" aria-label="Main Navigation">
+      <a href="#/events" class="jais-nav-item active" id="bottom-nav-events">
+        <span class="nav-item-icon" id="bottom-nav-events-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg></span>
+        <span>Matches</span>
+      </a>
+
+      <a href="#/table" class="jais-nav-item" id="bottom-nav-table">
+        <span class="nav-item-icon" id="bottom-nav-table-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.45 1-1 1H8v4h8v-4h-1c-.55 0-1-.45-1-1v-2.34"></path><path d="M6 4h12a2 2 0 0 1 2 2v3a6 6 0 0 1-6 6h0a6 6 0 0 1-6-6V6a2 2 0 0 1 2-2Z"></path></svg></span>
+        <span>Table</span>
+      </a>
+
+      <a href="#/news" class="jais-nav-item" id="bottom-nav-news">
+        <span class="nav-item-icon" id="bottom-nav-news-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 1-2 2Zm0 0a2 2 0 0 1-2-2v-9c0-1.1.9-2 2-2h2"></path><path d="M18 14h-8"></path><path d="M15 18h-5"></path><path d="M10 6h8v4h-8V6Z"></path></svg></span>
+        <span>News</span>
+      </a>
+
+      <a href="#/houses" class="jais-nav-item" id="bottom-nav-houses">
+        <span class="nav-item-icon" id="bottom-nav-houses-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg></span>
+        <span>Houses</span>
+      </a>
+
+      <a href="#/admin" class="jais-nav-item" id="bottom-nav-admin" style="display: none;">
+        <span class="nav-item-icon" id="bottom-nav-admin-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m14 12 5-5-2-2-5 5"></path><path d="M9 17 4 22l2 2 5-5"></path><path d="m14 7 3-3a1.5 1.5 0 0 1 2.12 0l1.88 1.88a1.5 1.5 0 0 1 0 2.12L18 11"></path><path d="m3 14 3-3a1.5 1.5 0 0 1 2.12 0l1.88 1.88a1.5 1.5 0 0 1 0 2.12L7 18"></path><path d="m8 6 10 10"></path></svg></span>
+        <span>Judge</span>
+      </a>
+    </nav>
+
+  </div>
+
+
+
+</body></html>

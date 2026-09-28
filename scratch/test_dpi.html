@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html><body>
+<div id="debug"></div>
+<script>
+  document.getElementById("debug").innerText = JSON.stringify({
+    innerWidth: window.innerWidth,
+    outerWidth: window.outerWidth,
+    dpr: window.devicePixelRatio,
+    clientWidth: document.documentElement.clientWidth,
+    clientHeight: document.documentElement.clientHeight
+  });
+</script>
+</body></html>

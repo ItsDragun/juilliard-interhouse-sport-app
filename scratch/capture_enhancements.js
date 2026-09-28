@@ -1,0 +1,42 @@
+const { execSync } = require('child_process');
+const path = require('path');
+const fs = require('fs');
+
+const chrome = 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+const baseDir = path.resolve(__dirname, '..');
+const outDir = path.join(baseDir, 'public', 'assets', 'stitch');
+
+const screens = [
+  {
+    name: 'verified_admin_hero_grid.png',
+    url: 'http://127.0.0.1:8080/index.html?pin=2026#/admin',
+    w: 430,
+    h: 932
+  },
+  {
+    name: 'verified_students_house_ui.png',
+    url: 'http://127.0.0.1:8080/index.html?pin=2026#/admin/students',
+    w: 430,
+    h: 932
+  },
+  {
+    name: 'verified_news_clean_desk.png',
+    url: 'http://127.0.0.1:8080/index.html?pin=2026#/news',
+    w: 430,
+    h: 932
+  }
+];
+
+for (const s of screens) {
+  const target = path.join(outDir, s.name);
+  console.log(`Capturing ${s.name}...`);
+  const cmd = `"${chrome}" --headless=new --disable-gpu --window-size=${s.w},${s.h} --virtual-time-budget=3000 --screenshot="${target}" "${s.url}"`;
+  try {
+    execSync(cmd, { stdio: 'inherit' });
+    console.log(`Saved: ${target}`);
+  } catch (err) {
+    console.error(`Error capturing ${s.name}:`, err.message);
+  }
+}
+
+console.log("Done capturing all screenshots!");

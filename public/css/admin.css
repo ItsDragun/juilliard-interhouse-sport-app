@@ -1,0 +1,158 @@
+/* ==========================================================================
+   Juilliard Interhouse Sports Day - Admin & Rapid Score Entry Styles
+   ========================================================================== */
+
+/* House Picker Radios / Buttons (Ergonomic 1-tap touch buttons) */
+.house-selector-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.35rem;
+}
+
+.house-btn-radio {
+  border: 2px solid var(--border-subtle);
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  padding: 0.6rem 0.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+.house-btn-radio:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.house-btn-radio.selected-phoenix {
+  border-color: var(--house-phoenix);
+  background: rgba(239, 68, 68, 0.18);
+  color: var(--text-primary);
+  box-shadow: 0 0 14px var(--house-phoenix-glow);
+}
+
+.house-btn-radio.selected-eagle {
+  border-color: var(--house-eagle);
+  background: rgba(249, 115, 22, 0.18);
+  color: var(--text-primary);
+  box-shadow: 0 0 14px var(--house-eagle-glow);
+}
+
+.house-btn-radio.selected-merlin {
+  border-color: var(--house-merlin);
+  background: rgba(37, 99, 235, 0.18);
+  color: var(--text-primary);
+  box-shadow: 0 0 14px var(--house-merlin-glow);
+}
+
+.house-btn-radio.selected-swift {
+  border-color: var(--house-swift);
+  background: rgba(250, 204, 21, 0.18);
+  color: var(--text-primary);
+  box-shadow: 0 0 14px var(--house-swift-glow);
+}
+
+.house-btn-icon {
+  font-size: 1.25rem;
+}
+
+.house-btn-name {
+  font-family: var(--font-display);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+/* Placings Entry Card inside Score Modal */
+.placing-entry-card {
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-md);
+  padding: 0.85rem;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.placing-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.placing-badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 800;
+}
+
+.placing-row-inputs {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 0.5rem;
+}
+
+@media (max-width: 540px) {
+  .placing-row-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Admin Dashboard Bar */
+.admin-notice-bar {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.05) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.admin-notice-text {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: #FCD34D;
+}
+
+/* House Roster Editor Grid */
+.roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.roster-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.roster-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.roster-header h4 {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #FFF;
+}

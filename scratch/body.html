@@ -1,0 +1,891 @@
+<h1>PRODUCT REQUIREMENT DOCUMENT (PRD)</h1>
+<h2>Project: Juilliard Academy Interhouse Sports Day Application</h2>
+<p><strong>Platform Identifier:</strong> <code>ja-mega-26</code><br><strong>Application Title:</strong> Juilliard Academy Interhouse Sports Day Web Platform<br><strong>Target Release:</strong> 2026 Academic Session<br><strong>Document Status:</strong> Production Baseline<br><strong>Document Version:</strong> 1.0.0<br><strong>Last Updated:</strong> September 2026  </p>
+<hr>
+<h2>1. Executive Summary &amp; Product Vision</h2>
+<h3>1.1 Overview</h3>
+<p>The <strong>Juilliard Academy Interhouse Sports Day Application</strong> is a real-time tournament broadcasting and official scoring platform purpose-built for Juilliard Academy’s premier athletic competitions. Inspired by world-class professional sports platforms such as <strong>FotMob</strong>, <strong>Sofascore</strong>, and <strong>ESPN</strong>, the application bridges high-octane stadium excitement with precision sports administrative governance.</p>
+<p>The platform provides an end-to-end digital experience:</p>
+<ul>
+<li><strong>For Spectators, Students, and Parents:</strong> Sub-second live scoreboards, match fixtures, interactive 3D podiums, athlete bios, high-resolution multimedia gallery, video highlights, and social engagement (likes, comments, and hashtag streams).</li>
+<li><strong>For Officials, Scrutineers, and Judges:</strong> A secure, role-gated administrative console for live timing entry, race placings, match statistics, football and basketball knockout brackets, student roster assignment, and immutable audit logging.</li>
+</ul>
+<h3>1.2 Mission Statement</h3>
+<blockquote>
+<p><em>&quot;To deliver an immersive, lightning-fast, and transparent digital stadium atmosphere that elevates student athletic achievements, unites the school community behind their houses, and guarantees absolute integrity in competition scoring.&quot;</em></p>
+</blockquote>
+<h3>1.3 Key Value Propositions</h3>
+<ol>
+<li><strong>FotMob-Caliber Match &amp; Event Experience:</strong> Professional match cards, live status pulses, event countdowns, tactical head-to-head records, and play-by-play timelines.</li>
+<li><strong>Dual-Competition Architecture:</strong> Seamless real-time switching between the flagship <strong>Interhouse Sports Championship</strong> (4 Houses) and the <strong>Prefectship Cup</strong> (4 Prefectorial Teams).</li>
+<li><strong>Olympic-Standard Medal Tallying &amp; Multi-Format Scoring:</strong> Strict Olympic medal hierarchy (Gold &gt; Silver &gt; Bronze) for track and field, coupled with football group/knockout points tables and basketball knockout brackets.</li>
+<li><strong>Master Student Roster &amp; Athlete Profiles:</strong> Full integration with a 1,000+ student directory featuring grades (JSS 1 through SSS 3), house rosters, personal bests, and career medal counts.</li>
+<li><strong>Realtime Collaborative Official Console:</strong> High-precision scoring interface with datalist auto-completion, tie-break handlers, penalty shootouts, and an automated audit trail for dispute prevention.</li>
+<li><strong>Zero-Latency Client-Side Performance:</strong> Built with lightweight Vanilla ES Modules, CSS variables, and Web Audio API procedural sound synthesis (0KB audio asset payload) backed by Google Cloud Firestore real-time websockets.</li>
+</ol>
+<hr>
+<h2>2. Stakeholders &amp; User Personas</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Persona</th>
+<th align="left">Primary Needs &amp; Motivations</th>
+<th align="left">Typical Journey</th>
+<th align="left">Permissions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Student Athlete</strong></td>
+<td align="left">Check scheduled heat times, monitor house standings, view personal profile, verify race times and medal records.</td>
+<td align="left">Arrives via mobile -&gt; selects house -&gt; navigates to <strong>Matches</strong> or <strong>Table</strong> -&gt; views individual profile via athlete search.</td>
+<td align="left">Public Read</td>
+</tr>
+<tr>
+<td align="left"><strong>Spectator / Parent</strong></td>
+<td align="left">Follow live matches in real-time from the stands or remotely, watch video highlights, read match reports, cheer and comment.</td>
+<td align="left">Opens link -&gt; selects house affiliation -&gt; tracks live ticker -&gt; likes/comments on news stories.</td>
+<td align="left">Public Read + Comment / Like</td>
+</tr>
+<tr>
+<td align="left"><strong>House Master / Mistress</strong></td>
+<td align="left">Track house performance across categories, inspect athlete rosters, cheer team members, strategize event participation.</td>
+<td align="left">Inspects <strong>Houses</strong> hub -&gt; reviews house roster and medal breakdown -&gt; monitors live leaderboard.</td>
+<td align="left">Public Read</td>
+</tr>
+<tr>
+<td align="left"><strong>Judge / Scrutineer / Official</strong></td>
+<td align="left">Input track sprint times, field jump distances, head-to-head ball scores, award podium finishes, manage official notices.</td>
+<td align="left">Logs in via PIN / Google Auth -&gt; opens <strong>Judge Console</strong> -&gt; enters score modal -&gt; publishes official results live.</td>
+<td align="left">Admin Write (<code>admin</code>)</td>
+</tr>
+<tr>
+<td align="left"><strong>Super Administrator / Head Patron</strong></td>
+<td align="left">Maintain system governance, audit all scoring changes, manage official accounts, conduct batch student transfers, emergency resets.</td>
+<td align="left">Accesses <strong>Admin Console</strong> -&gt; audits real-time logs -&gt; creates/manages official credentials -&gt; oversees full championship data.</td>
+<td align="left">Super Admin (<code>super_admin</code>)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>3. Domain Model &amp; Tournament Architecture</h2>
+<p>The platform supports a <strong>Dual-Tournament Architecture</strong> allowing users to switch between tournaments on the fly while maintaining independent data caches, state isolation, and visual branding.</p>
+<pre><code>                              ┌──────────────────────────────────────────────┐
+                              │       JUILLIARD ACADEMY SPORTS PLATFORM      │
+                              │                  (ja-mega-26)                │
+                              └──────────────────────┬───────────────────────┘
+                                                     │
+                         ┌───────────────────────────┴───────────────────────────┐
+                         ▼                                                       ▼
+            ┌──────────────────────────┐                            ┌──────────────────────────┐
+            │ INTERHOUSE CHAMPIONSHIP  │                            │     PREFECTSHIP CUP      │
+            │   (Flagship Tournament)  │                            │  (Leadership Tournament) │
+            └────────────┬─────────────┘                            └────────────┬─────────────┘
+                         │                                                       │
+         ┌───────────────┼───────────────┐                       ┌───────────────┼───────────────┐
+         ▼               ▼               ▼                       ▼               ▼               ▼
+      PHOENIX          EAGLE           MERLIN               TEAM IHECHUKWU  TEAM FORTUNE    TEAM OSARUYI
+    (Solid Red)    (Solid Orange)   (Solid Blue)              (Solid Red)    (Solid Blue)   (Emerald Green)
+         │                                                       │
+         ▼                                                       ▼
+       SWIFT                                                TEAM TITEMI
+   (Solid Yellow)                                         (Royal Purple)
+</code></pre>
+<h3>3.1 Interhouse Championship</h3>
+<p>The flagship inter-house sporting competition comprising the four historic houses of Juilliard Academy:</p>
+<table>
+<thead>
+<tr>
+<th align="left">House ID</th>
+<th align="left">House Name</th>
+<th align="left">Brand Color</th>
+<th align="left">Mascot</th>
+<th align="left">House Motto</th>
+<th align="left">Leadership &amp; Patrons</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>phoenix</code></td>
+<td align="left"><strong>Phoenix</strong></td>
+<td align="left"><code>#EF4444</code> (Solid Red)</td>
+<td align="left">Phoenix Bird</td>
+<td align="left"><em>&quot;From the Ashes, We Rise to Glory&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Chinedu Ihejiahi (SS 3)<br><strong>Patrons:</strong> Mrs. Angela Davies, Mr. Peter O&#39;Connor, Ms. Fatima Bello</td>
+</tr>
+<tr>
+<td align="left"><code>eagle</code></td>
+<td align="left"><strong>Eagle</strong></td>
+<td align="left"><code>#F97316</code> (Solid Orange)</td>
+<td align="left">Eagle Bird</td>
+<td align="left"><em>&quot;Soar High with Honor and Courage&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Donald Ariyo (SS 3)<br><strong>Patrons:</strong> Mr. Harrison, Ms. Chen, Coach Adams</td>
+</tr>
+<tr>
+<td align="left"><code>merlin</code></td>
+<td align="left"><strong>Merlin</strong></td>
+<td align="left"><code>#2563EB</code> (Solid Blue)</td>
+<td align="left">Merlin Falcon</td>
+<td align="left"><em>&quot;Wisdom, Power &amp; Unyielding Focus&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Michelle Olurotimi (SS 3)<br><strong>Patrons:</strong> Dr. Evelyn Wright, Mr. Kenneth Cole, Mrs. Sarah Jenkins</td>
+</tr>
+<tr>
+<td align="left"><code>swift</code></td>
+<td align="left"><strong>Swift</strong></td>
+<td align="left"><code>#FACC15</code> (Solid Yellow)</td>
+<td align="left">Swift Bird</td>
+<td align="left"><em>&quot;Swift as Lightning, United as One&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Adefilewa Adebimpe (SS 3)<br><strong>Patrons:</strong> Ms. Rebecca Taylor, Coach Ibrahim Bello, Mr. David Alabi</td>
+</tr>
+</tbody></table>
+<h3>3.2 Prefectship Cup (Prefectorial Tournament)</h3>
+<p>A special championship contested by the senior student leadership council teams:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Team ID</th>
+<th align="left">Team Name</th>
+<th align="left">Brand Color</th>
+<th align="left">Mascot</th>
+<th align="left">Motto</th>
+<th align="left">Team Captain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>team-ihechukwu</code></td>
+<td align="left"><strong>Team Ihechukwu</strong></td>
+<td align="left"><code>#EF4444</code> (Solid Red)</td>
+<td align="left">Crown &amp; Lion</td>
+<td align="left"><em>&quot;Leadership, Valor &amp; Victory&quot;</em></td>
+<td align="left">Ihechukwu (Senior Prefect)</td>
+</tr>
+<tr>
+<td align="left"><code>team-fortune</code></td>
+<td align="left"><strong>Team Fortune</strong></td>
+<td align="left"><code>#2563EB</code> (Solid Blue)</td>
+<td align="left">Falcon of Victory</td>
+<td align="left"><em>&quot;Fortune Favors the Bold &amp; Relentless&quot;</em></td>
+<td align="left">Fortune (Sports Prefect)</td>
+</tr>
+<tr>
+<td align="left"><code>team-osaruyi</code></td>
+<td align="left"><strong>Team Osaruyi</strong></td>
+<td align="left"><code>#10B981</code> (Emerald Green)</td>
+<td align="left">Emerald Stallion</td>
+<td align="left"><em>&quot;Relentless Drive, Speed &amp; Discipline&quot;</em></td>
+<td align="left">Osaruyi (Senior Prefect)</td>
+</tr>
+<tr>
+<td align="left"><code>team-titemi</code></td>
+<td align="left"><strong>Team Titemi</strong></td>
+<td align="left"><code>#8B5CF6</code> (Royal Purple)</td>
+<td align="left">Purple Lightning</td>
+<td align="left"><em>&quot;Strength in Unity, Focus &amp; Power&quot;</em></td>
+<td align="left">Titemi (Senior Prefect)</td>
+</tr>
+</tbody></table>
+<h3>3.3 Dynamic Competition Switcher</h3>
+<ul>
+<li>Accessible via global desktop header dropdown, dedicated route (<code>#/competitions</code>, <code>#/select-cup</code>), or mobile bottom navigation.</li>
+<li>Instantly toggles <code>localStorage[&quot;juilliard_active_competition&quot;]</code> between <code>interhouse</code> and <code>prefectship</code>.</li>
+<li>Dynamically shifts UI color accents, crest assets, navigation branding, and switches Firestore subscription contexts without requiring a browser page reload.</li>
+</ul>
+<hr>
+<h2>4. Competition Rules &amp; Athletic Scoring Engine</h2>
+<p>The scoring engine implements strict athletic federation standards adapted for Juilliard Academy.</p>
+<h3>4.1 Olympic-Style Medal Standings Hierarchy</h3>
+<p>Overall championship rank is determined by medal superiority, not arbitrary point tallies:</p>
+<ol>
+<li><strong>Gold Medal Count</strong> (Highest priority)</li>
+<li><strong>Silver Medal Count</strong> (Tie-breaker 1)</li>
+<li><strong>Bronze Medal Count</strong> (Tie-breaker 2)</li>
+<li><strong>Total Medals Count</strong> (Tie-breaker 3)</li>
+<li><strong>Team Points</strong> (Tie-breaker 4: Football &amp; Basketball league points)</li>
+<li><strong>Fourth-Place Finishes</strong> (Tie-breaker 5)</li>
+</ol>
+<pre><code>Ranking Criteria: Gold ➔ Silver ➔ Bronze ➔ Total Medals ➔ Team Points ➔ 4th Finishes
+</code></pre>
+<h3>4.2 Multi-House Events (Track, Field &amp; Novelty)</h3>
+<ul>
+<li>Formats: <code>format: &quot;multi&quot;</code></li>
+<li>Positions &amp; Medals:<ul>
+<li><strong>1st Place:</strong> Gold Medal</li>
+<li><strong>2nd Place:</strong> Silver Medal</li>
+<li><strong>3rd Place:</strong> Bronze Medal</li>
+<li><strong>4th Place:</strong> 4th place finish recorded for tie-breaking</li>
+</ul>
+</li>
+<li>Validation: Times (e.g. <code>10.42s</code>), distances (e.g. <code>14.85m</code>), and athlete names selected from the student registry.</li>
+<li>Points: General track and field events award zero arbitrary league points; rankings reflect pure Olympic medal tallies.</li>
+</ul>
+<h3>4.3 Head-to-Head Ball Sports (Football &amp; Basketball)</h3>
+<ul>
+<li>Formats: <code>format: &quot;h2h&quot;</code></li>
+</ul>
+<h4>Football (Soccer)</h4>
+<ul>
+<li><strong>Tournament Structure:</strong> 3 Matchday Group Stage (each house plays 3 matches) + Knockout Final &amp; 3rd Place Match.</li>
+<li><strong>Standings Matrix:</strong> Matches Played (P), Won (W), Drawn (D), Lost (L), Goals For (GF), Goals Against (GA), Goal Difference (GD), Points (PTS).</li>
+<li><strong>Points Awarded:</strong> Win = 3 points, Draw = 1 point, Loss = 0 points.</li>
+<li><strong>Medal Distribution:</strong><ul>
+<li>Group Stage Matches: Award league points only; <strong>zero medals</strong>.</li>
+<li>Drawn Matches: Award 1 point each; <strong>zero medals</strong>.</li>
+<li>Gold Medal Final: Winner = Gold Medal, Runner-Up = Silver Medal.</li>
+<li>3rd Place Playoff: Winner = Bronze Medal.</li>
+</ul>
+</li>
+</ul>
+<h4>Basketball</h4>
+<ul>
+<li><strong>Tournament Structure:</strong> Pure Knockout Bracket.<ul>
+<li>Semi-Final 1 &amp; Semi-Final 2.</li>
+<li>3rd Place Playoff (Bronze Medal).</li>
+<li>Grand Championship Final (Gold &amp; Silver Medals).</li>
+</ul>
+</li>
+<li><strong>Match Tracking:</strong> Quarter scores, halftime scores, buzzer-beaters, total team points.</li>
+</ul>
+<hr>
+<h2>5. Functional Requirements &amp; Feature Specifications</h2>
+<h3>5.1 Module Matrix &amp; Navigation Map</h3>
+<pre><code>                              ┌──────────────────────────────────┐
+                              │          GLOBAL ROUTER           │
+                              │          (router.js)             │
+                              └────────────────┬─────────────────┘
+                                               │
+         ┌──────────────────┬──────────────────┼──────────────────┬──────────────────┐
+         ▼                  ▼                  ▼                  ▼                  ▼
+    #/events             #/table             #/news            #/houses           #/admin
+  Matches &amp; Heats       Standings        Media Gallery        House Hubs       Judge Console
+         │                  │                  │                  │                  │
+         ├─► #/event/:id    ├─► Football       ├─► Hashtags       └─► #/house/:id    ├─► #/admin/score/:id
+         │                  ├─► Basketball     ├─► Likes                             ├─► #/admin/students
+         └─► Filters        └─► 3D Podium      └─► Comments                          ├─► #/admin/rosters
+                                                                                     ├─► #/admin/new-event
+                                                                                     ├─► #/admin/logs
+                                                                                     └─► #/admin/admins
+</code></pre>
+<hr>
+<h3>5.2 Feature Specifications</h3>
+<h4>FR-01: Onboarding &amp; House Supporter Affiliation</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/onboarding</code>, <code>#/welcome</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>First-time visitors are presented with interactive house crest cards with glow animations.</li>
+<li>Selecting a house or team saves the choice to <code>localStorage.juilliard_supported_house</code> and <code>localStorage.juilliard_supported_pref_team</code>.</li>
+<li>Automatically customizes the user experience (highlighting supported house fixtures, showing personalized cheer banners).</li>
+<li>Provides quick access to Official Portal login for scrutineers.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-02: Matches &amp; Fixtures Schedule</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/events</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>FotMob-style fixtures layout organized chronologically or grouped by category.</li>
+<li><strong>Category Tabs:</strong> All, Track, Field, Football, Basketball, Novelty.</li>
+<li><strong>Gender Filtering:</strong> All, Boys, Girls, Mixed.</li>
+<li><strong>Status Filtering:</strong> All, Live, Upcoming, Completed.</li>
+<li><strong>Match Cards:</strong> Display contending houses, scheduled start time, live game clock or final score badge, venue lane, and status pills (<code>LIVE</code> pulsating red, <code>UPCOMING</code> amber, <code>COMPLETED</code> green).</li>
+<li>Clicking any card transitions to the dedicated Event Detail screen (<code>#/event/:id</code>).</li>
+</ul>
+</li>
+</ul>
+<h4>FR-03: Event &amp; Match Detail View</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/event/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Dynamic high-impact scoreboard header featuring house crests, background gradients, and live status indicator.</li>
+<li><strong>Head-to-Head Ball Matches:</strong><ul>
+<li>Live score, match status (e.g. &quot;FT&quot;, &quot;HT&quot;, &quot;Penalties&quot;).</li>
+<li>Tabbed view: <strong>Match Facts</strong> (scorers, cards, stadium), <strong>Live Commentary / Timeline</strong>, <strong>Lineups &amp; Squads</strong>, <strong>Head-to-Head History</strong>.</li>
+</ul>
+</li>
+<li><strong>Track &amp; Field Events:</strong><ul>
+<li>Visual 1st, 2nd, 3rd podium finisher cards.</li>
+<li>Athlete details, verified timing/distance, and official judge commentary notes.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>FR-04: Standings &amp; Leaderboard</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/table</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Interactive 3D Podium:</strong> Animated top-3 pedestals with glowing crests, smooth number tick animations, and total medal count.</li>
+<li><strong>Overall Medal Table:</strong> Full breakdown of Gold, Silver, Bronze, Total Medals, Points, and 4th finishes.</li>
+<li><strong>Category-Specific Standings View:</strong><ul>
+<li><strong>Football Table:</strong> Group stage table with P, W, D, L, GF, GA, GD, PTS.</li>
+<li><strong>Basketball Bracket:</strong> Visual tree rendering Semi-Finals, 3rd Place Match, and Championship Final with winner paths.</li>
+</ul>
+</li>
+<li>Form guides displaying last 5 match results (W/D/L badges).</li>
+</ul>
+</li>
+</ul>
+<h4>FR-05: House &amp; Team Profiles Hub</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/houses</code>, <code>#/house/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Showcase directory of all 4 Houses (or 4 Prefectorial Teams).</li>
+<li><strong>House Profile Page:</strong><ul>
+<li>Hero banner featuring mascot, official crest, house colors, and motto.</li>
+<li>Leadership roster: House Master/Mistress, Teacher Patrons, Student House Captain.</li>
+<li>Trophy showcase and historical Sports Day records.</li>
+<li>Full house athlete roster with search and grade filtering.</li>
+<li>Complete match history and upcoming schedule for that specific house.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>FR-06: Student &amp; Athlete Profiles</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/athlete/:id</code>, <code>#/student/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Dedicated dossier for any registered student athlete.</li>
+<li>Displays: Full Name, Class / Grade (e.g., JSS 2, SSS 3), Gender, Assigned House.</li>
+<li>Athletic achievements: Gold, Silver, Bronze medal count, events entered, personal best times/distances.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-07: News, Media Gallery &amp; Social Interactions</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/news</code>, <code>#/gallery</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Story Types:</strong><ul>
+<li><code>video</code>: HTML5 player with MP4 support, video duration, and custom thumbnail poster.</li>
+<li><code>photo</code>: High-res image gallery with multi-image lightbox support.</li>
+<li><code>article</code>: Editorial journalism, match analysis, and ceremonial reports.</li>
+</ul>
+</li>
+<li><strong>Single-Toggle Like System:</strong><ul>
+<li>Real-time like counter persisted in Firestore (<code>news.likes</code> and <code>news.likedBy</code>).</li>
+<li>Device/user key tracking in <code>localStorage</code> prevents duplicate likes; clicking again unlikes cleanly.</li>
+</ul>
+</li>
+<li><strong>Hashtags &amp; Filtering:</strong><ul>
+<li>Stories tagged with athletic hashtags (e.g. <code>#FootballFinal</code>, <code>#100mSprint</code>, <code>#GoldMedal</code>).</li>
+<li>Clicking any hashtag filters the active news stream; filter reset chip allows instant clearing.</li>
+</ul>
+</li>
+<li><strong>Live Commenting Stream:</strong><ul>
+<li>Spectators can submit real-time comments on stories.</li>
+<li>Admins have permission to delete inappropriate comments.</li>
+</ul>
+</li>
+<li><strong>Admin Story Publisher &amp; Editor:</strong><ul>
+<li>Verified judges can create new stories or edit existing stories (modify title, subtitle, media URL, tags with suggestion chips).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>FR-08: Scrutineer &amp; Judge Scoring Console</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/admin</code> (gated via <code>requireAdmin</code>)</li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Quick Event Action Table:</strong> Live search and filter across all tournament events.</li>
+<li><strong>Tactile Placing Form:</strong><ul>
+<li>Selection of 1st, 2nd, 3rd, and 4th place houses.</li>
+<li>Dynamic athlete search input hooked to HTML5 <code>&lt;datalist&gt;</code> populated by 1,000+ student directory.</li>
+<li>Input fields for Time (seconds), Distance (meters), or Ball Scores.</li>
+<li>Official scrutineer notes field for recording record-breaking performances.</li>
+<li>Instant live publishing to Cloud Firestore.</li>
+</ul>
+</li>
+<li><strong>Real-Time Sound Synthesizer:</strong> Triggers procedural whistle sound on submission and celebration fanfare on gold medal allocation.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-09: Student Database &amp; Roster Management</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/admin/students</code>, <code>#/admin/rosters</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Full CRUD management over student athlete directory.</li>
+<li><strong>Search &amp; Filter:</strong> Instant search by student name, filter by house, filter by grade.</li>
+<li><strong>Individual Student Operations:</strong> Add student, edit class/gender, remove student.</li>
+<li><strong>Bulk Import:</strong> Paste or import multi-student datasets.</li>
+<li><strong>Batch House Transfer Modal:</strong> Multi-select students and transfer them en masse from one house to another.</li>
+<li><strong>House Staff Roster Management:</strong> Update house captain, house motto, and patron teacher lists.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-10: Event Creator &amp; Schedule Configuration</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/admin/new-event</code>, <code>#/admin/edit-event/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Create new custom track, field, ball, or novelty events.</li>
+<li>Configure event title, category, gender division, scheduled time, format (<code>multi</code> vs <code>h2h</code>), and contenders.</li>
+<li>Adjust custom points matrix when applicable.</li>
+<li>Edit or delete existing scheduled events.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-11: Governance, Officials Council &amp; Scrutineer Audit Log</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/admin/admins</code>, <code>#/admin/logs</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Multi-Tier Role-Based Access Control (RBAC):</strong><ul>
+<li><code>super_admin</code>: Full administrative control, user provisioning, emergency resets.</li>
+<li><code>admin</code>: Scoring console, story publishing, event management.</li>
+<li><code>teacher</code>: Roster editing and student review.</li>
+</ul>
+</li>
+<li><strong>Permanent Super Admin Safeguards:</strong><ul>
+<li>Hardcoded super administrators (<code>ADM-001</code> David Festus, <code>ADM-003</code> Osaruyi Aideyan, Ihechukwu) cannot be locked out or deleted.</li>
+</ul>
+</li>
+<li><strong>Official PIN &amp; Password Authentication:</strong><ul>
+<li>Direct credential validation with encrypted fallback.</li>
+</ul>
+</li>
+<li><strong>Immutable Scrutineer Audit Trail (<code>admin_audit_logs</code>):</strong><ul>
+<li>Every score entry, event reset, or administrative modification records: Admin ID, Admin Name, Timestamp, Action Type, Event ID, Previous Value, New Value.</li>
+</ul>
+</li>
+<li><strong>Emergency Sports Day Reset:</strong><ul>
+<li>Master reset action to purge scores or reload official baseline seed data, protected by a two-step confirmation dialog.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>6. Technical Architecture &amp; Implementation Stack</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                              CLIENT BROWSER                                 │
+│                                                                             │
+│  ┌───────────────────────┐  ┌───────────────────────┐  ┌─────────────────┐  │
+│  │   Presentation Layer  │  │   Application Logic   │  │ Procedural Synt.│  │
+│  │   • Vanilla CSS3      │  │   • app.js / router.js│  │ • audio.js      │  │
+│  │   • Google Fonts      │  │   • pages.js          │  │ • Web Audio API │  │
+│  │   • SVG Icons         │  │   • admin.js / ui.js  │  │ • 0KB Audio Pack│  │
+│  └───────────┬───────────┘  └───────────┬───────────┘  └─────────────────┘  │
+│              │                          │                                   │
+│              ▼                          ▼                                   │
+│  ┌──────────────────────────────────────────────────┐                       │
+│  │           State &amp; Local Persistence              │                       │
+│  │   • window.*Cache     • localStorage (Theme/Cup) │                       │
+│  └──────────────────────────┬───────────────────────┘                       │
+└─────────────────────────────┼───────────────────────────────────────────────┘
+                              │ Real-Time WebSocket / SDK
+                              ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       FIREBASE CLOUD INFRASTRUCTURE                         │
+│                               (ja-mega-26)                                  │
+│                                                                             │
+│  ┌───────────────────────┐  ┌───────────────────────┐  ┌─────────────────┐  │
+│  │    Cloud Firestore    │  │     Firebase Auth     │  │Firebase Hosting │  │
+│  │ • Real-time snapshots │  │ • Google Sign-In      │  │ • CDN Fast Edge │  │
+│  │ • 8 Core Collections  │  │ • Email / Password    │  │ • SPA Rewrites  │  │
+│  │ • Security Rules v2   │  │ • Admin PIN Validation│  │ • Video Headers │  │
+│  └───────────────────────┘  └───────────────────────┘  └─────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>6.1 Technology Stack Details</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="left">Technology</th>
+<th align="left">Rationale</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Frontend Framework</strong></td>
+<td align="left"><strong>Vanilla ES Modules (No Framework)</strong></td>
+<td align="left">Zero build-step latency, ultra-lightweight bundle size, instant startup time on mobile devices.</td>
+</tr>
+<tr>
+<td align="left"><strong>Routing</strong></td>
+<td align="left">Custom Client-Side Hash Router (<code>router.js</code>)</td>
+<td align="left">Instant screen transitions, parameter parsing (<code>:id</code>), history API integration, zero server hops.</td>
+</tr>
+<tr>
+<td align="left"><strong>Styling &amp; Theming</strong></td>
+<td align="left">Vanilla CSS3 + Custom Properties (<code>styles.css</code>, <code>app-shell.css</code>)</td>
+<td align="left">60 FPS hardware-accelerated animations, FotMob dark mode, high-contrast light mode, responsive CSS Grid.</td>
+</tr>
+<tr>
+<td align="left"><strong>Sound Synthesis</strong></td>
+<td align="left">Web Audio API Procedural Synthesizer (<code>audio.js</code>)</td>
+<td align="left">Generates whistle, stadium celebration fanfare, and UI click sounds algorithmically with <strong>0 KB external audio download</strong>.</td>
+</tr>
+<tr>
+<td align="left"><strong>Realtime Database</strong></td>
+<td align="left">Google Cloud Firestore (Compat SDK 10.12.0)</td>
+<td align="left">Multi-client real-time synchronization via <code>onSnapshot</code> listeners (&lt; 400ms broadcast latency across stadium).</td>
+</tr>
+<tr>
+<td align="left"><strong>Authentication</strong></td>
+<td align="left">Firebase Auth + Custom Credential Store</td>
+<td align="left">Google OAuth 2.0, email/password, and administrative PIN session state management.</td>
+</tr>
+<tr>
+<td align="left"><strong>Hosting &amp; CDN</strong></td>
+<td align="left">Firebase Hosting</td>
+<td align="left">Global CDN, HTTP/2 multiplexing, CORS headers for MP4 video streaming, automatic SPA wildcard rewrites.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>7. Data Models &amp; Database Schema</h2>
+<p>Firestore database instance: <code>(default)</code> in project <code>ja-mega-26</code>.</p>
+<h3>7.1 Entity Relationship Diagram</h3>
+<pre><code>      ┌────────────────┐               ┌────────────────┐
+      │     HOUSES     │ 1           * │    STUDENTS    │
+      │ ────────────── │───────────────┤ ────────────── │
+      │ id (PK)        │               │ id (PK)        │
+      │ name           │               │ name           │
+      │ color          │               │ grade          │
+      │ goldCount      │               │ houseId (FK)   │
+      │ silverCount    │               │ gender         │
+      │ bronzeCount    │               └────────────────┘
+      │ teamPoints     │
+      └───────┬────────┘
+              │ 1
+              │
+              │ * (contenders)
+      ┌───────┴────────┐               ┌────────────────┐
+      │     EVENTS     │ 1           * │   AUDIT_LOGS   │
+      │ ────────────── │───────────────┤ ────────────── │
+      │ id (PK)        │               │ id (PK)        │
+      │ name           │               │ eventId (FK)   │
+      │ category       │               │ adminId (FK)   │
+      │ format         │               │ timestamp      │
+      │ status         │               │ action         │
+      │ results        │               │ previousValue  │
+      └────────────────┘               │ newValue       │
+                                       └────────────────┘
+</code></pre>
+<h3>7.2 Detailed Collection Schemas</h3>
+<h4>1. <code>houses</code> Collection</h4>
+<pre><code class="language-typescript">interface HouseDocument {
+  id: string;                 // &quot;phoenix&quot; | &quot;eagle&quot; | &quot;merlin&quot; | &quot;swift&quot; | &quot;team-*&quot;
+  name: string;               // e.g. &quot;Phoenix&quot;
+  motto: string;              // e.g. &quot;From the Ashes, We Rise to Glory&quot;
+  mascot: string;             // e.g. &quot;Phoenix Bird&quot;
+  color: string;              // Hex code, e.g. &quot;#EF4444&quot;
+  colorSecondary: string;     // Hex code, e.g. &quot;#DC2626&quot;
+  captain: string;            // e.g. &quot;Chinedu Ihejiahi (SS 3)&quot;
+  teachers: string[];         // Array of patron names
+  goldCount: number;          // Gold medals won
+  silverCount: number;        // Silver medals won
+  bronzeCount: number;        // Bronze medals won
+  fourthCount: number;        // 4th finishes
+  totalMedals: number;        // gold + silver + bronze
+  teamPoints: number;         // Football + Basketball league points
+  teamWins: number;           // Head-to-head match wins
+  teamDraws: number;          // Head-to-head match draws
+  teamLosses: number;         // Head-to-head match losses
+  teamGoalsFor: number;       // Total goals / baskets scored
+  teamGoalsAgainst: number;   // Total goals / baskets conceded
+}
+</code></pre>
+<h4>2. <code>events</code> Collection</h4>
+<pre><code class="language-typescript">interface EventDocument {
+  id: string;                 // e.g. &quot;track-100m-boys&quot;, &quot;pref-football-semi-1&quot;
+  name: string;               // e.g. &quot;100m Race (Boys)&quot;
+  category: &quot;Track&quot; | &quot;Field&quot; | &quot;Football&quot; | &quot;Basketball&quot; | &quot;Novelty&quot; | &quot;Ceremony&quot;;
+  gender: &quot;Boys&quot; | &quot;Girls&quot; | &quot;Mixed&quot;;
+  order: number;              // Display sorting sequence
+  status: &quot;upcoming&quot; | &quot;in_progress&quot; | &quot;live&quot; | &quot;completed&quot;;
+  format: &quot;multi&quot; | &quot;h2h&quot;;    // Multi-house placement vs Head-to-Head
+  scheduledTime?: string;     // e.g. &quot;09:30&quot;
+  contenders?: string[];      // Array of House IDs, e.g. [&quot;phoenix&quot;, &quot;eagle&quot;]
+  knockoutRound?: &quot;semi&quot; | &quot;final&quot; | &quot;third_place&quot; | &quot;group&quot;;
+  results: {
+    first?: { houseId: string; athlete: string; score: string; points?: number };
+    second?: { houseId: string; athlete: string; score: string; points?: number };
+    third?: { houseId: string; athlete: string; score: string; points?: number };
+    fourth?: { houseId: string; athlete: string; score: string; points?: number };
+  } | null;
+  notes?: string;             // e.g. &quot;Championship Record broken in Lane 4!&quot;
+  updatedAt?: string;         // ISO timestamp
+  updatedBy?: string;         // Admin ID
+}
+</code></pre>
+<h4>3. <code>students</code> Collection</h4>
+<pre><code class="language-typescript">interface StudentDocument {
+  id: string;                 // e.g. &quot;STU-1049&quot;
+  name: string;               // e.g. &quot;Chinedu Ihejiahi&quot;
+  grade: string;              // &quot;JSS 1&quot; - &quot;SSS 3&quot;
+  gender: &quot;Boys&quot; | &quot;Girls&quot;;
+  houseId: string;            // &quot;phoenix&quot; | &quot;eagle&quot; | &quot;merlin&quot; | &quot;swift&quot; | &quot;general&quot;
+  sports?: string[];          // e.g. [&quot;100m&quot;, &quot;4x100m&quot;, &quot;Football&quot;]
+  goldCount?: number;
+  silverCount?: number;
+  bronzeCount?: number;
+  personalBests?: Record&lt;string, string&gt;; // e.g. { &quot;100m&quot;: &quot;10.42s&quot; }
+}
+</code></pre>
+<h4>4. <code>news</code> Collection</h4>
+<pre><code class="language-typescript">interface NewsDocument {
+  id: string;                 // e.g. &quot;news-fb-final&quot;
+  title: string;              // Headline
+  subtitle?: string;          // Summary deck
+  type: &quot;video&quot; | &quot;photo&quot; | &quot;article&quot;;
+  category: string;           // &quot;Football&quot;, &quot;Track&quot;, etc.
+  mediaUrl: string;           // Asset path or external URL
+  videoThumbnail?: string;    // Poster image
+  videoDuration?: string;     // e.g. &quot;1:15&quot;
+  galleryImages?: string[];   // Multi-image list for photo stories
+  content: string;            // Story body
+  tags: string[];             // e.g. [&quot;FootballFinal&quot;, &quot;GoldMedal&quot;]
+  likes: number;              // Total likes
+  likedBy: string[];          // Array of voter hashes / client IDs
+  comments: Array&lt;{
+    id: string;
+    author: string;
+    text: string;
+    timestamp: string;
+    isAdmin?: boolean;
+  }&gt;;
+  author: string;             // e.g. &quot;Osaruyi Aideyan (Super Admin)&quot;
+  timestamp: string;          // ISO date string
+  formattedDate?: string;     // e.g. &quot;27 Sep, 10:00&quot;
+}
+</code></pre>
+<h4>5. <code>admins</code> &amp; <code>admin_credentials</code> Collections</h4>
+<pre><code class="language-typescript">interface AdminDocument {
+  id: string;                 // e.g. &quot;ADM-001&quot;
+  adminId: string;
+  name: string;               // e.g. &quot;David Festus&quot;
+  email: string;              // e.g. &quot;davidfestusugwu@gmail.com&quot;
+  title: string;              // e.g. &quot;Chief Scrutineer&quot;
+  role: &quot;super_admin&quot; | &quot;admin&quot; | &quot;teacher&quot; | &quot;official&quot;;
+  createdAt: string;
+}
+
+interface AdminCredentialDocument {
+  id: string;                 // email or adminId
+  passwordHash: string;       // SHA-256 / PBKDF2 hash or PIN
+  lastLogin: string;
+}
+</code></pre>
+<h4>6. <code>admin_audit_logs</code> Collection</h4>
+<pre><code class="language-typescript">interface AuditLogDocument {
+  id: string;
+  timestamp: string;          // ISO timestamp
+  adminId: string;            // Admin ID performing action
+  adminName: string;
+  action: &quot;submit_score&quot; | &quot;edit_score&quot; | &quot;reset_scores&quot; | &quot;add_student&quot; | &quot;transfer_house&quot;;
+  targetId: string;           // Event ID or Student ID
+  details: string;            // Human-readable summary
+  previousState?: any;
+  newState?: any;
+}
+</code></pre>
+<hr>
+<h2>8. UI/UX Design System &amp; Layout Specifications</h2>
+<h3>8.1 Visual Aesthetic Guidelines</h3>
+<ul>
+<li><strong>Core Inspiration:</strong> Modern professional sports broadcast interfaces (FotMob, Sofascore, Premier League App).</li>
+<li><strong>Dark Theme (Default):</strong><ul>
+<li>App Canvas: <code>#0A0A0C</code></li>
+<li>Card Surfaces: <code>#121216</code></li>
+<li>Elevated Popups / Modals: <code>#181820</code></li>
+<li>Borders &amp; Dividers: <code>#22222C</code></li>
+<li>Primary Text: <code>#FFFFFF</code></li>
+<li>Secondary / Muted Text: <code>#94A3B8</code></li>
+</ul>
+</li>
+<li><strong>Light Theme (Optional):</strong><ul>
+<li>App Canvas: <code>#F4F5F7</code></li>
+<li>Card Surfaces: <code>#FFFFFF</code></li>
+<li>Borders &amp; Dividers: <code>#E2E8F0</code></li>
+<li>Primary Text: <code>#0F172A</code></li>
+</ul>
+</li>
+<li><strong>Brand Accents:</strong><ul>
+<li>Gold Trophy Accent: <code>#F59E0B</code></li>
+<li>Live Pulsing Badge: <code>#EF4444</code></li>
+<li>Completed Status: <code>#10B981</code></li>
+</ul>
+</li>
+</ul>
+<h3>8.2 Typography</h3>
+<ul>
+<li><strong>Headings &amp; Brand Titles:</strong> <code>Outfit</code> (Weights: 600, 700, 800, 900) via Google Fonts. High-energy, athletic, modern.</li>
+<li><strong>Data Tables &amp; Body Text:</strong> <code>Inter</code> (Weights: 400, 500, 600, 700). Ultra-crisp numerical tabular alignment and readability.</li>
+</ul>
+<h3>8.3 Responsive Layout Strategy</h3>
+<h4>Desktop (Screen Width &gt;= 1024px)</h4>
+<ul>
+<li><strong>Global Sticky Header:</strong> Brand crest, tournament cup switcher badge, quick global search bar, desktop text navigation links, theme toggle, official login portal button.</li>
+<li><strong>3-Column Grid Shell:</strong><ul>
+<li><strong>Left Sidebar (280px):</strong> Live House standings ranking widget with miniature crests and points, plus category quick filters.</li>
+<li><strong>Center Viewport (Flex 1):</strong> Main active page screen (Matches, Standings Table, Event Details, Admin Console).</li>
+<li><strong>Right Sidebar (340px):</strong> Real-time News, video highlight reel player, and latest track results feed.</li>
+</ul>
+</li>
+</ul>
+<h4>Mobile &amp; Tablet (Screen Width &lt; 1024px)</h4>
+<ul>
+<li><strong>Single-Column App Shell:</strong> Compact header with current tournament badge and theme toggle.</li>
+<li><strong>Sticky Bottom Navigation Bar (5 Tabs):</strong><ol>
+<li><code>Matches</code> (<code>#/events</code>) — Icon: Calendar</li>
+<li><code>Table</code> (<code>#/table</code>) — Icon: Trophy</li>
+<li><code>News</code> (<code>#/news</code>) — Icon: Newspaper</li>
+<li><code>Houses</code> (<code>#/houses</code>) — Icon: Shield / House</li>
+<li><code>Judge</code> (<code>#/admin</code>) — Icon: Whistle / Gavel <em>(Conditionally rendered for authenticated officials only)</em></li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2>9. Security, Governance &amp; Audit Architecture</h2>
+<h3>9.1 Firestore Security Rules (<code>firestore.rules</code>)</h3>
+<pre><code class="language-javascript">rules_version = &#39;2&#39;;
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Public live read access for tournament transparency
+    match /houses/{houseId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /news/{newsId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /admin_audit_logs/{logId} {
+      allow read, write: if isAuthenticated() || request.time &lt; timestamp.date(2026, 10, 22);
+    }
+
+    match /admins/{adminId} {
+      allow read, write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /admin_credentials/{credId} {
+      allow read, write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+  }
+}
+</code></pre>
+<h3>9.2 Immutable Audit Trail &amp; Dispute Resolution</h3>
+<ul>
+<li>Every mutation to an event score generates an audit log entry in <code>/admin_audit_logs</code>.</li>
+<li>Logs record the authenticated official&#39;s ID, name, precise timestamp, before/after score payload, and reason.</li>
+<li>Guarantees transparency and eliminates scoring disputes between house masters.</li>
+</ul>
+<hr>
+<h2>10. Quality Assurance &amp; Verification Matrix</h2>
+<p>The application codebase contains an extensive automated and end-to-end verification suite in the <code>scratch/</code> directory:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Test Script</th>
+<th align="left">Verification Focus</th>
+<th align="left">Expected Output</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>verify_all_requirements.js</code></td>
+<td align="left">End-to-end verification of News like/unlike, tag filtering, story editor, football group table, and basketball bracket.</td>
+<td align="left">All 6 test suites pass; generates screenshot artifacts.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_cup_switch_e2e.js</code></td>
+<td align="left">Real-time tournament switcher between Interhouse and Prefectship Cup.</td>
+<td align="left">State isolation confirmed; correct house rosters rendered.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_points_removal.js</code></td>
+<td align="left">Ensures track/field events strictly award Olympic medals without legacy points.</td>
+<td align="left">Medal ranking mathematically verified.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>simulate_full_championship.mjs</code></td>
+<td align="left">Full simulation of 35 championship events with realistic race times and football scores.</td>
+<td align="left">Firestore batch updates succeed; standings recalculate accurately.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_h2h_scores.js</code></td>
+<td align="left">Football head-to-head score parsing, drawn match handling, and league points award.</td>
+<td align="left">Win (3 pts), Draw (1 pt), Loss (0 pts) confirmed.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>test_athlete_stat_matching.js</code></td>
+<td align="left">Links student registry with placing results and verifies athlete profile stats.</td>
+<td align="left">Medals correctly aggregated per student.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_production_osaruyi.js</code></td>
+<td align="left">Super admin session validation and permissions check.</td>
+<td align="left">Full super admin capabilities confirmed.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>11. Deployment, Hosting &amp; Operations Runbook</h2>
+<h3>11.1 Firebase Hosting Configuration (<code>firebase.json</code>)</h3>
+<pre><code class="language-json">{
+  &quot;hosting&quot;: {
+    &quot;public&quot;: &quot;public&quot;,
+    &quot;ignore&quot;: [&quot;firebase.json&quot;, &quot;**/.*&quot;, &quot;**/node_modules/**&quot;],
+    &quot;headers&quot;: [
+      {
+        &quot;source&quot;: &quot;**/*.@(mp4|webm)&quot;,
+        &quot;headers&quot;: [
+          { &quot;key&quot;: &quot;Access-Control-Allow-Origin&quot;, &quot;value&quot;: &quot;*&quot; },
+          { &quot;key&quot;: &quot;Cache-Control&quot;, &quot;value&quot;: &quot;public, max-age=604800&quot; }
+        ]
+      }
+    ],
+    &quot;rewrites&quot;: [
+      { &quot;source&quot;: &quot;**&quot;, &quot;destination&quot;: &quot;/index.html&quot; }
+    ]
+  }
+}
+</code></pre>
+<h3>11.2 Deployment Commands</h3>
+<ul>
+<li><strong>Deploy Full Stack:</strong><pre><code class="language-bash">firebase deploy --project ja-mega-26
+</code></pre>
+</li>
+<li><strong>Deploy Hosting Only:</strong><pre><code class="language-bash">firebase deploy --only hosting --project ja-mega-26
+</code></pre>
+</li>
+<li><strong>Deploy Firestore Security Rules &amp; Indexes:</strong><pre><code class="language-bash">firebase deploy --only firestore --project ja-mega-26
+</code></pre>
+</li>
+</ul>
+<h3>11.3 Local Development Server</h3>
+<ul>
+<li>To run locally without build dependencies:<pre><code class="language-powershell">python scratch/dev_server.py 5055
+# or
+npx -y serve public -l 5055
+</code></pre>
+</li>
+<li>Access in browser: <code>http://localhost:5055</code></li>
+<li>Super Admin autologin test query: <code>http://localhost:5055/?admin=osaruyi</code> or <code>http://localhost:5055/?autologin=admin</code></li>
+</ul>
+<hr>
+<h2>12. Future Roadmap &amp; Enhancements</h2>
+<ol>
+<li><strong>Push Notifications:</strong> Web Push API integration for instant goal, race start, and gold medal alert notifications to spectators.</li>
+<li><strong>Live Video Streaming (HLS/WebRTC):</strong> Embedding low-latency stadium camera feeds directly into the Event Detail and News header.</li>
+<li><strong>Parent &amp; Alumni March Past Voting:</strong> Interactive spectator voting for the Best Dressed House and Most Creative March Past Salute.</li>
+<li><strong>Automated Certificate &amp; Official Results Export:</strong> One-click PDF generation of official event result sheets signed by the Chief Scrutineer and Head of School.</li>
+<li><strong>Wearable / Smart Stopwatch BLE Integration:</strong> Direct Bluetooth Low Energy link with digital stopwatches to feed sprint times directly into the scoring console.</li>
+</ol>

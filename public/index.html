@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0A0A0C">
+  <meta name="description" content="Juilliard Academy Interhouse Sports Day — Live scores, standings, and results for Eagle, Merlin, Phoenix & Swift">
+  <title>Juilliard Academy — Interhouse Sports Day</title>
+
+  <!-- Google Fonts: Outfit (Brand & Headings) + Inter (Crisp Typography) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="assets/juilliard-logo.png">
+  <link rel="apple-touch-icon" href="assets/juilliard-logo.png">
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css?v=20260927_news_edit_tags_like_v3">
+  <link rel="stylesheet" href="css/components.css?v=20260927_news_edit_tags_like_v3">
+
+  <!-- Firebase Compat SDK -->
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script defer src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- App Application Entrypoint -->
+  <script type="module" src="js/app.js?v=20260927_news_edit_tags_like_v3"></script>
+</head>
+<body>
+
+  <!-- Main App Container Frame -->
+  <div class="jais-app-container">
+
+    <!-- Desktop Global Top Navigation Bar (Visible on Laptops & Desktops >= 1024px) -->
+    <header id="desktop-top-header" class="jais-desktop-header" aria-label="Desktop Navigation">
+      <div class="jais-desktop-header-inner">
+        <!-- Brand & Crest -->
+        <a href="#/events" class="jais-desktop-brand" id="desktop-brand-link">
+          <img src="assets/juilliard-logo.png" alt="Juilliard Academy" class="jais-desktop-logo" />
+          <div class="jais-desktop-brand-text">
+            <strong>JUILLIARD</strong>
+            <span id="desktop-brand-subtitle">SPORTS DAY 2026</span>
+          </div>
+        </a>
+
+        <!-- Tournament Switcher Badge Button -->
+        <div class="jais-desktop-comp-switcher">
+          <button type="button" class="jais-comp-switcher-btn" id="desktop-comp-btn" onclick="window.pages.openCompetitionSelectorModal()" title="Switch Tournament Cup">
+            <span id="desktop-comp-icon">🏆</span>
+            <span id="desktop-comp-label">Prefectship Cup</span>
+            <span class="caret">▾</span>
+          </button>
+        </div>
+
+        <!-- Desktop Quick Search Bar -->
+        <div class="jais-desktop-search-wrap">
+          <span class="jais-desktop-search-icon" id="desktop-search-icon"></span>
+          <input type="text" id="desktop-global-search" 
+                 placeholder="Search matches, athletes, teams, events..." 
+                 oninput="window.pages.handleDesktopSearch(this.value)" />
+        </div>
+
+        <!-- Desktop Navigation Links -->
+        <nav class="jais-desktop-nav-links">
+          <a href="#/events" class="jais-desktop-nav-link" id="desktop-nav-events">Matches</a>
+          <a href="#/table" class="jais-desktop-nav-link" id="desktop-nav-table">Standings</a>
+          <a href="#/news" class="jais-desktop-nav-link" id="desktop-nav-news">News &amp; Media</a>
+          <a href="#/houses" class="jais-desktop-nav-link" id="desktop-nav-houses">Houses</a>
+          <a href="#/competitions" class="jais-desktop-nav-link" id="desktop-nav-switch-cup" style="color: var(--fm-gold); font-weight: 700;">Switch Cup</a>
+          <a href="#/admin" class="jais-desktop-nav-link" id="desktop-nav-admin" style="display: none;">Judge Console</a>
+        </nav>
+
+        <!-- Right Desktop Actions -->
+        <div class="jais-desktop-actions">
+          <button class="jais-icon-btn" onclick="window.toggleTheme()" title="Toggle Theme" aria-label="Toggle Theme" id="desktop-theme-toggle">
+          </button>
+          <a href="#/onboarding" class="jais-desktop-official-badge" title="Official Login">
+            Official Portal
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Desktop 3-Column Shell (Single Column on Mobile) -->
+    <div class="jais-desktop-shell">
+
+      <!-- Left Desktop Sidebar: Live House Standings & Category Shortcuts -->
+      <aside id="desktop-sidebar-left" class="jais-desktop-sidebar-left" aria-label="House Standings & Categories">
+        <!-- Rendered dynamically by renderDesktopSidebars() -->
+      </aside>
+
+      <!-- Center Main Page Screens Viewport (Driven by Router with Dedicated Screen Headers) -->
+      <main id="app-viewport">
+        
+        <!-- Tournament Selection Screen (#/competitions, #/select-cup) -->
+        <section id="screen-competitions" class="page-screen"></section>
+
+        <!-- Matches / Fixtures Schedule (#/events) -->
+        <section id="screen-events" class="page-screen"></section>
+
+        <!-- Standings Table (#/table) -->
+        <section id="screen-table" class="page-screen"></section>
+
+        <!-- Match Detail & Facts / Commentary (#/event/:id) -->
+        <section id="screen-event-detail" class="page-screen"></section>
+
+        <!-- House / Team Profiles Hub (#/houses) -->
+        <section id="screen-houses" class="page-screen"></section>
+
+        <!-- Dedicated Single House Profile (#/house/:id) -->
+        <section id="screen-house-detail" class="page-screen"></section>
+
+        <!-- House Supporter Onboarding & Official Login (#/onboarding, #/welcome) -->
+        <section id="screen-onboarding" class="page-screen"></section>
+        <section id="screen-welcome" class="page-screen"></section>
+
+        <!-- Official Scoring Console (#/admin) -->
+        <section id="screen-admin" class="page-screen"></section>
+
+        <!-- Dedicated Score Entry Screen (#/admin/score/:id) -->
+        <section id="screen-score-entry" class="page-screen"></section>
+
+        <!-- House Rosters Management (#/admin/rosters) -->
+        <section id="screen-rosters" class="page-screen"></section>
+
+        <!-- New Event Creator (#/admin/new-event) -->
+        <section id="screen-new-event" class="page-screen"></section>
+
+        <!-- Event Setup & Configuration (#/admin/edit-event/:id) -->
+        <section id="screen-edit-event" class="page-screen"></section>
+
+        <!-- Student Database (#/admin/students) -->
+        <section id="screen-students" class="page-screen"></section>
+
+        <!-- Athlete & Student Profile Screen (#/athlete/:id, #/student/:id) -->
+        <section id="screen-athlete-profile" class="page-screen"></section>
+
+        <!-- News & Multimedia Gallery (#/news, #/gallery) -->
+        <section id="screen-news" class="page-screen"></section>
+
+      </main>
+
+      <!-- Right Desktop Sidebar: News & Video Highlights Feed (Matching Reference Image) -->
+      <aside id="desktop-sidebar-right" class="jais-desktop-sidebar-right" aria-label="Latest News & Highlights">
+        <!-- Rendered dynamically by renderDesktopSidebars() -->
+      </aside>
+
+    </div>
+
+    <!-- Sticky Bottom Navigation Bar -->
+    <nav class="jais-bottom-bar" aria-label="Main Navigation">
+      <a href="#/events" class="jais-nav-item" id="bottom-nav-events">
+        <span class="nav-item-icon" id="bottom-nav-events-icon"></span>
+        <span>Matches</span>
+      </a>
+
+      <a href="#/table" class="jais-nav-item" id="bottom-nav-table">
+        <span class="nav-item-icon" id="bottom-nav-table-icon"></span>
+        <span>Table</span>
+      </a>
+
+      <a href="#/news" class="jais-nav-item" id="bottom-nav-news">
+        <span class="nav-item-icon" id="bottom-nav-news-icon"></span>
+        <span>News</span>
+      </a>
+
+      <a href="#/houses" class="jais-nav-item" id="bottom-nav-houses">
+        <span class="nav-item-icon" id="bottom-nav-houses-icon"></span>
+        <span>Houses</span>
+      </a>
+
+      <a href="#/admin" class="jais-nav-item" id="bottom-nav-admin" style="display: none;">
+        <span class="nav-item-icon" id="bottom-nav-admin-icon"></span>
+        <span>Judge</span>
+      </a>
+    </nav>
+
+  </div>
+
+</body>
+</html>

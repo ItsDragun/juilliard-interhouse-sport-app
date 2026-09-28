@@ -1,0 +1,354 @@
+/* ==========================================================================
+   Juilliard Interhouse Sports Day - Main Stylesheet
+   Modern Athletic / Sports Broadcast Theme
+   ========================================================================== */
+
+:root, [data-theme="dark"] {
+  --theme-mode: dark;
+  --bg-deep: #090C13;
+  --bg-surface: #101622;
+  --bg-surface-elevated: #161F30;
+  --bg-card: #141B28;
+  --bg-card-hover: #1A2436;
+  --bg-chip: #182233;
+  --bg-chip-hover: #222E44;
+  --bg-input: #0D121C;
+  --bg-elevated: #1A2334;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-glow: rgba(255, 255, 255, 0.22);
+
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #64748B;
+  --text-accent: #38BDF8;
+  --jais-green: #00E676;
+  --jais-green-dark: #00C853;
+  --jais-green-glow: rgba(0, 230, 118, 0.35);
+
+  --header-bg: rgba(9, 12, 19, 0.94);
+  --bottom-nav-bg: rgba(9, 12, 19, 0.96);
+  --bottom-nav-border: rgba(255, 255, 255, 0.08);
+  --ticker-bg: #101622;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.6);
+
+  /* House Specific Theme Variables */
+  --house-phoenix: #EF4444;       /* Solid Red */
+  --house-phoenix-sec: #DC2626;
+  --house-phoenix-glow: rgba(239, 68, 68, 0.35);
+
+  --house-eagle: #F97316;         /* Solid Orange */
+  --house-eagle-sec: #EA580C;
+  --house-eagle-glow: rgba(249, 115, 22, 0.35);
+
+  --house-merlin: #2563EB;        /* Solid Blue */
+  --house-merlin-sec: #1D4ED8;
+  --house-merlin-glow: rgba(37, 99, 235, 0.35);
+
+  --house-swift: #FACC15;         /* Solid Yellow */
+  --house-swift-sec: #EAB308;
+  --house-swift-glow: rgba(250, 204, 21, 0.35);
+
+  /* Medals */
+  --gold: #FACC15;
+  --silver: #CBD5E1;
+  --bronze: #F97316;
+
+  /* Typography */
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  /* Radius & Glass */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-full: 9999px;
+  --glass-blur: blur(14px);
+}
+
+/* ==========================================================================
+   Juilliard Sports Light Theme Mode
+   Clean, high-contrast, pure white cards with soft slate background
+   ========================================================================== */
+[data-theme="light"] {
+  --theme-mode: light;
+  --bg-deep: #F1F4F9;
+  --bg-surface: #FFFFFF;
+  --bg-surface-elevated: #F8FAFC;
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F8FAFC;
+  --bg-chip: #E2E8F0;
+  --bg-chip-hover: #CBD5E1;
+  --bg-input: #F8FAFC;
+  --bg-elevated: #FFFFFF;
+
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+  --border-glow: rgba(0, 0, 0, 0.08);
+
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
+  --text-accent: #0284C7;
+  --jais-green: #00A854;
+  --jais-green-dark: #008744;
+  --jais-green-glow: rgba(0, 168, 84, 0.25);
+
+  --header-bg: rgba(255, 255, 255, 0.94);
+  --bottom-nav-bg: rgba(255, 255, 255, 0.96);
+  --bottom-nav-border: #E2E8F0;
+  --ticker-bg: #FFFFFF;
+
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 12px 30px rgba(15, 23, 42, 0.12);
+
+  /* High contrast colors on white backgrounds */
+  --house-phoenix: #DC2626;
+  --house-phoenix-sec: #B91C1C;
+  --house-phoenix-glow: rgba(220, 38, 38, 0.2);
+
+  --house-eagle: #EA580C;
+  --house-eagle-sec: #C2410C;
+  --house-eagle-glow: rgba(234, 88, 12, 0.2);
+
+  --house-merlin: #2563EB;
+  --house-merlin-sec: #1D4ED8;
+  --house-merlin-glow: rgba(37, 99, 235, 0.2);
+
+  --house-swift: #D97706; /* Rich warm amber for optimal contrast on white */
+  --house-swift-sec: #B45309;
+  --house-swift-glow: rgba(217, 119, 6, 0.2);
+
+  --gold: #D97706;
+  --silver: #64748B;
+  --bronze: #C2410C;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-family: var(--font-body);
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--bg-deep);
+  color: var(--text-primary);
+  transition: background-color 0.2s ease, color 0.2s ease;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* App Header & Navbar */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(14, 19, 31, 0.82);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.75rem 1.25rem;
+}
+
+.header-container {
+  max-width: 1380px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  text-decoration: none;
+  color: inherit;
+}
+
+.brand-crest {
+  width: 42px;
+  height: 42px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, #EF4444, #F59E0B, #8B5CF6, #10B981);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.brand-crest span {
+  font-size: 1.35rem;
+  font-weight: 800;
+  font-family: var(--font-display);
+  color: #FFF;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.brand-text h1 {
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(to right, #FFF 30%, #94A3B8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2;
+}
+
+.brand-text p {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.live-beacon {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  background: rgba(239, 68, 68, 0.16);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #F87171;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #EF4444;
+  animation: pulse-glow 1.5s infinite;
+}
+
+@keyframes pulse-glow {
+  0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.8); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); }
+  100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+/* Header Action Controls */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.stadium-clock {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: var(--bg-surface-elevated);
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-subtle);
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .stadium-clock {
+    display: block;
+  }
+}
+
+/* Main Container Layout */
+.app-main {
+  flex: 1;
+  max-width: 1380px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+/* Navigation Tabs */
+.view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--bg-surface);
+  padding: 0.35rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.view-tabs::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tab-btn:hover {
+  color: var(--text-primary);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.tab-btn.active {
+  color: #FFF;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-strong);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+/* App Footer */
+.app-footer {
+  margin-top: auto;
+  background: var(--bg-surface);
+  border-top: 1px solid var(--border-subtle);
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.app-footer a {
+  color: var(--text-accent);
+  text-decoration: none;
+}

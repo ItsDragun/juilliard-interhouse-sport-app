@@ -1,0 +1,241 @@
+/* ==========================================================================
+   Juilliard Interhouse Sports Day - Events & Results Grid Styles
+   ========================================================================== */
+
+.events-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Filter Controls Bar */
+.events-toolbar {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-bottom: 2px;
+}
+
+.filter-row::-webkit-scrollbar {
+  display: none;
+}
+
+.filter-chip {
+  padding: 0.4rem 0.85rem;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-chip);
+  color: var(--text-secondary);
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s ease;
+  user-select: none;
+}
+
+.filter-chip:hover {
+  color: var(--text-primary);
+  background: var(--bg-chip-hover);
+  border-color: var(--border-strong);
+}
+
+.filter-chip.active {
+  background: var(--text-accent);
+  color: #FFFFFF;
+  border-color: var(--text-accent);
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(2, 132, 199, 0.35);
+}
+
+/* Secondary Filter / Counts Summary */
+.filter-meta-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+
+/* Events Grid */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0.85rem;
+}
+
+@media (max-width: 640px) {
+  .events-grid {
+    grid-template-columns: 1fr;
+  }
+  .events-toolbar {
+    padding: 0.75rem;
+    border-radius: var(--radius-md);
+  }
+}
+
+/* Event Card */
+.event-card {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: all 0.22s ease;
+  position: relative;
+}
+
+.event-card:hover {
+  border-color: var(--border-strong);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.event-card.card-completed {
+  border-left: 4px solid #10B981;
+}
+
+.event-card.card-live {
+  border-left: 4px solid #EF4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, var(--bg-card) 60%);
+}
+
+.event-card.card-upcoming {
+  border-left: 4px solid #64748B;
+}
+
+.event-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.event-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.event-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
+}
+
+.event-tag-track { color: #38BDF8; background: rgba(56, 189, 248, 0.12); }
+.event-tag-field { color: #A78BFA; background: rgba(167, 139, 250, 0.12); }
+.event-tag-team { color: #34D399; background: rgba(52, 211, 153, 0.12); }
+.event-tag-novelty { color: #FBBF24; background: rgba(251, 191, 36, 0.12); }
+
+.event-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #FFF;
+  margin-top: 0.2rem;
+  line-height: 1.3;
+}
+
+.event-notes {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* Event Results Mini Podium (inside card) */
+.event-mini-results {
+  background: var(--bg-surface-elevated);
+  border-radius: var(--radius-sm);
+  padding: 0.65rem 0.85rem;
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.result-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 0.82rem;
+}
+
+.result-place {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.place-num {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.8rem;
+  width: 18px;
+  text-align: center;
+}
+
+.place-1 { color: var(--gold); }
+.place-2 { color: var(--silver); }
+.place-3 { color: var(--bronze); }
+.place-4 { color: var(--text-muted); }
+
+.result-athlete {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.result-points {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--text-secondary);
+  font-size: 0.85rem;
+}
+
+/* Event Actions in Card */
+.event-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+/* Empty State */
+.empty-state {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 1rem;
+  background: var(--bg-surface);
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--border-strong);
+  color: var(--text-muted);
+}
+
+.empty-state p {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}

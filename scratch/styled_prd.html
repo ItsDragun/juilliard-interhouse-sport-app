@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Juilliard Academy — Interhouse Sports Day PRD</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Outfit:wght@600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+
+    @page {
+      size: A4;
+      margin: 18mm 15mm 18mm 15mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 9pt;
+      line-height: 1.55;
+      color: #1E293B;
+      background: #FFFFFF;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* Cover Page Banner */
+    .cover-banner {
+      text-align: center;
+      padding: 30px 20px 24px;
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+      color: #FFFFFF;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .cover-logo {
+      width: 70px;
+      height: auto;
+      margin-bottom: 12px;
+      background: #FFFFFF;
+      padding: 6px;
+      border-radius: 50%;
+    }
+
+    .cover-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22pt;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      margin: 0 0 4px 0;
+      color: #FFFFFF;
+      text-transform: uppercase;
+    }
+
+    .cover-subtitle {
+      font-family: 'Outfit', sans-serif;
+      font-size: 11.5pt;
+      font-weight: 600;
+      color: #FBBF24;
+      margin: 0 0 16px 0;
+      letter-spacing: 0.5px;
+    }
+
+    .cover-meta-grid {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+    }
+
+    .cover-meta-item {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 6px 14px;
+      font-size: 8pt;
+      text-align: left;
+    }
+
+    .cover-meta-item strong {
+      display: block;
+      color: #94A3B8;
+      font-size: 7pt;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .cover-meta-item span {
+      color: #F8FAFC;
+      font-weight: 600;
+    }
+
+    /* Headings */
+    h1, h2, h3, h4, h5, h6 {
+      font-family: 'Outfit', sans-serif;
+      color: #0F172A;
+      margin-top: 1.4em;
+      margin-bottom: 0.4em;
+      page-break-after: avoid;
+      break-after: avoid;
+    }
+
+    h1 {
+      font-size: 15pt;
+      font-weight: 800;
+      border-bottom: 2px solid #E2E8F0;
+      padding-bottom: 5px;
+      margin-top: 2em;
+    }
+
+    h2 {
+      font-size: 12.5pt;
+      font-weight: 800;
+      color: #0F172A;
+      border-left: 4px solid #EF4444;
+      padding-left: 8px;
+      margin-top: 1.6em;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    h3 {
+      font-size: 10.5pt;
+      font-weight: 700;
+      color: #334155;
+      margin-top: 1.2em;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+
+    h4 {
+      font-size: 9.5pt;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+    }
+
+    p {
+      margin: 0.5em 0;
+      text-align: justify;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 12px 0 16px;
+      font-size: 8pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      border: 1px solid #CBD5E1;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    thead {
+      background: #0F172A;
+      color: #FFFFFF;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+    }
+
+    th {
+      padding: 6px 9px;
+      text-align: left;
+      border: 1px solid #334155;
+      color: #FFFFFF;
+      font-size: 8pt;
+    }
+
+    td {
+      padding: 5px 9px;
+      border: 1px solid #E2E8F0;
+      vertical-align: top;
+      color: #334155;
+    }
+
+    tr:nth-child(even) {
+      background: #F8FAFC;
+    }
+
+    /* Blockquotes */
+    blockquote {
+      margin: 10px 0;
+      padding: 8px 14px;
+      border-left: 4px solid #2563EB;
+      background: #EFF6FF;
+      color: #1E40AF;
+      border-radius: 0 6px 6px 0;
+      font-size: 8.5pt;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+
+    blockquote p {
+      margin: 0;
+    }
+
+    /* Code & Pre */
+    pre {
+      background: #0F172A;
+      color: #F8FAFC;
+      padding: 9px 12px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 7.5pt;
+      line-height: 1.42;
+      overflow-x: auto;
+      page-break-inside: avoid;
+      break-inside: avoid;
+      margin: 10px 0;
+      border: 1px solid #1E293B;
+    }
+
+    code {
+      font-family: 'JetBrains Mono', Consolas, monospace;
+      font-size: 8pt;
+      background: #F1F5F9;
+      color: #0F172A;
+      padding: 1px 4px;
+      border-radius: 3px;
+      border: 1px solid #E2E8F0;
+    }
+
+    pre code {
+      background: transparent;
+      color: inherit;
+      padding: 0;
+      border: none;
+    }
+
+    ul, ol {
+      margin: 0.4em 0;
+      padding-left: 18px;
+    }
+
+    li {
+      margin-bottom: 0.25em;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px solid #E2E8F0;
+      margin: 18px 0;
+    }
+
+    /* Running Document Footer */
+    .doc-footer {
+      margin-top: 30px;
+      padding-top: 12px;
+      border-top: 2px solid #E2E8F0;
+      font-size: 7.5pt;
+      color: #64748B;
+      text-align: center;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="cover-banner">
+    <img src='data:image/png;base64,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' class='cover-logo' alt='Juilliard Academy' />
+    <div class="cover-title">Juilliard Academy</div>
+    <div class="cover-subtitle">Interhouse Sports Day — Product Requirement Document (PRD)</div>
+    <div class="cover-meta-grid">
+      <div class="cover-meta-item">
+        <strong>Platform Identifier</strong>
+        <span>ja-mega-26</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Target Session</strong>
+        <span>2026 Academic Year</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Document Status</strong>
+        <span>Production Baseline</span>
+      </div>
+      <div class="cover-meta-item">
+        <strong>Version</strong>
+        <span>1.0.0 (Official Release)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    
+
+<p><strong>Platform Identifier:</strong> <code>ja-mega-26</code><br><strong>Application Title:</strong> Juilliard Academy Interhouse Sports Day Web Platform<br><strong>Target Release:</strong> 2026 Academic Session<br><strong>Document Status:</strong> Production Baseline<br><strong>Document Version:</strong> 1.0.0<br><strong>Last Updated:</strong> September 2026  </p>
+<hr>
+<h2>1. Executive Summary &amp; Product Vision</h2>
+<h3>1.1 Overview</h3>
+<p>The <strong>Juilliard Academy Interhouse Sports Day Application</strong> is a real-time tournament broadcasting and official scoring platform purpose-built for Juilliard Academy’s premier athletic competitions. Inspired by world-class professional sports platforms such as <strong>FotMob</strong>, <strong>Sofascore</strong>, and <strong>ESPN</strong>, the application bridges high-octane stadium excitement with precision sports administrative governance.</p>
+<p>The platform provides an end-to-end digital experience:</p>
+<ul>
+<li><strong>For Spectators, Students, and Parents:</strong> Sub-second live scoreboards, match fixtures, interactive 3D podiums, athlete bios, high-resolution multimedia gallery, video highlights, and social engagement (likes, comments, and hashtag streams).</li>
+<li><strong>For Officials, Scrutineers, and Judges:</strong> A secure, role-gated administrative console for live timing entry, race placings, match statistics, football and basketball knockout brackets, student roster assignment, and immutable audit logging.</li>
+</ul>
+<h3>1.2 Mission Statement</h3>
+<blockquote>
+<p><em>&quot;To deliver an immersive, lightning-fast, and transparent digital stadium atmosphere that elevates student athletic achievements, unites the school community behind their houses, and guarantees absolute integrity in competition scoring.&quot;</em></p>
+</blockquote>
+<h3>1.3 Key Value Propositions</h3>
+<ol>
+<li><strong>FotMob-Caliber Match &amp; Event Experience:</strong> Professional match cards, live status pulses, event countdowns, tactical head-to-head records, and play-by-play timelines.</li>
+<li><strong>Dual-Competition Architecture:</strong> Seamless real-time switching between the flagship <strong>Interhouse Sports Championship</strong> (4 Houses) and the <strong>Prefectship Cup</strong> (4 Prefectorial Teams).</li>
+<li><strong>Olympic-Standard Medal Tallying &amp; Multi-Format Scoring:</strong> Strict Olympic medal hierarchy (Gold &gt; Silver &gt; Bronze) for track and field, coupled with football group/knockout points tables and basketball knockout brackets.</li>
+<li><strong>Master Student Roster &amp; Athlete Profiles:</strong> Full integration with a 1,000+ student directory featuring grades (JSS 1 through SSS 3), house rosters, personal bests, and career medal counts.</li>
+<li><strong>Realtime Collaborative Official Console:</strong> High-precision scoring interface with datalist auto-completion, tie-break handlers, penalty shootouts, and an automated audit trail for dispute prevention.</li>
+<li><strong>Zero-Latency Client-Side Performance:</strong> Built with lightweight Vanilla ES Modules, CSS variables, and Web Audio API procedural sound synthesis (0KB audio asset payload) backed by Google Cloud Firestore real-time websockets.</li>
+</ol>
+<hr>
+<h2>2. Stakeholders &amp; User Personas</h2>
+<table>
+<thead>
+<tr>
+<th align="left">Persona</th>
+<th align="left">Primary Needs &amp; Motivations</th>
+<th align="left">Typical Journey</th>
+<th align="left">Permissions</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Student Athlete</strong></td>
+<td align="left">Check scheduled heat times, monitor house standings, view personal profile, verify race times and medal records.</td>
+<td align="left">Arrives via mobile -&gt; selects house -&gt; navigates to <strong>Matches</strong> or <strong>Table</strong> -&gt; views individual profile via athlete search.</td>
+<td align="left">Public Read</td>
+</tr>
+<tr>
+<td align="left"><strong>Spectator / Parent</strong></td>
+<td align="left">Follow live matches in real-time from the stands or remotely, watch video highlights, read match reports, cheer and comment.</td>
+<td align="left">Opens link -&gt; selects house affiliation -&gt; tracks live ticker -&gt; likes/comments on news stories.</td>
+<td align="left">Public Read + Comment / Like</td>
+</tr>
+<tr>
+<td align="left"><strong>House Master / Mistress</strong></td>
+<td align="left">Track house performance across categories, inspect athlete rosters, cheer team members, strategize event participation.</td>
+<td align="left">Inspects <strong>Houses</strong> hub -&gt; reviews house roster and medal breakdown -&gt; monitors live leaderboard.</td>
+<td align="left">Public Read</td>
+</tr>
+<tr>
+<td align="left"><strong>Judge / Scrutineer / Official</strong></td>
+<td align="left">Input track sprint times, field jump distances, head-to-head ball scores, award podium finishes, manage official notices.</td>
+<td align="left">Logs in via PIN / Google Auth -&gt; opens <strong>Judge Console</strong> -&gt; enters score modal -&gt; publishes official results live.</td>
+<td align="left">Admin Write (<code>admin</code>)</td>
+</tr>
+<tr>
+<td align="left"><strong>Super Administrator / Head Patron</strong></td>
+<td align="left">Maintain system governance, audit all scoring changes, manage official accounts, conduct batch student transfers, emergency resets.</td>
+<td align="left">Accesses <strong>Admin Console</strong> -&gt; audits real-time logs -&gt; creates/manages official credentials -&gt; oversees full championship data.</td>
+<td align="left">Super Admin (<code>super_admin</code>)</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>3. Domain Model &amp; Tournament Architecture</h2>
+<p>The platform supports a <strong>Dual-Tournament Architecture</strong> allowing users to switch between tournaments on the fly while maintaining independent data caches, state isolation, and visual branding.</p>
+<pre><code>                              ┌──────────────────────────────────────────────┐
+                              │       JUILLIARD ACADEMY SPORTS PLATFORM      │
+                              │                  (ja-mega-26)                │
+                              └──────────────────────┬───────────────────────┘
+                                                     │
+                         ┌───────────────────────────┴───────────────────────────┐
+                         ▼                                                       ▼
+            ┌──────────────────────────┐                            ┌──────────────────────────┐
+            │ INTERHOUSE CHAMPIONSHIP  │                            │     PREFECTSHIP CUP      │
+            │   (Flagship Tournament)  │                            │  (Leadership Tournament) │
+            └────────────┬─────────────┘                            └────────────┬─────────────┘
+                         │                                                       │
+         ┌───────────────┼───────────────┐                       ┌───────────────┼───────────────┐
+         ▼               ▼               ▼                       ▼               ▼               ▼
+      PHOENIX          EAGLE           MERLIN               TEAM IHECHUKWU  TEAM FORTUNE    TEAM OSARUYI
+    (Solid Red)    (Solid Orange)   (Solid Blue)              (Solid Red)    (Solid Blue)   (Emerald Green)
+         │                                                       │
+         ▼                                                       ▼
+       SWIFT                                                TEAM TITEMI
+   (Solid Yellow)                                         (Royal Purple)
+</code></pre>
+<h3>3.1 Interhouse Championship</h3>
+<p>The flagship inter-house sporting competition comprising the four historic houses of Juilliard Academy:</p>
+<table>
+<thead>
+<tr>
+<th align="left">House ID</th>
+<th align="left">House Name</th>
+<th align="left">Brand Color</th>
+<th align="left">Mascot</th>
+<th align="left">House Motto</th>
+<th align="left">Leadership &amp; Patrons</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>phoenix</code></td>
+<td align="left"><strong>Phoenix</strong></td>
+<td align="left"><code>#EF4444</code> (Solid Red)</td>
+<td align="left">Phoenix Bird</td>
+<td align="left"><em>&quot;From the Ashes, We Rise to Glory&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Chinedu Ihejiahi (SS 3)<br><strong>Patrons:</strong> Mrs. Angela Davies, Mr. Peter O&#39;Connor, Ms. Fatima Bello</td>
+</tr>
+<tr>
+<td align="left"><code>eagle</code></td>
+<td align="left"><strong>Eagle</strong></td>
+<td align="left"><code>#F97316</code> (Solid Orange)</td>
+<td align="left">Eagle Bird</td>
+<td align="left"><em>&quot;Soar High with Honor and Courage&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Donald Ariyo (SS 3)<br><strong>Patrons:</strong> Mr. Harrison, Ms. Chen, Coach Adams</td>
+</tr>
+<tr>
+<td align="left"><code>merlin</code></td>
+<td align="left"><strong>Merlin</strong></td>
+<td align="left"><code>#2563EB</code> (Solid Blue)</td>
+<td align="left">Merlin Falcon</td>
+<td align="left"><em>&quot;Wisdom, Power &amp; Unyielding Focus&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Michelle Olurotimi (SS 3)<br><strong>Patrons:</strong> Dr. Evelyn Wright, Mr. Kenneth Cole, Mrs. Sarah Jenkins</td>
+</tr>
+<tr>
+<td align="left"><code>swift</code></td>
+<td align="left"><strong>Swift</strong></td>
+<td align="left"><code>#FACC15</code> (Solid Yellow)</td>
+<td align="left">Swift Bird</td>
+<td align="left"><em>&quot;Swift as Lightning, United as One&quot;</em></td>
+<td align="left"><strong>Captain:</strong> Adefilewa Adebimpe (SS 3)<br><strong>Patrons:</strong> Ms. Rebecca Taylor, Coach Ibrahim Bello, Mr. David Alabi</td>
+</tr>
+</tbody></table>
+<h3>3.2 Prefectship Cup (Prefectorial Tournament)</h3>
+<p>A special championship contested by the senior student leadership council teams:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Team ID</th>
+<th align="left">Team Name</th>
+<th align="left">Brand Color</th>
+<th align="left">Mascot</th>
+<th align="left">Motto</th>
+<th align="left">Team Captain</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>team-ihechukwu</code></td>
+<td align="left"><strong>Team Ihechukwu</strong></td>
+<td align="left"><code>#EF4444</code> (Solid Red)</td>
+<td align="left">Crown &amp; Lion</td>
+<td align="left"><em>&quot;Leadership, Valor &amp; Victory&quot;</em></td>
+<td align="left">Ihechukwu (Senior Prefect)</td>
+</tr>
+<tr>
+<td align="left"><code>team-fortune</code></td>
+<td align="left"><strong>Team Fortune</strong></td>
+<td align="left"><code>#2563EB</code> (Solid Blue)</td>
+<td align="left">Falcon of Victory</td>
+<td align="left"><em>&quot;Fortune Favors the Bold &amp; Relentless&quot;</em></td>
+<td align="left">Fortune (Sports Prefect)</td>
+</tr>
+<tr>
+<td align="left"><code>team-osaruyi</code></td>
+<td align="left"><strong>Team Osaruyi</strong></td>
+<td align="left"><code>#10B981</code> (Emerald Green)</td>
+<td align="left">Emerald Stallion</td>
+<td align="left"><em>&quot;Relentless Drive, Speed &amp; Discipline&quot;</em></td>
+<td align="left">Osaruyi (Senior Prefect)</td>
+</tr>
+<tr>
+<td align="left"><code>team-titemi</code></td>
+<td align="left"><strong>Team Titemi</strong></td>
+<td align="left"><code>#8B5CF6</code> (Royal Purple)</td>
+<td align="left">Purple Lightning</td>
+<td align="left"><em>&quot;Strength in Unity, Focus &amp; Power&quot;</em></td>
+<td align="left">Titemi (Senior Prefect)</td>
+</tr>
+</tbody></table>
+<h3>3.3 Dynamic Competition Switcher</h3>
+<ul>
+<li>Accessible via global desktop header dropdown, dedicated route (<code>#/competitions</code>, <code>#/select-cup</code>), or mobile bottom navigation.</li>
+<li>Instantly toggles <code>localStorage[&quot;juilliard_active_competition&quot;]</code> between <code>interhouse</code> and <code>prefectship</code>.</li>
+<li>Dynamically shifts UI color accents, crest assets, navigation branding, and switches Firestore subscription contexts without requiring a browser page reload.</li>
+</ul>
+<hr>
+<h2>4. Competition Rules &amp; Athletic Scoring Engine</h2>
+<p>The scoring engine implements strict athletic federation standards adapted for Juilliard Academy.</p>
+<h3>4.1 Olympic-Style Medal Standings Hierarchy</h3>
+<p>Overall championship rank is determined by medal superiority, not arbitrary point tallies:</p>
+<ol>
+<li><strong>Gold Medal Count</strong> (Highest priority)</li>
+<li><strong>Silver Medal Count</strong> (Tie-breaker 1)</li>
+<li><strong>Bronze Medal Count</strong> (Tie-breaker 2)</li>
+<li><strong>Total Medals Count</strong> (Tie-breaker 3)</li>
+<li><strong>Team Points</strong> (Tie-breaker 4: Football &amp; Basketball league points)</li>
+<li><strong>Fourth-Place Finishes</strong> (Tie-breaker 5)</li>
+</ol>
+<pre><code>Ranking Criteria: Gold ➔ Silver ➔ Bronze ➔ Total Medals ➔ Team Points ➔ 4th Finishes
+</code></pre>
+<h3>4.2 Multi-House Events (Track, Field &amp; Novelty)</h3>
+<ul>
+<li>Formats: <code>format: &quot;multi&quot;</code></li>
+<li>Positions &amp; Medals:<ul>
+<li><strong>1st Place:</strong> Gold Medal</li>
+<li><strong>2nd Place:</strong> Silver Medal</li>
+<li><strong>3rd Place:</strong> Bronze Medal</li>
+<li><strong>4th Place:</strong> 4th place finish recorded for tie-breaking</li>
+</ul>
+</li>
+<li>Validation: Times (e.g. <code>10.42s</code>), distances (e.g. <code>14.85m</code>), and athlete names selected from the student registry.</li>
+<li>Points: General track and field events award zero arbitrary league points; rankings reflect pure Olympic medal tallies.</li>
+</ul>
+<h3>4.3 Head-to-Head Ball Sports (Football &amp; Basketball)</h3>
+<ul>
+<li>Formats: <code>format: &quot;h2h&quot;</code></li>
+</ul>
+<h4>Football (Soccer)</h4>
+<ul>
+<li><strong>Tournament Structure:</strong> 3 Matchday Group Stage (each house plays 3 matches) + Knockout Final &amp; 3rd Place Match.</li>
+<li><strong>Standings Matrix:</strong> Matches Played (P), Won (W), Drawn (D), Lost (L), Goals For (GF), Goals Against (GA), Goal Difference (GD), Points (PTS).</li>
+<li><strong>Points Awarded:</strong> Win = 3 points, Draw = 1 point, Loss = 0 points.</li>
+<li><strong>Medal Distribution:</strong><ul>
+<li>Group Stage Matches: Award league points only; <strong>zero medals</strong>.</li>
+<li>Drawn Matches: Award 1 point each; <strong>zero medals</strong>.</li>
+<li>Gold Medal Final: Winner = Gold Medal, Runner-Up = Silver Medal.</li>
+<li>3rd Place Playoff: Winner = Bronze Medal.</li>
+</ul>
+</li>
+</ul>
+<h4>Basketball</h4>
+<ul>
+<li><strong>Tournament Structure:</strong> Pure Knockout Bracket.<ul>
+<li>Semi-Final 1 &amp; Semi-Final 2.</li>
+<li>3rd Place Playoff (Bronze Medal).</li>
+<li>Grand Championship Final (Gold &amp; Silver Medals).</li>
+</ul>
+</li>
+<li><strong>Match Tracking:</strong> Quarter scores, halftime scores, buzzer-beaters, total team points.</li>
+</ul>
+<hr>
+<h2>5. Functional Requirements &amp; Feature Specifications</h2>
+<h3>5.1 Module Matrix &amp; Navigation Map</h3>
+<pre><code>                              ┌──────────────────────────────────┐
+                              │          GLOBAL ROUTER           │
+                              │          (router.js)             │
+                              └────────────────┬─────────────────┘
+                                               │
+         ┌──────────────────┬──────────────────┼──────────────────┬──────────────────┐
+         ▼                  ▼                  ▼                  ▼                  ▼
+    #/events             #/table             #/news            #/houses           #/admin
+  Matches &amp; Heats       Standings        Media Gallery        House Hubs       Judge Console
+         │                  │                  │                  │                  │
+         ├─► #/event/:id    ├─► Football       ├─► Hashtags       └─► #/house/:id    ├─► #/admin/score/:id
+         │                  ├─► Basketball     ├─► Likes                             ├─► #/admin/students
+         └─► Filters        └─► 3D Podium      └─► Comments                          ├─► #/admin/rosters
+                                                                                     ├─► #/admin/new-event
+                                                                                     ├─► #/admin/logs
+                                                                                     └─► #/admin/admins
+</code></pre>
+<hr>
+<h3>5.2 Feature Specifications</h3>
+<h4>FR-01: Onboarding &amp; House Supporter Affiliation</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/onboarding</code>, <code>#/welcome</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>First-time visitors are presented with interactive house crest cards with glow animations.</li>
+<li>Selecting a house or team saves the choice to <code>localStorage.juilliard_supported_house</code> and <code>localStorage.juilliard_supported_pref_team</code>.</li>
+<li>Automatically customizes the user experience (highlighting supported house fixtures, showing personalized cheer banners).</li>
+<li>Provides quick access to Official Portal login for scrutineers.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-02: Matches &amp; Fixtures Schedule</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/events</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>FotMob-style fixtures layout organized chronologically or grouped by category.</li>
+<li><strong>Category Tabs:</strong> All, Track, Field, Football, Basketball, Novelty.</li>
+<li><strong>Gender Filtering:</strong> All, Boys, Girls, Mixed.</li>
+<li><strong>Status Filtering:</strong> All, Live, Upcoming, Completed.</li>
+<li><strong>Match Cards:</strong> Display contending houses, scheduled start time, live game clock or final score badge, venue lane, and status pills (<code>LIVE</code> pulsating red, <code>UPCOMING</code> amber, <code>COMPLETED</code> green).</li>
+<li>Clicking any card transitions to the dedicated Event Detail screen (<code>#/event/:id</code>).</li>
+</ul>
+</li>
+</ul>
+<h4>FR-03: Event &amp; Match Detail View</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/event/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Dynamic high-impact scoreboard header featuring house crests, background gradients, and live status indicator.</li>
+<li><strong>Head-to-Head Ball Matches:</strong><ul>
+<li>Live score, match status (e.g. &quot;FT&quot;, &quot;HT&quot;, &quot;Penalties&quot;).</li>
+<li>Tabbed view: <strong>Match Facts</strong> (scorers, cards, stadium), <strong>Live Commentary / Timeline</strong>, <strong>Lineups &amp; Squads</strong>, <strong>Head-to-Head History</strong>.</li>
+</ul>
+</li>
+<li><strong>Track &amp; Field Events:</strong><ul>
+<li>Visual 1st, 2nd, 3rd podium finisher cards.</li>
+<li>Athlete details, verified timing/distance, and official judge commentary notes.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>FR-04: Standings &amp; Leaderboard</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/table</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Interactive 3D Podium:</strong> Animated top-3 pedestals with glowing crests, smooth number tick animations, and total medal count.</li>
+<li><strong>Overall Medal Table:</strong> Full breakdown of Gold, Silver, Bronze, Total Medals, Points, and 4th finishes.</li>
+<li><strong>Category-Specific Standings View:</strong><ul>
+<li><strong>Football Table:</strong> Group stage table with P, W, D, L, GF, GA, GD, PTS.</li>
+<li><strong>Basketball Bracket:</strong> Visual tree rendering Semi-Finals, 3rd Place Match, and Championship Final with winner paths.</li>
+</ul>
+</li>
+<li>Form guides displaying last 5 match results (W/D/L badges).</li>
+</ul>
+</li>
+</ul>
+<h4>FR-05: House &amp; Team Profiles Hub</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/houses</code>, <code>#/house/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Showcase directory of all 4 Houses (or 4 Prefectorial Teams).</li>
+<li><strong>House Profile Page:</strong><ul>
+<li>Hero banner featuring mascot, official crest, house colors, and motto.</li>
+<li>Leadership roster: House Master/Mistress, Teacher Patrons, Student House Captain.</li>
+<li>Trophy showcase and historical Sports Day records.</li>
+<li>Full house athlete roster with search and grade filtering.</li>
+<li>Complete match history and upcoming schedule for that specific house.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>FR-06: Student &amp; Athlete Profiles</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/athlete/:id</code>, <code>#/student/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Dedicated dossier for any registered student athlete.</li>
+<li>Displays: Full Name, Class / Grade (e.g., JSS 2, SSS 3), Gender, Assigned House.</li>
+<li>Athletic achievements: Gold, Silver, Bronze medal count, events entered, personal best times/distances.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-07: News, Media Gallery &amp; Social Interactions</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/news</code>, <code>#/gallery</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Story Types:</strong><ul>
+<li><code>video</code>: HTML5 player with MP4 support, video duration, and custom thumbnail poster.</li>
+<li><code>photo</code>: High-res image gallery with multi-image lightbox support.</li>
+<li><code>article</code>: Editorial journalism, match analysis, and ceremonial reports.</li>
+</ul>
+</li>
+<li><strong>Single-Toggle Like System:</strong><ul>
+<li>Real-time like counter persisted in Firestore (<code>news.likes</code> and <code>news.likedBy</code>).</li>
+<li>Device/user key tracking in <code>localStorage</code> prevents duplicate likes; clicking again unlikes cleanly.</li>
+</ul>
+</li>
+<li><strong>Hashtags &amp; Filtering:</strong><ul>
+<li>Stories tagged with athletic hashtags (e.g. <code>#FootballFinal</code>, <code>#100mSprint</code>, <code>#GoldMedal</code>).</li>
+<li>Clicking any hashtag filters the active news stream; filter reset chip allows instant clearing.</li>
+</ul>
+</li>
+<li><strong>Live Commenting Stream:</strong><ul>
+<li>Spectators can submit real-time comments on stories.</li>
+<li>Admins have permission to delete inappropriate comments.</li>
+</ul>
+</li>
+<li><strong>Admin Story Publisher &amp; Editor:</strong><ul>
+<li>Verified judges can create new stories or edit existing stories (modify title, subtitle, media URL, tags with suggestion chips).</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>FR-08: Scrutineer &amp; Judge Scoring Console</h4>
+<ul>
+<li><strong>Route:</strong> <code>#/admin</code> (gated via <code>requireAdmin</code>)</li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Quick Event Action Table:</strong> Live search and filter across all tournament events.</li>
+<li><strong>Tactile Placing Form:</strong><ul>
+<li>Selection of 1st, 2nd, 3rd, and 4th place houses.</li>
+<li>Dynamic athlete search input hooked to HTML5 <code>&lt;datalist&gt;</code> populated by 1,000+ student directory.</li>
+<li>Input fields for Time (seconds), Distance (meters), or Ball Scores.</li>
+<li>Official scrutineer notes field for recording record-breaking performances.</li>
+<li>Instant live publishing to Cloud Firestore.</li>
+</ul>
+</li>
+<li><strong>Real-Time Sound Synthesizer:</strong> Triggers procedural whistle sound on submission and celebration fanfare on gold medal allocation.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-09: Student Database &amp; Roster Management</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/admin/students</code>, <code>#/admin/rosters</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Full CRUD management over student athlete directory.</li>
+<li><strong>Search &amp; Filter:</strong> Instant search by student name, filter by house, filter by grade.</li>
+<li><strong>Individual Student Operations:</strong> Add student, edit class/gender, remove student.</li>
+<li><strong>Bulk Import:</strong> Paste or import multi-student datasets.</li>
+<li><strong>Batch House Transfer Modal:</strong> Multi-select students and transfer them en masse from one house to another.</li>
+<li><strong>House Staff Roster Management:</strong> Update house captain, house motto, and patron teacher lists.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-10: Event Creator &amp; Schedule Configuration</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/admin/new-event</code>, <code>#/admin/edit-event/:id</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li>Create new custom track, field, ball, or novelty events.</li>
+<li>Configure event title, category, gender division, scheduled time, format (<code>multi</code> vs <code>h2h</code>), and contenders.</li>
+<li>Adjust custom points matrix when applicable.</li>
+<li>Edit or delete existing scheduled events.</li>
+</ul>
+</li>
+</ul>
+<h4>FR-11: Governance, Officials Council &amp; Scrutineer Audit Log</h4>
+<ul>
+<li><strong>Routes:</strong> <code>#/admin/admins</code>, <code>#/admin/logs</code></li>
+<li><strong>Functional Requirements:</strong><ul>
+<li><strong>Multi-Tier Role-Based Access Control (RBAC):</strong><ul>
+<li><code>super_admin</code>: Full administrative control, user provisioning, emergency resets.</li>
+<li><code>admin</code>: Scoring console, story publishing, event management.</li>
+<li><code>teacher</code>: Roster editing and student review.</li>
+</ul>
+</li>
+<li><strong>Permanent Super Admin Safeguards:</strong><ul>
+<li>Hardcoded super administrators (<code>ADM-001</code> David Festus, <code>ADM-003</code> Osaruyi Aideyan, Ihechukwu) cannot be locked out or deleted.</li>
+</ul>
+</li>
+<li><strong>Official PIN &amp; Password Authentication:</strong><ul>
+<li>Direct credential validation with encrypted fallback.</li>
+</ul>
+</li>
+<li><strong>Immutable Scrutineer Audit Trail (<code>admin_audit_logs</code>):</strong><ul>
+<li>Every score entry, event reset, or administrative modification records: Admin ID, Admin Name, Timestamp, Action Type, Event ID, Previous Value, New Value.</li>
+</ul>
+</li>
+<li><strong>Emergency Sports Day Reset:</strong><ul>
+<li>Master reset action to purge scores or reload official baseline seed data, protected by a two-step confirmation dialog.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2>6. Technical Architecture &amp; Implementation Stack</h2>
+<pre><code>┌─────────────────────────────────────────────────────────────────────────────┐
+│                              CLIENT BROWSER                                 │
+│                                                                             │
+│  ┌───────────────────────┐  ┌───────────────────────┐  ┌─────────────────┐  │
+│  │   Presentation Layer  │  │   Application Logic   │  │ Procedural Synt.│  │
+│  │   • Vanilla CSS3      │  │   • app.js / router.js│  │ • audio.js      │  │
+│  │   • Google Fonts      │  │   • pages.js          │  │ • Web Audio API │  │
+│  │   • SVG Icons         │  │   • admin.js / ui.js  │  │ • 0KB Audio Pack│  │
+│  └───────────┬───────────┘  └───────────┬───────────┘  └─────────────────┘  │
+│              │                          │                                   │
+│              ▼                          ▼                                   │
+│  ┌──────────────────────────────────────────────────┐                       │
+│  │           State &amp; Local Persistence              │                       │
+│  │   • window.*Cache     • localStorage (Theme/Cup) │                       │
+│  └──────────────────────────┬───────────────────────┘                       │
+└─────────────────────────────┼───────────────────────────────────────────────┘
+                              │ Real-Time WebSocket / SDK
+                              ▼
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                       FIREBASE CLOUD INFRASTRUCTURE                         │
+│                               (ja-mega-26)                                  │
+│                                                                             │
+│  ┌───────────────────────┐  ┌───────────────────────┐  ┌─────────────────┐  │
+│  │    Cloud Firestore    │  │     Firebase Auth     │  │Firebase Hosting │  │
+│  │ • Real-time snapshots │  │ • Google Sign-In      │  │ • CDN Fast Edge │  │
+│  │ • 8 Core Collections  │  │ • Email / Password    │  │ • SPA Rewrites  │  │
+│  │ • Security Rules v2   │  │ • Admin PIN Validation│  │ • Video Headers │  │
+│  └───────────────────────┘  └───────────────────────┘  └─────────────────┘  │
+└─────────────────────────────────────────────────────────────────────────────┘
+</code></pre>
+<h3>6.1 Technology Stack Details</h3>
+<table>
+<thead>
+<tr>
+<th align="left">Component</th>
+<th align="left">Technology</th>
+<th align="left">Rationale</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Frontend Framework</strong></td>
+<td align="left"><strong>Vanilla ES Modules (No Framework)</strong></td>
+<td align="left">Zero build-step latency, ultra-lightweight bundle size, instant startup time on mobile devices.</td>
+</tr>
+<tr>
+<td align="left"><strong>Routing</strong></td>
+<td align="left">Custom Client-Side Hash Router (<code>router.js</code>)</td>
+<td align="left">Instant screen transitions, parameter parsing (<code>:id</code>), history API integration, zero server hops.</td>
+</tr>
+<tr>
+<td align="left"><strong>Styling &amp; Theming</strong></td>
+<td align="left">Vanilla CSS3 + Custom Properties (<code>styles.css</code>, <code>app-shell.css</code>)</td>
+<td align="left">60 FPS hardware-accelerated animations, FotMob dark mode, high-contrast light mode, responsive CSS Grid.</td>
+</tr>
+<tr>
+<td align="left"><strong>Sound Synthesis</strong></td>
+<td align="left">Web Audio API Procedural Synthesizer (<code>audio.js</code>)</td>
+<td align="left">Generates whistle, stadium celebration fanfare, and UI click sounds algorithmically with <strong>0 KB external audio download</strong>.</td>
+</tr>
+<tr>
+<td align="left"><strong>Realtime Database</strong></td>
+<td align="left">Google Cloud Firestore (Compat SDK 10.12.0)</td>
+<td align="left">Multi-client real-time synchronization via <code>onSnapshot</code> listeners (&lt; 400ms broadcast latency across stadium).</td>
+</tr>
+<tr>
+<td align="left"><strong>Authentication</strong></td>
+<td align="left">Firebase Auth + Custom Credential Store</td>
+<td align="left">Google OAuth 2.0, email/password, and administrative PIN session state management.</td>
+</tr>
+<tr>
+<td align="left"><strong>Hosting &amp; CDN</strong></td>
+<td align="left">Firebase Hosting</td>
+<td align="left">Global CDN, HTTP/2 multiplexing, CORS headers for MP4 video streaming, automatic SPA wildcard rewrites.</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>7. Data Models &amp; Database Schema</h2>
+<p>Firestore database instance: <code>(default)</code> in project <code>ja-mega-26</code>.</p>
+<h3>7.1 Entity Relationship Diagram</h3>
+<pre><code>      ┌────────────────┐               ┌────────────────┐
+      │     HOUSES     │ 1           * │    STUDENTS    │
+      │ ────────────── │───────────────┤ ────────────── │
+      │ id (PK)        │               │ id (PK)        │
+      │ name           │               │ name           │
+      │ color          │               │ grade          │
+      │ goldCount      │               │ houseId (FK)   │
+      │ silverCount    │               │ gender         │
+      │ bronzeCount    │               └────────────────┘
+      │ teamPoints     │
+      └───────┬────────┘
+              │ 1
+              │
+              │ * (contenders)
+      ┌───────┴────────┐               ┌────────────────┐
+      │     EVENTS     │ 1           * │   AUDIT_LOGS   │
+      │ ────────────── │───────────────┤ ────────────── │
+      │ id (PK)        │               │ id (PK)        │
+      │ name           │               │ eventId (FK)   │
+      │ category       │               │ adminId (FK)   │
+      │ format         │               │ timestamp      │
+      │ status         │               │ action         │
+      │ results        │               │ previousValue  │
+      └────────────────┘               │ newValue       │
+                                       └────────────────┘
+</code></pre>
+<h3>7.2 Detailed Collection Schemas</h3>
+<h4>1. <code>houses</code> Collection</h4>
+<pre><code class="language-typescript">interface HouseDocument {
+  id: string;                 // &quot;phoenix&quot; | &quot;eagle&quot; | &quot;merlin&quot; | &quot;swift&quot; | &quot;team-*&quot;
+  name: string;               // e.g. &quot;Phoenix&quot;
+  motto: string;              // e.g. &quot;From the Ashes, We Rise to Glory&quot;
+  mascot: string;             // e.g. &quot;Phoenix Bird&quot;
+  color: string;              // Hex code, e.g. &quot;#EF4444&quot;
+  colorSecondary: string;     // Hex code, e.g. &quot;#DC2626&quot;
+  captain: string;            // e.g. &quot;Chinedu Ihejiahi (SS 3)&quot;
+  teachers: string[];         // Array of patron names
+  goldCount: number;          // Gold medals won
+  silverCount: number;        // Silver medals won
+  bronzeCount: number;        // Bronze medals won
+  fourthCount: number;        // 4th finishes
+  totalMedals: number;        // gold + silver + bronze
+  teamPoints: number;         // Football + Basketball league points
+  teamWins: number;           // Head-to-head match wins
+  teamDraws: number;          // Head-to-head match draws
+  teamLosses: number;         // Head-to-head match losses
+  teamGoalsFor: number;       // Total goals / baskets scored
+  teamGoalsAgainst: number;   // Total goals / baskets conceded
+}
+</code></pre>
+<h4>2. <code>events</code> Collection</h4>
+<pre><code class="language-typescript">interface EventDocument {
+  id: string;                 // e.g. &quot;track-100m-boys&quot;, &quot;pref-football-semi-1&quot;
+  name: string;               // e.g. &quot;100m Race (Boys)&quot;
+  category: &quot;Track&quot; | &quot;Field&quot; | &quot;Football&quot; | &quot;Basketball&quot; | &quot;Novelty&quot; | &quot;Ceremony&quot;;
+  gender: &quot;Boys&quot; | &quot;Girls&quot; | &quot;Mixed&quot;;
+  order: number;              // Display sorting sequence
+  status: &quot;upcoming&quot; | &quot;in_progress&quot; | &quot;live&quot; | &quot;completed&quot;;
+  format: &quot;multi&quot; | &quot;h2h&quot;;    // Multi-house placement vs Head-to-Head
+  scheduledTime?: string;     // e.g. &quot;09:30&quot;
+  contenders?: string[];      // Array of House IDs, e.g. [&quot;phoenix&quot;, &quot;eagle&quot;]
+  knockoutRound?: &quot;semi&quot; | &quot;final&quot; | &quot;third_place&quot; | &quot;group&quot;;
+  results: {
+    first?: { houseId: string; athlete: string; score: string; points?: number };
+    second?: { houseId: string; athlete: string; score: string; points?: number };
+    third?: { houseId: string; athlete: string; score: string; points?: number };
+    fourth?: { houseId: string; athlete: string; score: string; points?: number };
+  } | null;
+  notes?: string;             // e.g. &quot;Championship Record broken in Lane 4!&quot;
+  updatedAt?: string;         // ISO timestamp
+  updatedBy?: string;         // Admin ID
+}
+</code></pre>
+<h4>3. <code>students</code> Collection</h4>
+<pre><code class="language-typescript">interface StudentDocument {
+  id: string;                 // e.g. &quot;STU-1049&quot;
+  name: string;               // e.g. &quot;Chinedu Ihejiahi&quot;
+  grade: string;              // &quot;JSS 1&quot; - &quot;SSS 3&quot;
+  gender: &quot;Boys&quot; | &quot;Girls&quot;;
+  houseId: string;            // &quot;phoenix&quot; | &quot;eagle&quot; | &quot;merlin&quot; | &quot;swift&quot; | &quot;general&quot;
+  sports?: string[];          // e.g. [&quot;100m&quot;, &quot;4x100m&quot;, &quot;Football&quot;]
+  goldCount?: number;
+  silverCount?: number;
+  bronzeCount?: number;
+  personalBests?: Record&lt;string, string&gt;; // e.g. { &quot;100m&quot;: &quot;10.42s&quot; }
+}
+</code></pre>
+<h4>4. <code>news</code> Collection</h4>
+<pre><code class="language-typescript">interface NewsDocument {
+  id: string;                 // e.g. &quot;news-fb-final&quot;
+  title: string;              // Headline
+  subtitle?: string;          // Summary deck
+  type: &quot;video&quot; | &quot;photo&quot; | &quot;article&quot;;
+  category: string;           // &quot;Football&quot;, &quot;Track&quot;, etc.
+  mediaUrl: string;           // Asset path or external URL
+  videoThumbnail?: string;    // Poster image
+  videoDuration?: string;     // e.g. &quot;1:15&quot;
+  galleryImages?: string[];   // Multi-image list for photo stories
+  content: string;            // Story body
+  tags: string[];             // e.g. [&quot;FootballFinal&quot;, &quot;GoldMedal&quot;]
+  likes: number;              // Total likes
+  likedBy: string[];          // Array of voter hashes / client IDs
+  comments: Array&lt;{
+    id: string;
+    author: string;
+    text: string;
+    timestamp: string;
+    isAdmin?: boolean;
+  }&gt;;
+  author: string;             // e.g. &quot;Osaruyi Aideyan (Super Admin)&quot;
+  timestamp: string;          // ISO date string
+  formattedDate?: string;     // e.g. &quot;27 Sep, 10:00&quot;
+}
+</code></pre>
+<h4>5. <code>admins</code> &amp; <code>admin_credentials</code> Collections</h4>
+<pre><code class="language-typescript">interface AdminDocument {
+  id: string;                 // e.g. &quot;ADM-001&quot;
+  adminId: string;
+  name: string;               // e.g. &quot;David Festus&quot;
+  email: string;              // e.g. &quot;davidfestusugwu@gmail.com&quot;
+  title: string;              // e.g. &quot;Chief Scrutineer&quot;
+  role: &quot;super_admin&quot; | &quot;admin&quot; | &quot;teacher&quot; | &quot;official&quot;;
+  createdAt: string;
+}
+
+interface AdminCredentialDocument {
+  id: string;                 // email or adminId
+  passwordHash: string;       // SHA-256 / PBKDF2 hash or PIN
+  lastLogin: string;
+}
+</code></pre>
+<h4>6. <code>admin_audit_logs</code> Collection</h4>
+<pre><code class="language-typescript">interface AuditLogDocument {
+  id: string;
+  timestamp: string;          // ISO timestamp
+  adminId: string;            // Admin ID performing action
+  adminName: string;
+  action: &quot;submit_score&quot; | &quot;edit_score&quot; | &quot;reset_scores&quot; | &quot;add_student&quot; | &quot;transfer_house&quot;;
+  targetId: string;           // Event ID or Student ID
+  details: string;            // Human-readable summary
+  previousState?: any;
+  newState?: any;
+}
+</code></pre>
+<hr>
+<h2>8. UI/UX Design System &amp; Layout Specifications</h2>
+<h3>8.1 Visual Aesthetic Guidelines</h3>
+<ul>
+<li><strong>Core Inspiration:</strong> Modern professional sports broadcast interfaces (FotMob, Sofascore, Premier League App).</li>
+<li><strong>Dark Theme (Default):</strong><ul>
+<li>App Canvas: <code>#0A0A0C</code></li>
+<li>Card Surfaces: <code>#121216</code></li>
+<li>Elevated Popups / Modals: <code>#181820</code></li>
+<li>Borders &amp; Dividers: <code>#22222C</code></li>
+<li>Primary Text: <code>#FFFFFF</code></li>
+<li>Secondary / Muted Text: <code>#94A3B8</code></li>
+</ul>
+</li>
+<li><strong>Light Theme (Optional):</strong><ul>
+<li>App Canvas: <code>#F4F5F7</code></li>
+<li>Card Surfaces: <code>#FFFFFF</code></li>
+<li>Borders &amp; Dividers: <code>#E2E8F0</code></li>
+<li>Primary Text: <code>#0F172A</code></li>
+</ul>
+</li>
+<li><strong>Brand Accents:</strong><ul>
+<li>Gold Trophy Accent: <code>#F59E0B</code></li>
+<li>Live Pulsing Badge: <code>#EF4444</code></li>
+<li>Completed Status: <code>#10B981</code></li>
+</ul>
+</li>
+</ul>
+<h3>8.2 Typography</h3>
+<ul>
+<li><strong>Headings &amp; Brand Titles:</strong> <code>Outfit</code> (Weights: 600, 700, 800, 900) via Google Fonts. High-energy, athletic, modern.</li>
+<li><strong>Data Tables &amp; Body Text:</strong> <code>Inter</code> (Weights: 400, 500, 600, 700). Ultra-crisp numerical tabular alignment and readability.</li>
+</ul>
+<h3>8.3 Responsive Layout Strategy</h3>
+<h4>Desktop (Screen Width &gt;= 1024px)</h4>
+<ul>
+<li><strong>Global Sticky Header:</strong> Brand crest, tournament cup switcher badge, quick global search bar, desktop text navigation links, theme toggle, official login portal button.</li>
+<li><strong>3-Column Grid Shell:</strong><ul>
+<li><strong>Left Sidebar (280px):</strong> Live House standings ranking widget with miniature crests and points, plus category quick filters.</li>
+<li><strong>Center Viewport (Flex 1):</strong> Main active page screen (Matches, Standings Table, Event Details, Admin Console).</li>
+<li><strong>Right Sidebar (340px):</strong> Real-time News, video highlight reel player, and latest track results feed.</li>
+</ul>
+</li>
+</ul>
+<h4>Mobile &amp; Tablet (Screen Width &lt; 1024px)</h4>
+<ul>
+<li><strong>Single-Column App Shell:</strong> Compact header with current tournament badge and theme toggle.</li>
+<li><strong>Sticky Bottom Navigation Bar (5 Tabs):</strong><ol>
+<li><code>Matches</code> (<code>#/events</code>) — Icon: Calendar</li>
+<li><code>Table</code> (<code>#/table</code>) — Icon: Trophy</li>
+<li><code>News</code> (<code>#/news</code>) — Icon: Newspaper</li>
+<li><code>Houses</code> (<code>#/houses</code>) — Icon: Shield / House</li>
+<li><code>Judge</code> (<code>#/admin</code>) — Icon: Whistle / Gavel <em>(Conditionally rendered for authenticated officials only)</em></li>
+</ol>
+</li>
+</ul>
+<hr>
+<h2>9. Security, Governance &amp; Audit Architecture</h2>
+<h3>9.1 Firestore Security Rules (<code>firestore.rules</code>)</h3>
+<pre><code class="language-javascript">rules_version = &#39;2&#39;;
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Public live read access for tournament transparency
+    match /houses/{houseId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /news/{newsId} {
+      allow read: if true;
+      allow write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /admin_audit_logs/{logId} {
+      allow read, write: if isAuthenticated() || request.time &lt; timestamp.date(2026, 10, 22);
+    }
+
+    match /admins/{adminId} {
+      allow read, write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /admin_credentials/{credId} {
+      allow read, write: if request.time &lt; timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+  }
+}
+</code></pre>
+<h3>9.2 Immutable Audit Trail &amp; Dispute Resolution</h3>
+<ul>
+<li>Every mutation to an event score generates an audit log entry in <code>/admin_audit_logs</code>.</li>
+<li>Logs record the authenticated official&#39;s ID, name, precise timestamp, before/after score payload, and reason.</li>
+<li>Guarantees transparency and eliminates scoring disputes between house masters.</li>
+</ul>
+<hr>
+<h2>10. Quality Assurance &amp; Verification Matrix</h2>
+<p>The application codebase contains an extensive automated and end-to-end verification suite in the <code>scratch/</code> directory:</p>
+<table>
+<thead>
+<tr>
+<th align="left">Test Script</th>
+<th align="left">Verification Focus</th>
+<th align="left">Expected Output</th>
+<th align="left">Status</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><code>verify_all_requirements.js</code></td>
+<td align="left">End-to-end verification of News like/unlike, tag filtering, story editor, football group table, and basketball bracket.</td>
+<td align="left">All 6 test suites pass; generates screenshot artifacts.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_cup_switch_e2e.js</code></td>
+<td align="left">Real-time tournament switcher between Interhouse and Prefectship Cup.</td>
+<td align="left">State isolation confirmed; correct house rosters rendered.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_points_removal.js</code></td>
+<td align="left">Ensures track/field events strictly award Olympic medals without legacy points.</td>
+<td align="left">Medal ranking mathematically verified.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>simulate_full_championship.mjs</code></td>
+<td align="left">Full simulation of 35 championship events with realistic race times and football scores.</td>
+<td align="left">Firestore batch updates succeed; standings recalculate accurately.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_h2h_scores.js</code></td>
+<td align="left">Football head-to-head score parsing, drawn match handling, and league points award.</td>
+<td align="left">Win (3 pts), Draw (1 pt), Loss (0 pts) confirmed.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>test_athlete_stat_matching.js</code></td>
+<td align="left">Links student registry with placing results and verifies athlete profile stats.</td>
+<td align="left">Medals correctly aggregated per student.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+<tr>
+<td align="left"><code>verify_production_osaruyi.js</code></td>
+<td align="left">Super admin session validation and permissions check.</td>
+<td align="left">Full super admin capabilities confirmed.</td>
+<td align="left"><strong>Verified</strong></td>
+</tr>
+</tbody></table>
+<hr>
+<h2>11. Deployment, Hosting &amp; Operations Runbook</h2>
+<h3>11.1 Firebase Hosting Configuration (<code>firebase.json</code>)</h3>
+<pre><code class="language-json">{
+  &quot;hosting&quot;: {
+    &quot;public&quot;: &quot;public&quot;,
+    &quot;ignore&quot;: [&quot;firebase.json&quot;, &quot;**/.*&quot;, &quot;**/node_modules/**&quot;],
+    &quot;headers&quot;: [
+      {
+        &quot;source&quot;: &quot;**/*.@(mp4|webm)&quot;,
+        &quot;headers&quot;: [
+          { &quot;key&quot;: &quot;Access-Control-Allow-Origin&quot;, &quot;value&quot;: &quot;*&quot; },
+          { &quot;key&quot;: &quot;Cache-Control&quot;, &quot;value&quot;: &quot;public, max-age=604800&quot; }
+        ]
+      }
+    ],
+    &quot;rewrites&quot;: [
+      { &quot;source&quot;: &quot;**&quot;, &quot;destination&quot;: &quot;/index.html&quot; }
+    ]
+  }
+}
+</code></pre>
+<h3>11.2 Deployment Commands</h3>
+<ul>
+<li><strong>Deploy Full Stack:</strong><pre><code class="language-bash">firebase deploy --project ja-mega-26
+</code></pre>
+</li>
+<li><strong>Deploy Hosting Only:</strong><pre><code class="language-bash">firebase deploy --only hosting --project ja-mega-26
+</code></pre>
+</li>
+<li><strong>Deploy Firestore Security Rules &amp; Indexes:</strong><pre><code class="language-bash">firebase deploy --only firestore --project ja-mega-26
+</code></pre>
+</li>
+</ul>
+<h3>11.3 Local Development Server</h3>
+<ul>
+<li>To run locally without build dependencies:<pre><code class="language-powershell">python scratch/dev_server.py 5055
+# or
+npx -y serve public -l 5055
+</code></pre>
+</li>
+<li>Access in browser: <code>http://localhost:5055</code></li>
+<li>Super Admin autologin test query: <code>http://localhost:5055/?admin=osaruyi</code> or <code>http://localhost:5055/?autologin=admin</code></li>
+</ul>
+<hr>
+<h2>12. Future Roadmap &amp; Enhancements</h2>
+<ol>
+<li><strong>Push Notifications:</strong> Web Push API integration for instant goal, race start, and gold medal alert notifications to spectators.</li>
+<li><strong>Live Video Streaming (HLS/WebRTC):</strong> Embedding low-latency stadium camera feeds directly into the Event Detail and News header.</li>
+<li><strong>Parent &amp; Alumni March Past Voting:</strong> Interactive spectator voting for the Best Dressed House and Most Creative March Past Salute.</li>
+<li><strong>Automated Certificate &amp; Official Results Export:</strong> One-click PDF generation of official event result sheets signed by the Chief Scrutineer and Head of School.</li>
+<li><strong>Wearable / Smart Stopwatch BLE Integration:</strong> Direct Bluetooth Low Energy link with digital stopwatches to feed sprint times directly into the scoring console.</li>
+</ol>
+
+  </div>
+
+  <div class="doc-footer">
+    Juilliard Academy Interhouse Sports Day Application &bull; Project Identifier: ja-mega-26 &bull; Official Architecture Specification &bull; Confidential
+  </div>
+
+</body>
+</html>

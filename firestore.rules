@@ -1,0 +1,54 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    // Public collections for live sports day viewing
+    match /houses/{houseId} {
+      allow read: if true;
+      allow write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /events/{eventId} {
+      allow read: if true;
+      allow write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /activity_logs/{logId} {
+      allow read: if true;
+      allow write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /admins/{adminId} {
+      allow read, write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /students/{studentId} {
+      allow read: if true;
+      allow write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /news/{newsId} {
+      allow read: if true;
+      allow write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /admin_audit_logs/{logId} {
+      allow read: if isAuthenticated() || request.time < timestamp.date(2026, 10, 22);
+      allow write: if isAuthenticated() || request.time < timestamp.date(2026, 10, 22);
+    }
+
+    match /admin_credentials/{credId} {
+      allow read, write: if request.time < timestamp.date(2026, 10, 22) || isAuthenticated();
+    }
+
+    match /{document=**} {
+      allow read, write: if request.time < timestamp.date(2026, 10, 22);
+    }
+  }
+}
